@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MP Plan - Plan, Share, Grow</title>
+<style>
+*{box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{margin:0;background:#F2F2F2;color:#222;padding-bottom:80px}
+header{background:#2B2D31;color:#fff;padding:16px 16px 22px;border-radius:0 0 22px 22px;position:sticky;top:0;z-index:10}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{background:#9CA0A6;color:#2B2D31;font-weight:900;font-size:22px;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.logo-mark span{color:#00C853}
+.logo b{font-size:20px;letter-spacing:.5px}
+.logo small{display:block;color:#9CA0A6;font-size:11px;letter-spacing:1px}
+.bell{background:#3A3D42;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.hero{background:#fff;color:#222;border-radius:16px;padding:14px;margin-top:14px}
+.hero small{color:#777}
+.big{font-size:28px;font-weight:900;margin:4px 0}
+.bar{height:10px;background:#E8E8E8;border-radius:20px;overflow:hidden}
+.fill{height:100%;background:#00C853}
+.wrap{padding:14px;max-width:560px;margin:auto}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:14px 0}
+.action{background:#fff;border-radius:14px;padding:12px 4px;text-align:center;cursor:pointer;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.action span{font-size:22px;display:block}
+.action p{font-size:11px;margin:6px 0 0;font-weight:700}
+.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.card h3{margin:0 0 4px;font-size:16px}
+.card p{margin:4px 0;color:#666;font-size:13px}
+.tag{display:inline-block;background:#E8F9EE;color:#00A344;font-size:11px;padding:4px 8px;border-radius:20px;font-weight:700}
+.tag.gray{background:#EDEDEF;color:#555}
+.flex{display:flex;justify-content:space-between;align-items:center}
+.btn{border:0;border-radius:10px;padding:11px;font-weight:800;cursor:pointer;width:100%}
+.btn-green{background:#00C853;color:#fff}
+.btn-dark{background:#2B2D31;color:#fff}
+.btn-light{background:#EDEDEF;color:#222}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0;font-size:14px;background:#fff}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;max-width:560px;margin:auto}
+.bottom div{text-align:center;font-size:11px;color:#888;cursor:pointer}
+.bottom div.active{color:#00C853;font-weight:800}
+.bottom span{font-size:20px;display:block}
+.hidden{display:none}
+.comment{background:#F7F7F7;border-radius:10px;padding:8px 10px;font-size:13px;margin-top:8px}
+.check{display:flex;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.check.done{color:#888;text-decoration:line-through}
+</style>
+</head>
+<body>
+<header>
+<div class="top"><div class="logo"><div class="logo-mark">M<span>P</span></div><div><b>MP PLAN</b><small>PLAN • SHARE • GROW</small></div></div><div class="bell">🔔</div></div>
+<div class="hero"><small>Hi, Anthony 👋</small><div class="big" id="totalPlans">3 Active Plans</div><div class="flex"><small>Total Budget</small><small id="budgetText">₦0 spent</small></div><div class="bar" style="margin-top:8px"><div class="fill" id="mainFill" style="width:35%"></div></div><p style="font-size:12px">35% of your plans completed this month. Keep going!</p></div>
+</header>
+<div class="wrap">
+<div id="page-home">
+<div class="grid"><div class="action" onclick="showPage('create')"><span>➕</span><p>Create Plan</p></div><div class="action" onclick="filterPlans('Travel')"><span>✈️</span><p>Travel</p></div><div class="action" onclick="filterPlans('Budget')"><span>💰</span><p>Budget</p></div><div class="action" onclick="filterPlans('Daily')"><span>✅</span><p>Daily</p></div></div>
+<div class="flex"><h3 style="margin:0">My Plans</h3><span style="color:#00C853;font-size:13px;font-weight:700" onclick="showPage('create')">+ New Plan</span></div>
+<div id="myPlans"></div>
+<h3>Friends Plans - Give Suggestion</h3>
+<div class="card"><div class="flex"><b>Chiamaka • Lagos Trip</b><span class="tag">Travel</span></div><p>Going to Lagos for wedding. Budget ₦80,000. Need cheap hotel.</p><div class="bar"><div class="fill" style="width:60%"></div></div><p>60% done • 12 people following</p><div class="comment"><b>You:</b> Try Mile 2 hotel, e cheap and safe.</div><input placeholder="Suggest something for Chiamaka..."><button class="btn btn-light" onclick="alert('Suggestion sent to Chiamaka!')">Send Suggestion</button></div>
+<div class="card"><div class="flex"><b>Emeka • Monthly Food</b><span class="tag gray">Budget</span></div><p>₦200,000 for 5 months. Rice, Beans, Yam...</p><div class="bar"><div class="fill" style="width:25%"></div></div><p>25% done • 8 people supporting</p><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-green" onclick="alert('You are now supporting Emeka plan!')">Support Plan</button><button class="btn btn-dark" onclick="alert('Shared!')">Share</button></div></div>
+</div>
+<div id="page-create" class="hidden">
+<h2>Create New Plan</h2><p style="color:#666;font-size:14px">Make am, share am, make people help you achieve am.</p>
+<label>Plan Title</label><input id="pTitle" placeholder="e.g. Trip to Abuja, Food Budget">
+<label>Type</label><select id="pType"><option>Travel</option><option>Budget</option><option>Daily</option><option>Weekly</option><option>Monthly</option></select>
+<label>Budget ₦</label><input id="pBudget" type="number" placeholder="e.g. 200000">
+<label>Date</label><input id="pDate" type="date">
+<label>Describe your plan</label><textarea id="pDesc" rows="3" placeholder="Wetin you want achieve?"></textarea>
+<label>Who can see it?</label><select id="pPrivacy"><option>Public - Everybody</option><option>Friends Only</option><option>Private - Only Me</option></select>
+<button class="btn btn-green" onclick="createPlan()">Create Plan →</button><br><br><button class="btn btn-light" onclick="showPage('home')">Cancel</button>
+</div>
+<div id="page-detail" class="hidden">
+<div class="card" id="detailCard"></div><h3>Checklist</h3>
+<div class="card" id="checklist"><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Book transport</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Buy food stuff</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Pack bag</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Confirm accommodation</div></div>
+<h3>Suggestions</h3><div class="card"><div class="comment"><b>Chiamaka:</b> Add ₦5,000 for transport, e don increase.</div><div class="comment"><b>Emeka:</b> Buy yam for Mile 3, e cheaper there.</div><input id="suggestInput" placeholder="Give suggestion..."><button class="btn btn-dark" onclick="addSuggestion()">Send Suggestion</button></div>
+<button class="btn btn-green" onclick="alert('Plan shared! Copy link sent.')">Share This Plan 🔗</button><br><br><button class="btn btn-light" onclick="showPage('home')">Back to Home</button>
+</div>
+<div id="page-friends" class="hidden">
+<h2>Connect With People</h2><input placeholder="Search people, plans...">
+<div class="card"><div class="flex"><b>Chiamaka O.</b><span class="tag">12 Plans</span></div><p>Lagos • Loves travel plans</p><button class="btn btn-green">Follow</button></div>
+<div class="card"><div class="flex"><b>Emeka S.</b><span class="tag gray">8 Plans</span></div><p>Port Harcourt • Budget expert</p><button class="btn btn-dark">Follow</button></div>
+<div class="card"><div class="flex"><b>Faith A.</b><span class="tag">20 Plans</span></div><p>Abuja • Daily plans streak 14 days 🔥</p><button class="btn btn-green">Follow</button></div>
+</div>
+</div>
+<div class="bottom"><div class="active" onclick="showPage('home');setNav(this)"><span>🏠</span>Home</div><div onclick="showPage('create');setNav(this)"><span>➕</span>Create</div><div onclick="showPage('friends');setNav(this)"><span>👥</span>Friends</div><div onclick="alert('Profile coming in Version 2')"><span>👤</span>Profile</div></div>
+<script>
+let plans = JSON.parse(localStorage.getItem('mpPlans') || '[]');
+if(plans.length===0){ plans=[{title:'Food Budget - 5 Months',type:'Budget',budget:200000,desc:'Rice, Beans, Yam, Spaghetti, Oil, Tomato, Egusi, Onion, Plantain',date:'2026-11-16',progress:35},{title:'Trip to Abuja',type:'Travel',budget:80000,desc:'Visit family, see friends',date:'2026-12-20',progress:60},{title:'Daily Plan - Today',type:'Daily',budget:5000,desc:'Gym, Market, Read, Pray',date:'2026-11-16',progress:20}]; localStorage.setItem('mpPlans',JSON.stringify(plans)); }
+function renderPlans(){ let total=plans.reduce((a,b)=>a+b.budget,0); document.getElementById('budgetText').innerText='₦'+total.toLocaleString()+' planned'; document.getElementById('totalPlans').innerText=plans.length+' Active Plans'; document.getElementById('myPlans').innerHTML=plans.map((p,i)=>`<div class="card" onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><div class="flex" style="margin-top:8px"><small>Budget: ₦${p.budget.toLocaleString()}</small><small style="color:#00C853;font-weight:800">${p.progress}% done →</small></div></div>`).join(''); }
+function showPage(p){ ['home','create','detail','friends'].forEach(x=>document.getElementById('page-'+x).classList.add('hidden')); document.getElementById('page-'+p).classList.remove('hidden'); window.scrollTo(0,0); }
+function setNav(el){ document.querySelectorAll('.bottom div').forEach(d=>d.classList.remove('active')); el.classList.add('active'); }
+function createPlan(){ let t=document.getElementById('pTitle').value; let type=document.getElementById('pType').value; let b=Number(document.getElementById('pBudget').value||0); let d=document.getElementById('pDesc').value; if(!t) return alert('Put plan title'); plans.unshift({title:t,type:type,budget:b,desc:d||'New plan',date:'2026-11-16',progress:0}); localStorage.setItem('mpPlans',JSON.stringify(plans)); renderPlans(); showPage('home'); alert('Plan created! Share am with friends.'); }
+function openDetail(i){ let p=plans[i]; document.getElementById('detailCard').innerHTML=`<div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><p>Budget: <b>₦${p.budget.toLocaleString()}</b></p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><p>${p.progress}% completed</p>`; showPage('detail'); }
+function filterPlans(t){ alert('Showing '+t+' plans'); showPage('home'); }
+function addSuggestion(){ let v=document.getElementById('suggestInput').value; if(v) alert('Suggestion sent: '+v); }
+renderPlans();
+</script>
+</body>
+</html>
