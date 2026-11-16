@@ -35,6 +35,7 @@ header{background:#2B2D31;color:#fff;padding:16px 16px 22px;border-radius:0 0 22
 .btn-green{background:#00C853;color:#fff}
 .btn-dark{background:#2B2D31;color:#fff}
 .btn-light{background:#EDEDEF;color:#222}
+.btn-wa{background:#25D366;color:#fff}
 input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0;font-size:14px;background:#fff}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;max-width:560px;margin:auto}
 .bottom div{text-align:center;font-size:11px;color:#888;cursor:pointer}
@@ -57,8 +58,8 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radiu
 <div class="flex"><h3 style="margin:0">My Plans</h3><span style="color:#00C853;font-size:13px;font-weight:700" onclick="showPage('create')">+ New Plan</span></div>
 <div id="myPlans"></div>
 <h3>Friends Plans - Give Suggestion</h3>
-<div class="card"><div class="flex"><b>Chiamaka • Lagos Trip</b><span class="tag">Travel</span></div><p>Going to Lagos for wedding. Budget ₦80,000. Need cheap hotel.</p><div class="bar"><div class="fill" style="width:60%"></div></div><p>60% done • 12 people following</p><div class="comment"><b>You:</b> Try Mile 2 hotel, e cheap and safe.</div><input placeholder="Suggest something for Chiamaka..."><button class="btn btn-light" onclick="alert('Suggestion sent to Chiamaka!')">Send Suggestion</button></div>
-<div class="card"><div class="flex"><b>Emeka • Monthly Food</b><span class="tag gray">Budget</span></div><p>₦200,000 for 5 months. Rice, Beans, Yam...</p><div class="bar"><div class="fill" style="width:25%"></div></div><p>25% done • 8 people supporting</p><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-green" onclick="alert('You are now supporting Emeka plan!')">Support Plan</button><button class="btn btn-dark" onclick="alert('Shared!')">Share</button></div></div>
+<div class="card"><div class="flex"><b>Chiamaka • Lagos Trip</b><span class="tag">Travel</span></div><p>Going to Lagos for wedding. Budget ₦80,000. Need cheap hotel.</p><div class="bar"><div class="fill" style="width:60%"></div></div><p>60% done • 12 people following</p><div class="comment"><b>You:</b> Try Mile 2 hotel, e cheap and safe.</div><input placeholder="Suggest something for Chiamaka..."><button class="btn btn-light" onclick="alert('Suggestion sent to Chiamaka!')">Send Suggestion</button><br><br><button class="btn btn-wa" onclick="shareFriendPlan('Chiamaka - Lagos Trip','₦80,000 for wedding trip')">Share on WhatsApp 📲</button></div>
+<div class="card"><div class="flex"><b>Emeka • Monthly Food</b><span class="tag gray">Budget</span></div><p>₦200,000 for 5 months. Rice, Beans, Yam...</p><div class="bar"><div class="fill" style="width:25%"></div></div><p>25% done • 8 people supporting</p><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-green" onclick="alert('You are now supporting Emeka plan!')">Support Plan</button><button class="btn btn-wa" onclick="shareFriendPlan('Emeka - Monthly Food','₦200,000 for 5 months')">WhatsApp</button></div></div>
 </div>
 <div id="page-create" class="hidden">
 <h2>Create New Plan</h2><p style="color:#666;font-size:14px">Make am, share am, make people help you achieve am.</p>
@@ -74,7 +75,7 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radiu
 <div class="card" id="detailCard"></div><h3>Checklist</h3>
 <div class="card" id="checklist"><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Book transport</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Buy food stuff</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Pack bag</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Confirm accommodation</div></div>
 <h3>Suggestions</h3><div class="card"><div class="comment"><b>Chiamaka:</b> Add ₦5,000 for transport, e don increase.</div><div class="comment"><b>Emeka:</b> Buy yam for Mile 3, e cheaper there.</div><input id="suggestInput" placeholder="Give suggestion..."><button class="btn btn-dark" onclick="addSuggestion()">Send Suggestion</button></div>
-<button class="btn btn-green" onclick="alert('Plan shared! Copy link sent.')">Share This Plan 🔗</button><br><br><button class="btn btn-light" onclick="showPage('home')">Back to Home</button>
+<button class="btn btn-wa" id="detailShareBtn" onclick="shareCurrentPlan()">Share This Plan on WhatsApp 📲</button><br><br><button class="btn btn-green" onclick="copyLink()">Copy App Link 🔗</button><br><br><button class="btn btn-light" onclick="showPage('home')">Back to Home</button>
 </div>
 <div id="page-friends" class="hidden">
 <h2>Connect With People</h2><input placeholder="Search people, plans...">
@@ -83,17 +84,23 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radiu
 <div class="card"><div class="flex"><b>Faith A.</b><span class="tag">20 Plans</span></div><p>Abuja • Daily plans streak 14 days 🔥</p><button class="btn btn-green">Follow</button></div>
 </div>
 </div>
-<div class="bottom"><div class="active" onclick="showPage('home');setNav(this)"><span>🏠</span>Home</div><div onclick="showPage('create');setNav(this)"><span>➕</span>Create</div><div onclick="showPage('friends');setNav(this)"><span>👥</span>Friends</div><div onclick="alert('Profile coming in Version 2')"><span>👤</span>Profile</div></div>
+<div class="bottom"><div class="active" onclick="showPage('home');setNav(this)"><span>🏠</span>Home</div><div onclick="showPage('create');setNav(this)"><span>➕</span>Create</div><div onclick="showPage('friends');setNav(this)"><span>👥</span>Friends</div><div onclick="alert('Profile coming in Version 3')"><span>👤</span>Profile</div></div>
 <script>
 let plans = JSON.parse(localStorage.getItem('mpPlans') || '[]');
 if(plans.length===0){ plans=[{title:'Food Budget - 5 Months',type:'Budget',budget:200000,desc:'Rice, Beans, Yam, Spaghetti, Oil, Tomato, Egusi, Onion, Plantain',date:'2026-11-16',progress:35},{title:'Trip to Abuja',type:'Travel',budget:80000,desc:'Visit family, see friends',date:'2026-12-20',progress:60},{title:'Daily Plan - Today',type:'Daily',budget:5000,desc:'Gym, Market, Read, Pray',date:'2026-11-16',progress:20}]; localStorage.setItem('mpPlans',JSON.stringify(plans)); }
-function renderPlans(){ let total=plans.reduce((a,b)=>a+b.budget,0); document.getElementById('budgetText').innerText='₦'+total.toLocaleString()+' planned'; document.getElementById('totalPlans').innerText=plans.length+' Active Plans'; document.getElementById('myPlans').innerHTML=plans.map((p,i)=>`<div class="card" onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><div class="flex" style="margin-top:8px"><small>Budget: ₦${p.budget.toLocaleString()}</small><small style="color:#00C853;font-weight:800">${p.progress}% done →</small></div></div>`).join(''); }
+let currentIndex = 0;
+let APP_LINK = 'https://anthonyusunobun.github.io/mp-plan/';
+function renderPlans(){ let total=plans.reduce((a,b)=>a+b.budget,0); document.getElementById('budgetText').innerText='₦'+total.toLocaleString()+' planned'; document.getElementById('totalPlans').innerText=plans.length+' Active Plans'; document.getElementById('myPlans').innerHTML=plans.map((p,i)=>`<div class="card"><div onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><div class="flex" style="margin-top:8px"><small>Budget: ₦${p.budget.toLocaleString()}</small><small style="color:#00C853;font-weight:800">${p.progress}% done →</small></div></div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-wa" onclick="sharePlan(${i})">Share on WhatsApp 📲</button><button class="btn btn-light" onclick="openDetail(${i})">View</button></div></div>`).join(''); }
 function showPage(p){ ['home','create','detail','friends'].forEach(x=>document.getElementById('page-'+x).classList.add('hidden')); document.getElementById('page-'+p).classList.remove('hidden'); window.scrollTo(0,0); }
 function setNav(el){ document.querySelectorAll('.bottom div').forEach(d=>d.classList.remove('active')); el.classList.add('active'); }
-function createPlan(){ let t=document.getElementById('pTitle').value; let type=document.getElementById('pType').value; let b=Number(document.getElementById('pBudget').value||0); let d=document.getElementById('pDesc').value; if(!t) return alert('Put plan title'); plans.unshift({title:t,type:type,budget:b,desc:d||'New plan',date:'2026-11-16',progress:0}); localStorage.setItem('mpPlans',JSON.stringify(plans)); renderPlans(); showPage('home'); alert('Plan created! Share am with friends.'); }
-function openDetail(i){ let p=plans[i]; document.getElementById('detailCard').innerHTML=`<div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><p>Budget: <b>₦${p.budget.toLocaleString()}</b></p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><p>${p.progress}% completed</p>`; showPage('detail'); }
+function createPlan(){ let t=document.getElementById('pTitle').value; let type=document.getElementById('pType').value; let b=Number(document.getElementById('pBudget').value||0); let d=document.getElementById('pDesc').value; if(!t) return alert('Put plan title'); plans.unshift({title:t,type:type,budget:b,desc:d||'New plan',date:'2026-11-16',progress:0}); localStorage.setItem('mpPlans',JSON.stringify(plans)); renderPlans(); showPage('home'); if(confirm('Plan created! Share am on WhatsApp now?')){ sharePlan(0); } }
+function openDetail(i){ currentIndex=i; let p=plans[i]; document.getElementById('detailCard').innerHTML=`<div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><p>Budget: <b>₦${p.budget.toLocaleString()}</b></p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><p>${p.progress}% completed</p>`; showPage('detail'); }
 function filterPlans(t){ alert('Showing '+t+' plans'); showPage('home'); }
 function addSuggestion(){ let v=document.getElementById('suggestInput').value; if(v) alert('Suggestion sent: '+v); }
+function sharePlan(i){ let p=plans[i]; let msg='🔥 Check my plan on MP PLAN!\n\n📌 '+p.title+'\n📂 Type: '+p.type+'\n💰 Budget: ₦'+p.budget.toLocaleString()+'\n📝 '+p.desc+'\n📊 Progress: '+p.progress+'%\n\nJoin me, make we plan together! 👇\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); }
+function shareCurrentPlan(){ sharePlan(currentIndex); }
+function shareFriendPlan(title,desc){ let msg='🔥 See this plan on MP PLAN!\n\n📌 '+title+'\n📝 '+desc+'\n\nCheck am here 👇\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); }
+function copyLink(){ navigator.clipboard.writeText(APP_LINK).then(()=>alert('Link copied! Paste am for WhatsApp.')); }
 renderPlans();
 </script>
 </body>
