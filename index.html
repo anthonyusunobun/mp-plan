@@ -3,115 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MP Plan - Pay & Grow</title>
+<title>MP Plan - Join, Contribute & Grow</title>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
-*{box-sizing:border-box;font-family:system-ui,Arial} body{margin:0;background:#0f172a;color:#fff;padding:16px}
-.top{text-align:center;padding:20px 0 10px} .top h1{margin:0;font-size:32px} .top p{color:#94a3b8}
+*{box-sizing:border-box;font-family:system-ui,Arial} body{margin:0;background:#0f172a;color:#fff;padding:0}
+.nav{position:sticky;top:0;background:#1e293b;padding:10px;display:flex;gap:6px;overflow-x:auto;z-index:10;border-bottom:1px solid #334155}
+.nav button{white-space:nowrap;padding:10px 14px;border:0;border-radius:20px;background:#0f172a;color:#fff;font-weight:700;cursor:pointer}
+.nav button.active{background:#22c55e;color:#000}
+.wrap{padding:16px;max-width:700px;margin:auto}
+.hero{text-align:center;padding:24px 10px} .hero h1{font-size:34px;margin:0} .hero p{color:#94a3b8}
 .card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:18px;margin:14px 0}
 .card h3{margin:0 0 6px} .price{font-size:28px;font-weight:800;margin:8px 0} .price span{font-size:14px;color:#94a3b8}
-ul{padding-left:18px;color:#cbd5e1;line-height:1.7} input{width:100%;padding:13px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;margin:8px 0;font-size:15px}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
-button:active{transform:scale(.98)} .pro{border-color:#22c55e} .badge{background:#22c55e;color:#000;font-size:12px;padding:3px 8px;border-radius:20px;font-weight:800}
-small{color:#94a3b8}
+ul{padding-left:18px;color:#cbd5e1;line-height:1.7} input,select,textarea{width:100%;padding:13px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;margin:8px 0;font-size:15px}
+button.big{width:100%;padding:14px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
+button.wa{width:100%;padding:14px;border:0;border-radius:12px;background:#25D366;color:#000;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
+button.dark{width:100%;padding:14px;border:1px solid #475569;border-radius:12px;background:transparent;color:#fff;font-weight:700;font-size:15px;cursor:pointer;margin-top:8px}
+.pro{border-color:#22c55e} .badge{background:#22c55e;color:#000;font-size:12px;padding:3px 8px;border-radius:20px;font-weight:800}
+.page{display:none} .page.show{display:block}
 #successPage{display:none;text-align:center;padding:20px 10px}
-#successPage .big{font-size:48px} #successPage h2{font-size:26px;margin:10px 0}
 .receipt{background:#fff;color:#000;border-radius:14px;padding:18px;text-align:left;margin:16px 0}
-.receipt h3{margin:0 0 10px;color:#000} .receipt p{margin:6px 0;color:#333}
-.wa{background:#25D366} .dark{background:#334155;color:#fff} .outline{background:transparent;color:#fff;border:1px solid #475569}
+.receipt p{margin:6px 0;color:#333} small{color:#94a3b8}
 </style>
 </head>
 <body>
 
-<!-- HOME / PLANS PAGE -->
-<div id="homePage">
-<div class="top"><h1>MP PLAN 💰</h1><p>Choose your plan, pay securely with Paystack</p></div>
+<div class="nav">
+<button id="btn-home" class="active" onclick="showPage('home')">🏠 Home</button>
+<button id="btn-join" onclick="showPage('join')">✍️ Join</button>
+<button id="btn-contribute" onclick="showPage('contribute')">💰 Contribute</button>
+<button id="btn-plans" onclick="showPage('plans')">📋 Plans</button>
+<button id="btn-contact" onclick="showPage('contact')">📞 Contact</button>
+</div>
+
+<div class="wrap">
+
+<!-- HOME -->
+<div id="page-home" class="page show">
+<div class="hero"><h1>MP PLAN 💰</h1><p>Join, Contribute, Plan & Grow Together</p></div>
+<div class="card"><h3>Welcome to MP Plan</h3><p style="color:#cbd5e1;line-height:1.6">MP Plan na community plan wey help you save, contribute and grow your money with discipline. Join today, pick your plan, contribute monthly, and track your growth.</p>
+<button class="big" onclick="showPage('join')">Join MP Plan Now →</button>
+<button class="dark" onclick="showPage('plans')">See Plans</button></div>
+<div class="card"><h3>How e dey work?</h3><ul><li><b>1. Join</b> - Fill your name & email</li><li><b>2. Contribute</b> - Pay your plan with Paystack</li><li><b>3. Plan</b> - Follow your monthly plan</li><li><b>4. Grow</b> - Watch your savings grow</li></ul></div>
+</div>
+
+<!-- JOIN -->
+<div id="page-join" class="page">
+<h2>✍️ Join MP Plan</h2><p style="color:#94a3b8">Fill this form to join. After you join, go to Plans to pay.</p>
+<input id="joinName" placeholder="Your full name">
+<input id="joinEmail" type="email" placeholder="Your email e.g. you@gmail.com">
+<input id="joinPhone" placeholder="Your WhatsApp number e.g. 0803...">
+<select id="joinPlan"><option>Starter Plan - ₦2,000</option><option>Pro Plan - ₦5,000</option><option>Premium Plan - ₦10,000</option></select>
+<button class="big" onclick="doJoin()">Join Now → Go to Plans</button>
+<p><small>After you tap Join, we go carry you go Plans page to pay.</small></p>
+</div>
+
+<!-- CONTRIBUTE -->
+<div id="page-contribute" class="page">
+<h2>💰 Contribute</h2><p style="color:#94a3b8">Contribute your monthly plan securely with Paystack.</p>
 <input id="email" type="email" placeholder="Your email e.g. you@gmail.com">
 <input id="name" type="text" placeholder="Your full name">
-
-<div class="card"><h3>Starter Plan</h3><div class="price">₦2,000 <span>/ month</span></div>
-<ul><li>Access to MP Plan dashboard</li><li>Daily savings tracker</li><li>WhatsApp support</li></ul>
-<button onclick="pay(200000,'Starter Plan','₦2,000')">Pay ₦2,000 - Starter</button></div>
-
-<div class="card pro"><h3>Pro Plan <span class="badge">MOST POPULAR</span></h3><div class="price">₦5,000 <span>/ month</span></div>
-<ul><li>Everything in Starter</li><li>Priority support</li><li>Full MP Plan tools</li><li>Monthly report</li></ul>
-<button onclick="pay(500000,'Pro Plan','₦5,000')">Pay ₦5,000 - Pro</button></div>
-
-<div class="card"><h3>Premium Plan</h3><div class="price">₦10,000 <span>/ month</span></div>
-<ul><li>Everything in Pro</li><li>1-on-1 coaching</li><li>VIP access</li></ul>
-<button onclick="pay(1000000,'Premium Plan','₦10,000')">Pay ₦10,000 - Premium</button></div>
-<p style="text-align:center"><small>Secured by Paystack • Test Mode</small></p>
+<div class="card"><h3>Quick Contribute</h3><p style="color:#cbd5e1">Pick amount to contribute now:</p>
+<button class="big" onclick="pay(200000,'Starter Contribute','₦2,000')">Contribute ₦2,000</button>
+<button class="big" onclick="pay(500000,'Pro Contribute','₦5,000')">Contribute ₦5,000</button>
+<button class="big" onclick="pay(1000000,'Premium Contribute','₦10,000')">Contribute ₦10,000</button></div>
+<p><small>Secured by Paystack • Test Mode</small></p>
 </div>
 
-<!-- SUCCESS / THANK YOU PAGE -->
+<!-- PLANS -->
+<div id="page-plans" class="page">
+<h2>📋 Our Plans</h2>
+<div class="card"><h3>Starter Plan</h3><div class="price">₦2,000 <span>/ month</span></div><ul><li>Access to MP Plan dashboard</li><li>Daily savings tracker</li><li>WhatsApp support</li></ul><button class="big" onclick="pay(200000,'Starter Plan','₦2,000')">Pay ₦2,000 - Starter</button></div>
+<div class="card pro"><h3>Pro Plan <span class="badge">MOST POPULAR</span></h3><div class="price">₦5,000 <span>/ month</span></div><ul><li>Everything in Starter</li><li>Priority support</li><li>Full MP Plan tools</li><li>Monthly report</li></ul><button class="big" onclick="pay(500000,'Pro Plan','₦5,000')">Pay ₦5,000 - Pro</button></div>
+<div class="card"><h3>Premium Plan</h3><div class="price">₦10,000 <span>/ month</span></div><ul><li>Everything in Pro</li><li>1-on-1 coaching</li><li>VIP access</li></ul><button class="big" onclick="pay(1000000,'Premium Plan','₦10,000')">Pay ₦10,000 - Premium</button></div>
+</div>
+
+<!-- CONTACT -->
+<div id="page-contact" class="page">
+<h2>📞 Contact Us</h2>
+<div class="card"><h3>Talk to us</h3><p style="color:#cbd5e1">Any question about Join, Contribute or Plan? Chat us for WhatsApp.</p><button class="wa" onclick="goWhatsAppGeneral()">💬 Chat on WhatsApp</button></div>
+<div class="card"><h3>MP Plan</h3><p style="color:#cbd5e1">Email: mpplan@gmail.com<br>Location: Port Harcourt, Nigeria</p></div>
+</div>
+
+<!-- SUCCESS -->
 <div id="successPage">
-<div class="big">🎉</div>
-<h2>Payment Successful!</h2>
-<p id="welcomeText" style="color:#94a3b8"></p>
-<div class="receipt">
-<h3>MP PLAN - RECEIPT 🧾</h3>
-<p><b>Name:</b> <span id="rName"></span></p>
-<p><b>Email:</b> <span id="rEmail"></span></p>
-<p><b>Plan:</b> <span id="rPlan"></span></p>
-<p><b>Amount:</b> <span id="rAmount"></span></p>
-<p><b>Reference:</b> <span id="rRef"></span></p>
-<p><b>Date:</b> <span id="rDate"></span></p>
-<p><b>Status:</b> ✅ PAID</p>
-</div>
+<div style="font-size:48px">🎉</div><h2>Payment Successful!</h2><p id="welcomeText" style="color:#94a3b8"></p>
+<div class="receipt"><h3>MP PLAN - RECEIPT 🧾</h3><p><b>Name:</b> <span id="rName"></span></p><p><b>Email:</b> <span id="rEmail"></span></p><p><b>Plan:</b> <span id="rPlan"></span></p><p><b>Amount:</b> <span id="rAmount"></span></p><p><b>Reference:</b> <span id="rRef"></span></p><p><b>Date:</b> <span id="rDate"></span></p><p><b>Status:</b> ✅ PAID</p></div>
 <button class="wa" onclick="goWhatsApp()">💬 Chat on WhatsApp - Send My Receipt</button>
 <button class="dark" onclick="downloadReceipt()">⬇️ Download Receipt</button>
-<button class="outline" onclick="goHome()">← Back to Plans</button>
-<p><small>Save your reference - you go need am for support</small></p>
+<button class="dark" onclick="backToMain()">← Back to Main Page</button>
+</div>
+
 </div>
 
 <script>
 const PAYSTACK_KEY = "pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2";
-const MY_WHATSAPP = "2348000000000"; // <-- CHANGE TO YOUR NUMBER HERE
+const MY_WHATSAPP = "2348000000000"; // CHANGE TO YOUR NUMBER
 let lastPay = {};
 
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+  document.getElementById('successPage').style.display='none';
+  document.getElementById('page-'+name).classList.add('show');
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  const btn = document.getElementById('btn-'+name); if(btn) btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function backToMain(){ showPage('home'); }
+function doJoin(){
+  const n=document.getElementById('joinName').value.trim();
+  const e=document.getElementById('joinEmail').value.trim();
+  if(!n||!e||!e.includes('@')){ alert('Abeg put your name and correct email'); return; }
+  document.getElementById('name').value=n; document.getElementById('email').value=e;
+  alert('Welcome '+n+'! Now pick your plan to pay.');
+  showPage('plans');
+}
 function pay(amountKobo, planName, planAmount){
-  const email = document.getElementById('email').value.trim();
-  const name = document.getElementById('name').value.trim();
-  if(!email || !email.includes('@')){ alert('Abeg put your email first'); return; }
-  if(!name){ alert('Abeg put your full name'); return; }
-  let handler = PaystackPop.setup({
-    key: PAYSTACK_KEY, email: email, amount: amountKobo, currency: 'NGN',
-    ref: 'MP-' + Math.floor(Math.random()*1000000000),
-    metadata: { custom_fields: [{ display_name: "Plan", variable_name: "plan", value: planName }] },
-    callback: function(response){
-      lastPay = { name: name, email: email, plan: planName, amount: planAmount, ref: response.reference, date: new Date().toLocaleString() };
-      showSuccess();
-    },
-    onClose: function(){ alert('Payment window closed. You fit try again.'); }
-  });
-  handler.openIframe();
+  let email=document.getElementById('email').value.trim();
+  let name=document.getElementById('name').value.trim();
+  if(!email||!email.includes('@')){ alert('Abeg put your email first - go to Join or Contribute page'); showPage('join'); return; }
+  if(!name) name=document.getElementById('joinName').value.trim()||'MP Member';
+  let handler=PaystackPop.setup({
+    key:PAYSTACK_KEY,email:email,amount:amountKobo,currency:'NGN',
+    ref:'MP-'+Math.floor(Math.random()*1000000000),
+    metadata:{custom_fields:[{display_name:"Plan",variable_name:"plan",value:planName}]},
+    callback:function(response){ lastPay={name:name,email:email,plan:planName,amount:planAmount,ref:response.reference,date:new Date().toLocaleString()}; showSuccess(); },
+    onClose:function(){ alert('Payment window closed.'); }
+  }); handler.openIframe();
 }
 function showSuccess(){
-  document.getElementById('homePage').style.display = 'none';
-  document.getElementById('successPage').style.display = 'block';
-  document.getElementById('welcomeText').innerText = 'Welcome, ' + lastPay.name + '! Your ' + lastPay.plan + ' don activate.';
-  document.getElementById('rName').innerText = lastPay.name;
-  document.getElementById('rEmail').innerText = lastPay.email;
-  document.getElementById('rPlan').innerText = lastPay.plan;
-  document.getElementById('rAmount').innerText = lastPay.amount;
-  document.getElementById('rRef').innerText = lastPay.ref;
-  document.getElementById('rDate').innerText = lastPay.date;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+  document.getElementById('successPage').style.display='block';
+  document.getElementById('welcomeText').innerText='Welcome, '+lastPay.name+'! Your '+lastPay.plan+' don activate.';
+  document.getElementById('rName').innerText=lastPay.name; document.getElementById('rEmail').innerText=lastPay.email;
+  document.getElementById('rPlan').innerText=lastPay.plan; document.getElementById('rAmount').innerText=lastPay.amount;
+  document.getElementById('rRef').innerText=lastPay.ref; document.getElementById('rDate').innerText=lastPay.date;
   window.scrollTo(0,0);
 }
-function goHome(){
-  document.getElementById('successPage').style.display = 'none';
-  document.getElementById('homePage').style.display = 'block';
-  window.scrollTo(0,0);
-}
-function goWhatsApp(){
-  const msg = "Hello MP Plan! I just paid for " + lastPay.plan + " (" + lastPay.amount + "). My name na " + lastPay.name + ". My Ref: " + lastPay.ref + ". Abeg activate my plan. Thank you!";
-  window.open("https://wa.me/" + MY_WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank");
-}
-function downloadReceipt(){
-  const text = "MP PLAN RECEIPT\n----------------\nName: " + lastPay.name + "\nEmail: " + lastPay.email + "\nPlan: " + lastPay.plan + "\nAmount: " + lastPay.amount + "\nReference: " + lastPay.ref + "\nDate: " + lastPay.date + "\nStatus: PAID\n\nThank you for choosing MP Plan!";
-  const blob = new Blob([text], {type: 'text/plain'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'MP-Plan-Receipt-' + lastPay.ref + '.txt'; a.click();
-}
+function goWhatsApp(){ const msg="Hello MP Plan! I just paid for "+lastPay.plan+" ("+lastPay.amount+"). My name na "+lastPay.name+". My Ref: "+lastPay.ref; window.open("https://wa.me/"+MY_WHATSAPP+"?text="+encodeURIComponent(msg),"_blank"); }
+function goWhatsAppGeneral(){ window.open("https://wa.me/"+MY_WHATSAPP+"?text="+encodeURIComponent("Hello MP Plan! I want to join. Abeg tell me more."),"_blank"); }
+function downloadReceipt(){ const text="MP PLAN RECEIPT\nName: "+lastPay.name+"\nEmail: "+lastPay.email+"\nPlan: "+lastPay.plan+"\nAmount: "+lastPay.amount+"\nRef: "+lastPay.ref+"\nDate: "+lastPay.date+"\nStatus: PAID"; const blob=new Blob([text],{type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='MP-Plan-Receipt-'+lastPay.ref+'.txt'; a.click(); }
 </script>
 </body>
-</html>
+  </html>
