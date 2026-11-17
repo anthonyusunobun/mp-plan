@@ -11,70 +11,106 @@
 .card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:18px;margin:14px 0}
 .card h3{margin:0 0 6px} .price{font-size:28px;font-weight:800;margin:8px 0} .price span{font-size:14px;color:#94a3b8}
 ul{padding-left:18px;color:#cbd5e1;line-height:1.7} input{width:100%;padding:13px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;margin:8px 0;font-size:15px}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:16px;cursor:pointer}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
 button:active{transform:scale(.98)} .pro{border-color:#22c55e} .badge{background:#22c55e;color:#000;font-size:12px;padding:3px 8px;border-radius:20px;font-weight:800}
-.success{background:#14532d;border:1px solid #22c55e;padding:12px;border-radius:10px;display:none;margin-top:10px}
 small{color:#94a3b8}
+#successPage{display:none;text-align:center;padding:20px 10px}
+#successPage .big{font-size:48px} #successPage h2{font-size:26px;margin:10px 0}
+.receipt{background:#fff;color:#000;border-radius:14px;padding:18px;text-align:left;margin:16px 0}
+.receipt h3{margin:0 0 10px;color:#000} .receipt p{margin:6px 0;color:#333}
+.wa{background:#25D366} .dark{background:#334155;color:#fff} .outline{background:transparent;color:#fff;border:1px solid #475569}
 </style>
 </head>
 <body>
-<div class="top">
-<h1>MP PLAN 💰</h1>
-<p>Choose your plan, pay securely with Paystack</p>
-</div>
 
+<!-- HOME / PLANS PAGE -->
+<div id="homePage">
+<div class="top"><h1>MP PLAN 💰</h1><p>Choose your plan, pay securely with Paystack</p></div>
 <input id="email" type="email" placeholder="Your email e.g. you@gmail.com">
 <input id="name" type="text" placeholder="Your full name">
 
-<div class="card">
-<h3>Starter Plan</h3>
-<div class="price">₦2,000 <span>/ month</span></div>
+<div class="card"><h3>Starter Plan</h3><div class="price">₦2,000 <span>/ month</span></div>
 <ul><li>Access to MP Plan dashboard</li><li>Daily savings tracker</li><li>WhatsApp support</li></ul>
-<button onclick="pay(200000,'Starter Plan')">Pay ₦2,000 - Starter</button>
-</div>
+<button onclick="pay(200000,'Starter Plan','₦2,000')">Pay ₦2,000 - Starter</button></div>
 
-<div class="card pro">
-<h3>Pro Plan <span class="badge">MOST POPULAR</span></h3>
-<div class="price">₦5,000 <span>/ month</span></div>
+<div class="card pro"><h3>Pro Plan <span class="badge">MOST POPULAR</span></h3><div class="price">₦5,000 <span>/ month</span></div>
 <ul><li>Everything in Starter</li><li>Priority support</li><li>Full MP Plan tools</li><li>Monthly report</li></ul>
-<button onclick="pay(500000,'Pro Plan')">Pay ₦5,000 - Pro</button>
-</div>
+<button onclick="pay(500000,'Pro Plan','₦5,000')">Pay ₦5,000 - Pro</button></div>
 
-<div class="card">
-<h3>Premium Plan</h3>
-<div class="price">₦10,000 <span>/ month</span></div>
+<div class="card"><h3>Premium Plan</h3><div class="price">₦10,000 <span>/ month</span></div>
 <ul><li>Everything in Pro</li><li>1-on-1 coaching</li><li>VIP access</li></ul>
-<button onclick="pay(1000000,'Premium Plan')">Pay ₦10,000 - Premium</button>
+<button onclick="pay(1000000,'Premium Plan','₦10,000')">Pay ₦10,000 - Premium</button></div>
+<p style="text-align:center"><small>Secured by Paystack • Test Mode</small></p>
 </div>
 
-<div id="msg" class="success"></div>
-<p style="text-align:center"><small>Secured by Paystack • Test Mode - Use test card 4084 0840 8408 4081</small></p>
+<!-- SUCCESS / THANK YOU PAGE -->
+<div id="successPage">
+<div class="big">🎉</div>
+<h2>Payment Successful!</h2>
+<p id="welcomeText" style="color:#94a3b8"></p>
+<div class="receipt">
+<h3>MP PLAN - RECEIPT 🧾</h3>
+<p><b>Name:</b> <span id="rName"></span></p>
+<p><b>Email:</b> <span id="rEmail"></span></p>
+<p><b>Plan:</b> <span id="rPlan"></span></p>
+<p><b>Amount:</b> <span id="rAmount"></span></p>
+<p><b>Reference:</b> <span id="rRef"></span></p>
+<p><b>Date:</b> <span id="rDate"></span></p>
+<p><b>Status:</b> ✅ PAID</p>
+</div>
+<button class="wa" onclick="goWhatsApp()">💬 Chat on WhatsApp - Send My Receipt</button>
+<button class="dark" onclick="downloadReceipt()">⬇️ Download Receipt</button>
+<button class="outline" onclick="goHome()">← Back to Plans</button>
+<p><small>Save your reference - you go need am for support</small></p>
+</div>
 
 <script>
 const PAYSTACK_KEY = "pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2";
+const MY_WHATSAPP = "2348000000000"; // <-- CHANGE TO YOUR NUMBER HERE
+let lastPay = {};
 
-function pay(amountKobo, planName){
+function pay(amountKobo, planName, planAmount){
   const email = document.getElementById('email').value.trim();
   const name = document.getElementById('name').value.trim();
   if(!email || !email.includes('@')){ alert('Abeg put your email first'); return; }
   if(!name){ alert('Abeg put your full name'); return; }
-
   let handler = PaystackPop.setup({
-    key: PAYSTACK_KEY,
-    email: email,
-    amount: amountKobo,
-    currency: 'NGN',
+    key: PAYSTACK_KEY, email: email, amount: amountKobo, currency: 'NGN',
     ref: 'MP-' + Math.floor(Math.random()*1000000000),
-    metadata: { custom_fields: [{ display_name: "Plan", variable_name: "plan", value: planName }, { display_name: "Customer Name", variable_name: "customer_name", value: name }] },
+    metadata: { custom_fields: [{ display_name: "Plan", variable_name: "plan", value: planName }] },
     callback: function(response){
-      const box = document.getElementById('msg');
-      box.style.display = 'block';
-      box.innerHTML = '✅ Payment Successful!<br>Plan: <b>'+planName+'</b><br>Ref: '+response.reference+'<br>Welcome, '+name+'!';
-      window.scrollTo(0, document.body.scrollHeight);
+      lastPay = { name: name, email: email, plan: planName, amount: planAmount, ref: response.reference, date: new Date().toLocaleString() };
+      showSuccess();
     },
     onClose: function(){ alert('Payment window closed. You fit try again.'); }
   });
   handler.openIframe();
+}
+function showSuccess(){
+  document.getElementById('homePage').style.display = 'none';
+  document.getElementById('successPage').style.display = 'block';
+  document.getElementById('welcomeText').innerText = 'Welcome, ' + lastPay.name + '! Your ' + lastPay.plan + ' don activate.';
+  document.getElementById('rName').innerText = lastPay.name;
+  document.getElementById('rEmail').innerText = lastPay.email;
+  document.getElementById('rPlan').innerText = lastPay.plan;
+  document.getElementById('rAmount').innerText = lastPay.amount;
+  document.getElementById('rRef').innerText = lastPay.ref;
+  document.getElementById('rDate').innerText = lastPay.date;
+  window.scrollTo(0,0);
+}
+function goHome(){
+  document.getElementById('successPage').style.display = 'none';
+  document.getElementById('homePage').style.display = 'block';
+  window.scrollTo(0,0);
+}
+function goWhatsApp(){
+  const msg = "Hello MP Plan! I just paid for " + lastPay.plan + " (" + lastPay.amount + "). My name na " + lastPay.name + ". My Ref: " + lastPay.ref + ". Abeg activate my plan. Thank you!";
+  window.open("https://wa.me/" + MY_WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank");
+}
+function downloadReceipt(){
+  const text = "MP PLAN RECEIPT\n----------------\nName: " + lastPay.name + "\nEmail: " + lastPay.email + "\nPlan: " + lastPay.plan + "\nAmount: " + lastPay.amount + "\nReference: " + lastPay.ref + "\nDate: " + lastPay.date + "\nStatus: PAID\n\nThank you for choosing MP Plan!";
+  const blob = new Blob([text], {type: 'text/plain'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'MP-Plan-Receipt-' + lastPay.ref + '.txt'; a.click();
 }
 </script>
 </body>
