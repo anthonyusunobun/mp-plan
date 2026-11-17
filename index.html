@@ -6,18 +6,25 @@
 <title>MP Plan - Save Together</title>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
-  body{font-family:Arial,sans-serif;background:#f6f7f9;margin:0;padding-bottom:80px}
+  body{font-family:Arial,sans-serif;background:#f6f7f9;margin:0;padding-bottom:90px}
   .header{background:#0a7a42;color:#fff;padding:20px;text-align:center}
   .card{background:#fff;margin:15px;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
   .btn{background:#0a7a42;color:#fff;border:none;padding:12px 18px;border-radius:8px;width:100%;font-size:16px;cursor:pointer;margin-top:10px}
   .btn-secondary{background:#eef2f0;color:#0a7a42}
   .btn-whatsapp{background:#25D366}
+  .btn-danger{background:#fee2e2;color:#dc2626}
   input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
   textarea{height:220px;font-size:15px;line-height:1.5}
-  .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid #ddd;padding:10px 0}
+  .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid #ddd;padding:12px 0}
   .nav button{border:none;background:none;font-size:14px;cursor:pointer}
+  .nav button.active{color:#0a7a42;font-weight:bold}
   .badge{background:#e6f4ec;color:#0a7a42;padding:4px 10px;border-radius:20px;font-size:12px}
   .label{font-size:13px;color:#666;margin-top:12px;display:block}
+  .profile-header{text-align:center}
+  .avatar{width:80px;height:80px;background:#0a7a42;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 10px}
+  .menu-item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #eee;cursor:pointer}
+  .menu-item:last-child{border-bottom:none}
+  .toggle{color:#0a7a42}
 </style>
 </head>
 <body>
@@ -27,16 +34,16 @@
   <p>Save together. Achieve together.</p>
 </div>
 
+<!-- HOME -->
 <div id="homePage">
   <div class="card">
     <span class="badge">3 Active Plans</span>
-    <h3 id="planNameDisplay">Trip to Abuja</h3>
-    <p>Target: <span id="planTargetDisplay">₦500,000</span> &nbsp;|&nbsp; Saved: ₦120,000</p>
+    <h3>Trip to Abuja</h3>
+    <p>Target: ₦500,000 &nbsp;|&nbsp; Saved: ₦120,000</p>
     <p>Next Contribution: Friday</p>
     <button class="btn" onclick="openPayment('Trip to Abuja')">Contribute to Trip to Abuja</button>
     <button class="btn btn-secondary" onclick="openShare('Trip to Abuja','₦500,000')">Share Plan</button>
   </div>
-
   <div class="card">
     <h3>Your Wallet</h3>
     <p>Available Balance: <b>₦0.00</b></p>
@@ -44,6 +51,7 @@
   </div>
 </div>
 
+<!-- WALLET -->
 <div id="walletPage" style="display:none">
   <div class="card">
     <h3>Wallet</h3>
@@ -52,15 +60,12 @@
   </div>
 </div>
 
+<!-- PAYMENT -->
 <div id="paymentPage" style="display:none">
   <div class="card">
     <h3>Choose Payment Method</h3>
     <p id="payTitle">Contribute to Trip to Abuja</p>
-    <select id="method">
-      <option value="card">Card</option>
-      <option value="transfer">Bank Transfer</option>
-      <option value="ussd">USSD</option>
-    </select>
+    <select id="method"><option value="card">Card</option><option value="transfer">Bank Transfer</option><option value="ussd">USSD</option></select>
     <input type="number" id="amount" placeholder="Enter amount e.g. 10000">
     <input type="email" id="email" placeholder="Enter your email address">
     <button class="btn" onclick="payWithPaystack()">Pay Now</button>
@@ -68,103 +73,163 @@
   </div>
 </div>
 
+<!-- SHARE -->
 <div id="sharePage" style="display:none">
   <div class="card">
     <h3>Share This Plan</h3>
     <p>Edit the message below to describe your plan, then share it.</p>
-
     <span class="label">Plan Name</span>
     <input type="text" id="sharePlanName" value="Trip to Abuja" oninput="updateShareMessage()">
-
     <span class="label">Target Amount</span>
     <input type="text" id="shareTarget" value="₦500,000" oninput="updateShareMessage()">
-
     <span class="label">Your App Link</span>
     <input type="text" id="shareLink" value="https://mp-plan.netlify.app" oninput="updateShareMessage()">
-
     <span class="label">Message Preview - You Can Edit This Directly</span>
     <textarea id="shareMessage"></textarea>
-
     <button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
     <button class="btn btn-secondary" onclick="copyShareMessage()">Copy Message</button>
     <button class="btn btn-secondary" onclick="showPage('home')">Back to Home</button>
   </div>
 </div>
 
+<!-- PROFILE - FIXED -->
+<div id="profilePage" style="display:none">
+  <div class="card profile-header">
+    <div class="avatar">A</div>
+    <h3 id="profileName">Anthony F Smith</h3>
+    <p id="profileEmail" style="color:#666;margin:0">anthony@example.com</p>
+    <p id="profilePhone" style="color:#666;margin:5px 0 0">+234 800 000 0000</p>
+    <button class="btn btn-secondary" onclick="editProfile()">Edit Profile</button>
+  </div>
+
+  <div class="card">
+    <h3>Personal Details</h3>
+    <p><b>Full Name:</b> <span id="detailName">Anthony F Smith</span></p>
+    <p><b>Email:</b> <span id="detailEmail">anthony@example.com</span></p>
+    <p><b>Phone:</b> <span id="detailPhone">+234 800 000 0000</span></p>
+    <p><b>Location:</b> Port Harcourt, Nigeria</p>
+    <p><b>Member Since:</b> November 2026</p>
+  </div>
+
+  <div class="card">
+    <h3>Settings</h3>
+    <div class="menu-item" onclick="toggleSetting(this)"><span>Notifications</span><span class="toggle">On &gt;</span></div>
+    <div class="menu-item" onclick="alert('Security settings will open here. You can change your password and enable 2FA.')"><span>Security and Password</span><span>&gt;</span></div>
+    <div class="menu-item" onclick="alert('Your plans and payment history will show here.')"><span>My Plans and Payment History</span><span>&gt;</span></div>
+    <div class="menu-item" onclick="alert('Help Center: Contact support at support@mpplan.com')"><span>Help and Support</span><span>&gt;</span></div>
+    <div class="menu-item" onclick="alert('Terms and Privacy Policy will show here.')"><span>Terms and Privacy</span><span>&gt;</span></div>
+  </div>
+
+  <div class="card">
+    <button class="btn btn-danger" onclick="logout()">Log Out</button>
+    <p style="text-align:center;color:#999;font-size:12px;margin-top:10px">MP Plan Version 12</p>
+  </div>
+</div>
+
+<!-- EDIT PROFILE -->
+<div id="editProfilePage" style="display:none">
+  <div class="card">
+    <h3>Edit Profile</h3>
+    <span class="label">Full Name</span>
+    <input type="text" id="editName" value="Anthony F Smith">
+    <span class="label">Email Address</span>
+    <input type="email" id="editEmail" value="anthony@example.com">
+    <span class="label">Phone Number</span>
+    <input type="text" id="editPhone" value="+234 800 000 0000">
+    <button class="btn" onclick="saveProfile()">Save Changes</button>
+    <button class="btn btn-secondary" onclick="showPage('profile')">Cancel</button>
+  </div>
+</div>
+
 <div class="nav">
-  <button onclick="showPage('home')">Home</button>
+  <button id="nav-home" class="active" onclick="showPage('home')">Home</button>
   <button onclick="showPage('home')">Create</button>
   <button onclick="showPage('home')">Circle</button>
   <button onclick="showPage('wallet')">Wallet</button>
-  <button onclick="showPage('home')">Profile</button>
+  <button id="nav-profile" onclick="showPage('profile')">Profile</button>
 </div>
 
 <script>
-let currentPlan = 'Trip to Abuja';
-
 function showPage(page){
   document.getElementById('homePage').style.display = page==='home' ? 'block':'none';
   document.getElementById('walletPage').style.display = page==='wallet' ? 'block':'none';
   document.getElementById('paymentPage').style.display = 'none';
   document.getElementById('sharePage').style.display = 'none';
+  document.getElementById('profilePage').style.display = page==='profile' ? 'block':'none';
+  document.getElementById('editProfilePage').style.display = 'none';
+  document.getElementById('nav-home').classList.toggle('active', page==='home');
+  document.getElementById('nav-profile').classList.toggle('active', page==='profile');
+  window.scrollTo(0,0);
 }
-
 function openPayment(plan){
-  currentPlan = plan;
   document.getElementById('payTitle').innerText = 'Contribute to ' + plan;
   document.getElementById('homePage').style.display='none';
   document.getElementById('walletPage').style.display='none';
+  document.getElementById('profilePage').style.display='none';
   document.getElementById('paymentPage').style.display='block';
-  document.getElementById('sharePage').style.display='none';
   window.scrollTo(0,0);
 }
-
 function openShare(planName, target){
   document.getElementById('sharePlanName').value = planName;
   document.getElementById('shareTarget').value = target;
   updateShareMessage();
   document.getElementById('homePage').style.display='none';
   document.getElementById('walletPage').style.display='none';
-  document.getElementById('paymentPage').style.display='none';
+  document.getElementById('profilePage').style.display='none';
   document.getElementById('sharePage').style.display='block';
   window.scrollTo(0,0);
 }
-
 function updateShareMessage(){
   let name = document.getElementById('sharePlanName').value;
   let target = document.getElementById('shareTarget').value;
   let link = document.getElementById('shareLink').value;
-  let message = "Hello everyone,\n\nI am pleased to introduce MP Plan - a simple way for us to save together towards a shared goal.\n\nOur plan is: " + name + "\nTarget: " + target + "\n\nYou can join the circle, view our progress, and contribute securely with your card, bank transfer, or USSD.\n\nJoin here: " + link + "\n\nWould you like me to add you to this circle? Reply \"Yes\" and I will send you the details.\n\nThank you,\nAnthony";
-  document.getElementById('shareMessage').value = message;
+  document.getElementById('shareMessage').value = "Hello everyone,\n\nI am pleased to introduce MP Plan - a simple way for us to save together towards a shared goal.\n\nOur plan is: " + name + "\nTarget: " + target + "\n\nYou can join the circle, view our progress, and contribute securely with your card, bank transfer, or USSD.\n\nJoin here: " + link + "\n\nWould you like me to add you to this circle? Reply \"Yes\" and I will send you the details.\n\nThank you,\nAnthony";
 }
-
 function shareOnWhatsApp(){
   let text = document.getElementById('shareMessage').value;
-  let url = "https://wa.me/?text=" + encodeURIComponent(text);
-  window.open(url, '_blank');
+  window.open("https://wa.me/?text=" + encodeURIComponent(text), '_blank');
 }
-
 function copyShareMessage(){
-  let text = document.getElementById('shareMessage');
-  text.select();
-  document.execCommand('copy');
+  let t = document.getElementById('shareMessage'); t.select(); document.execCommand('copy');
   alert('Message copied. You can now paste it in WhatsApp, SMS, or anywhere.');
 }
-
+function editProfile(){
+  document.getElementById('profilePage').style.display='none';
+  document.getElementById('editProfilePage').style.display='block';
+}
+function saveProfile(){
+  let n = document.getElementById('editName').value;
+  let e = document.getElementById('editEmail').value;
+  let p = document.getElementById('editPhone').value;
+  document.getElementById('profileName').innerText = n;
+  document.getElementById('detailName').innerText = n;
+  document.getElementById('profileEmail').innerText = e;
+  document.getElementById('detailEmail').innerText = e;
+  document.getElementById('profilePhone').innerText = p;
+  document.getElementById('detailPhone').innerText = p;
+  document.getElementById('avatarLetter').innerText = n.charAt(0);
+  alert('Profile updated successfully.');
+  showPage('profile');
+}
+function toggleSetting(el){
+  let s = el.querySelector('.toggle');
+  s.innerText = s.innerText.includes('On') ? 'Off >' : 'On >';
+}
+function logout(){
+  if(confirm('Are you sure you want to log out?')){
+    alert('You have been logged out.');
+    showPage('home');
+  }
+}
 function payWithPaystack(){
   let amount = document.getElementById('amount').value;
   let email = document.getElementById('email').value;
   if(!amount || !email){ alert('Please enter an amount and a valid email address.'); return; }
   let handler = PaystackPop.setup({
     key: 'pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2',
-    email: email,
-    amount: amount * 100,
-    currency: 'NGN',
+    email: email, amount: amount * 100, currency: 'NGN',
     ref: 'MP-' + Math.floor(Math.random()*1000000000),
-    callback: function(response){
-      alert('Payment Successful! Reference: ' + response.reference);
-      showPage('wallet');
-    },
+    callback: function(response){ alert('Payment Successful! Reference: ' + response.reference); showPage('wallet'); },
     onClose: function(){ alert('Payment window closed.'); }
   });
   handler.openIframe();
