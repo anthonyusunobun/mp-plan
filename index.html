@@ -3,88 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MP Plan</title>
+<title>MP Plan - Pay & Grow</title>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
-*{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#F2F2F2;color:#222;padding-bottom:90px}
-header{background:#2B2D31;color:#fff;padding:16px;border-radius:0 0 22px 22px}.hero{background:#fff;border-radius:16px;padding:14px;margin-top:14px;color:#222}
-.big{font-size:26px;font-weight:900}.bar{height:10px;background:#E8E8E8;border-radius:20px;overflow:hidden}.fill{height:100%;background:#00C853}
-.wrap{padding:14px;max-width:560px;margin:auto}.grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:14px 0}
-.action{background:#fff;border-radius:14px;padding:12px 4px;text-align:center;cursor:pointer}.action span{font-size:22px;display:block}.action p{font-size:11px;font-weight:700}
-.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px}.card p{color:#666;font-size:13px}
-.tag{display:inline-block;background:#E8F9EE;color:#00A344;font-size:11px;padding:4px 8px;border-radius:20px;font-weight:700}.tag.orange{background:#FFF3E0;color:#E65100}
-.flex{display:flex;justify-content:space-between;align-items:center}
-.btn{border:0;border-radius:10px;padding:12px;font-weight:800;cursor:pointer;width:100%;font-size:15px}
-.btn-green{background:#00C853;color:#fff}.btn-light{background:#EDEDEF;color:#222}.btn-wa{background:#25D366;color:#fff}.btn-orange{background:#FF6D00;color:#fff}.btn-red{background:#FF3B30;color:#fff}.btn-google{background:#fff;color:#222;border:1px solid #ddd}
-input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0;font-size:15px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;max-width:560px;margin:auto}
-.bottom div{text-align:center;font-size:11px;color:#888;cursor:pointer}.bottom div.active{color:#00C853;font-weight:800}.bottom span{font-size:20px;display:block}
-.hidden{display:none}.toast{background:#00C853;color:#fff;padding:12px;border-radius:10px;text-align:center;font-weight:700;margin-bottom:10px}.toast.err{background:#FF3B30}
-.pass-wrap{position:relative}.pass-wrap input{padding-right:50px}.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:#EDEDEF;border:0;border-radius:8px;width:40px;height:40px;cursor:pointer;font-size:20px}
-.avatar{width:110px;height:110px;border-radius:50%;background:#2B2D31;color:#fff;font-size:48px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:auto;overflow:hidden;border:4px solid #00C853}.avatar img{width:100%;height:100%;object-fit:cover}
-.stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0}.stat{background:#fff;border-radius:14px;padding:12px;text-align:center}.stat b{font-size:20px;display:block}.stat span{font-size:11px;color:#888}
-.member{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0}.circle-box{background:#E8F9EE;border-radius:14px;padding:12px;text-align:center;margin:10px 0}
-.chip{display:inline-block;background:#fff;border:1px solid #ddd;border-radius:20px;padding:8px 14px;margin:4px;font-weight:700;cursor:pointer}.chip.sel{background:#00C853;color:#fff}
-.pay-box{background:#2B2D31;color:#fff;border-radius:16px;padding:16px;text-align:center}.pay-box b{font-size:26px}
-.pay-opt{display:flex;gap:8px;margin:10px 0}.pay-opt div{flex:1;background:#fff;border:2px solid #ddd;border-radius:12px;padding:12px;text-align:center;cursor:pointer;font-weight:700}.pay-opt div.sel{border-color:#00C853;background:#E8F9EE}
-.link{color:#00C853;font-weight:800;cursor:pointer}
+*{box-sizing:border-box;font-family:system-ui,Arial} body{margin:0;background:#0f172a;color:#fff;padding:16px}
+.top{text-align:center;padding:20px 0 10px} .top h1{margin:0;font-size:32px} .top p{color:#94a3b8}
+.card{background:#1e293b;border:1px solid #334155;border-radius:16px;padding:18px;margin:14px 0}
+.card h3{margin:0 0 6px} .price{font-size:28px;font-weight:800;margin:8px 0} .price span{font-size:14px;color:#94a3b8}
+ul{padding-left:18px;color:#cbd5e1;line-height:1.7} input{width:100%;padding:13px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;margin:8px 0;font-size:15px}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:16px;cursor:pointer}
+button:active{transform:scale(.98)} .pro{border-color:#22c55e} .badge{background:#22c55e;color:#000;font-size:12px;padding:3px 8px;border-radius:20px;font-weight:800}
+.success{background:#14532d;border:1px solid #22c55e;padding:12px;border-radius:10px;display:none;margin-top:10px}
+small{color:#94a3b8}
 </style>
 </head>
 <body>
-<div id="authScreen"><div class="wrap" style="max-width:420px"><h2 style="text-align:center">MP PLAN<br><small style="color:#888;font-size:13px">Plan • Share • Grow</small></h2><div id="authMsg" class="hidden"></div>
-<div id="loginBox" class="card"><h3>Welcome Back 👋</h3><button class="btn btn-google" onclick="googleLogin()">G &nbsp; Continue with Google</button><p style="text-align:center;font-size:11px;color:#999">OR WITH PHONE</p><label>Phone Number</label><input id="loginPhone" type="tel" placeholder="e.g. 08164665585"><label>Password</label><div class="pass-wrap"><input id="loginPass" type="password" placeholder="Your password"><button type="button" class="eye" onclick="togglePass('loginPass',this)">👁️</button></div><p style="text-align:right;font-size:13px"><span class="link" onclick="forgotPass()">Forgot Password?</span></p><button class="btn btn-green" onclick="doLogin()">Login →</button><div id="resetLoginBox" class="hidden"><br><button class="btn btn-orange" onclick="resetAndEnter()">⚠️ Password wrong? Tap here to Reset & Enter</button></div><p style="text-align:center;font-size:13px">No account? <span class="link" onclick="toggleAuth(false)">Create Account</span></p><button class="btn btn-light" onclick="demoLogin()">Try Demo Account (Anthony) - Always Works</button></div>
-<div id="signupBox" class="card hidden"><h3>Create Account 🎉</h3><button class="btn btn-google" onclick="googleLogin()">G &nbsp; Sign up with Google</button><p style="text-align:center;font-size:11px;color:#999">OR WITH PHONE</p><label>Full Name</label><input id="suName" placeholder="e.g. Anthony Usunobun"><label>Phone Number</label><input id="suPhone" type="tel" placeholder="e.g. 08164665585"><label>Location</label><input id="suCity" placeholder="e.g. Benin City"><label>Password</label><div class="pass-wrap"><input id="suPass" type="password" placeholder="Choose password"><button type="button" class="eye" onclick="togglePass('suPass',this)">👁️</button></div><label style="font-size:13px"><input type="checkbox" style="width:auto" onchange="showBothPass(this.checked)"> Show password while typing</label><button class="btn btn-green" onclick="doSignup()">Create Account →</button><p style="text-align:center;font-size:13px">Already get account? <span class="link" onclick="toggleAuth(true)">Login</span></p></div>
-<p style="text-align:center;font-size:12px"><span class="link" onclick="resetApp()">⚠️ App not responding? Tap here to Reset App</span></p><p style="text-align:center;font-size:11px;color:#999">If Login fail, tap Forgot Password or Reset & Enter - e go enter you.</p></div></div>
-<div id="appScreen" class="hidden"><header><div style="display:flex;justify-content:space-between"><div><b>MP PLAN</b><br><small style="color:#aaa">PLAN • SHARE • GROW</small></div><div onclick="showPage('profile')" style="cursor:pointer">👤</div></div><div class="hero"><small>Hi, <span id="heroName">Anthony</span> 👋</small><div class="big" id="totalPlans">3 Active Plans</div><small id="budgetText"></small><div class="bar" style="margin-top:8px"><div class="fill" style="width:35%"></div></div><p style="font-size:12px" id="heroSub"></p><p style="font-size:11px;color:#888" id="heroUser"></p></div></header>
-<div class="wrap"><div id="page-home"><div id="homeMsg" class="hidden"></div><div class="grid"><div class="action" onclick="showPage('create')"><span>➕</span><p>Create Plan</p></div><div class="action" onclick="showPage('circle')"><span>👥</span><p>Circle</p></div><div class="action" onclick="showPage('wallet')"><span>💳</span><p>Wallet</p></div><div class="action" onclick="showPage('profile')"><span>👤</span><p>Profile</p></div></div><h3>My Plans</h3><div id="myPlans"></div></div>
-<div id="page-create" class="hidden"><h2>Create New Plan</h2><label>Plan Title</label><input id="pTitle"><label>Type</label><select id="pType"><option>Travel</option><option>Budget</option><option>Daily</option><option>Weekly</option><option>Monthly</option></select><label>Budget ₦</label><input id="pBudget" type="number"><label>Describe</label><textarea id="pDesc" rows="3"></textarea><button class="btn btn-green" onclick="createPlan()">Create Plan →</button><br><br><button class="btn btn-light" onclick="showPage('home')">Cancel</button></div>
-<div id="page-detail" class="hidden"><div class="card" id="detailCard"></div><h3>👥 Plan Circle</h3><div class="card"><div class="circle-box" id="circleSummary"></div><div id="circleMembers"></div><button class="btn btn-wa" onclick="inviteCircle()">Invite via WhatsApp 📲</button></div><h3>💰 Contribute</h3><div class="card"><div style="text-align:center"><span class="chip" onclick="pickAmount(5000,this)">₦5,000</span><span class="chip" onclick="pickAmount(10000,this)">₦10,000</span><span class="chip" onclick="pickAmount(20000,this)">₦20,000</span><span class="chip" onclick="pickAmount(50000,this)">₦50,000</span></div><label>Amount</label><input id="contributeAmount" type="number"><button class="btn btn-green" onclick="goToPayment()">Proceed to Payment 💳 →</button></div><button class="btn btn-light" onclick="showPage('home')">Back</button></div>
-<div id="page-payment" class="hidden"><h2>💳 Pay</h2><div class="card" id="payPlanInfo"></div><div class="pay-box"><small>YOU ARE PAYING</small><br><b id="payAmountBig">₦10,000</b></div><div class="card"><h3>Payment Method</h3><div class="pay-opt"><div id="opt-card" class="sel" onclick="pickPay('card')">💳 Card</div><div id="opt-transfer" onclick="pickPay('transfer')">🏦 Transfer</div><div id="opt-ussd" onclick="pickPay('ussd')">📱 USSD</div></div><div id="pay-card"><label>Card Number</label><input placeholder="1234 5678 9012 3456"><label>Name on Card</label><input placeholder="Your name"></div><div id="pay-transfer" class="hidden"><div style="background:#FFF3E0;padding:12px;border-radius:12px"><b>MP PLAN • 0123456789</b><p>Amount: <b id="transferAmount">₦10,000</b></p></div></div><div id="pay-ussd" class="hidden"><div style="background:#E8F9EE;padding:12px;text-align:center"><h2>*901*000*10,000#</h2></div></div><button class="btn btn-green" onclick="confirmPayment()">Pay Now 🔒</button><br><br><button class="btn btn-light" onclick="showPage('detail')">Cancel</button></div></div>
-<div id="page-wallet" class="hidden"><h2>💳 Wallet</h2><div class="pay-box"><small>TOTAL CONTRIBUTED</small><br><b id="walletTotal">₦0</b></div><div id="walletHistory"></div><button class="btn btn-green" onclick="showPage('home')">Back</button></div>
-<div id="page-circle" class="hidden"><h2>👥 My Circles</h2><div id="circleList"></div></div>
-<div id="page-profile" class="hidden"><div style="text-align:center"><div class="avatar" id="avatarBox"><span id="avatarLetter">A</span></div><h2 id="profileName">Anthony</h2><p id="profileBio" style="color:#888"></p><p id="profilePhone" style="font-size:12px;color:#888"></p></div><div class="stat-row"><div class="stat"><b id="statPlans">3</b><span>Plans</span></div><div class="stat"><b id="statBudget">₦0</b><span>Budget</span></div><div class="stat"><b id="statDone">0%</b><span>Done</span></div></div><div class="card"><h3>Edit Profile</h3><label>Name</label><input id="editName"><label>Location</label><input id="editBio"><label>Photo</label><input type="file" accept="image/*" onchange="changePhoto(event)"><button class="btn btn-green" onclick="saveProfile()">Save Profile ✅</button></div><div id="profilePlans"></div><button class="btn btn-red" onclick="doLogout()">Logout 🚪</button></div>
-</div><div class="bottom"><div class="active" onclick="showPage('home');setNav(this)"><span>🏠</span>Home</div><div onclick="showPage('create');setNav(this)"><span>➕</span>Create</div><div onclick="showPage('circle');setNav(this)"><span>👥</span>Circle</div><div onclick="showPage('wallet');setNav(this)"><span>💳</span>Wallet</div><div onclick="showPage('profile');setNav(this)"><span>👤</span>Profile</div></div></div>
+<div class="top">
+<h1>MP PLAN 💰</h1>
+<p>Choose your plan, pay securely with Paystack</p>
+</div>
+
+<input id="email" type="email" placeholder="Your email e.g. you@gmail.com">
+<input id="name" type="text" placeholder="Your full name">
+
+<div class="card">
+<h3>Starter Plan</h3>
+<div class="price">₦2,000 <span>/ month</span></div>
+<ul><li>Access to MP Plan dashboard</li><li>Daily savings tracker</li><li>WhatsApp support</li></ul>
+<button onclick="pay(200000,'Starter Plan')">Pay ₦2,000 - Starter</button>
+</div>
+
+<div class="card pro">
+<h3>Pro Plan <span class="badge">MOST POPULAR</span></h3>
+<div class="price">₦5,000 <span>/ month</span></div>
+<ul><li>Everything in Starter</li><li>Priority support</li><li>Full MP Plan tools</li><li>Monthly report</li></ul>
+<button onclick="pay(500000,'Pro Plan')">Pay ₦5,000 - Pro</button>
+</div>
+
+<div class="card">
+<h3>Premium Plan</h3>
+<div class="price">₦10,000 <span>/ month</span></div>
+<ul><li>Everything in Pro</li><li>1-on-1 coaching</li><li>VIP access</li></ul>
+<button onclick="pay(1000000,'Premium Plan')">Pay ₦10,000 - Premium</button>
+</div>
+
+<div id="msg" class="success"></div>
+<p style="text-align:center"><small>Secured by Paystack • Test Mode - Use test card 4084 0840 8408 4081</small></p>
+
 <script>
-var APP_LINK='https://anthonyusunobun.github.io/mp-plan/';
-var currentUser=null; try{currentUser=JSON.parse(localStorage.getItem('mpCurrentUser')||'null')}catch(e){currentUser=null}
-var users=[]; try{users=JSON.parse(localStorage.getItem('mpUsers')||'[]')}catch(e){users=[]}
-var plans=null; try{plans=JSON.parse(localStorage.getItem('mpPlansV5')||'null')}catch(e){plans=null}
-if(!plans){plans=[{title:'Food Budget - 5 Months',type:'Budget',budget:200000,desc:'Rice, Beans, Yam',contributed:70000,members:[{name:'Anthony',amount:40000},{name:'Chiamaka',amount:20000}]},{title:'Trip to Abuja',type:'Travel',budget:80000,desc:'Visit family',contributed:48000,members:[{name:'Anthony',amount:30000},{name:'Faith',amount:18000}]}]; localStorage.setItem('mpPlansV5',JSON.stringify(plans));}
-var payments=[]; try{payments=JSON.parse(localStorage.getItem('mpPayments')||'[]')}catch(e){payments=[]}
-var currentIndex=0,selectedAmount=10000,payMethod='card',pendingAmount=10000;
-var profile={name:'Anthony Usunobun',bio:'Benin City',photo:''}; try{profile=JSON.parse(localStorage.getItem('mpProfile')||JSON.stringify(profile))}catch(e){}
-function showMsg(m,err){var el=document.getElementById('authMsg'); el.className=err?'toast err':'toast'; el.innerText=m; el.classList.remove('hidden');}
-function togglePass(id,btn){var i=document.getElementById(id); if(i.type==='password'){i.type='text'; btn.innerText='🙈';}else{i.type='password'; btn.innerText='👁️';}}
-function showBothPass(on){document.getElementById('suPass').type=on?'text':'password';}
-function toggleAuth(isLogin){document.getElementById('loginBox').classList.toggle('hidden',!isLogin); document.getElementById('signupBox').classList.toggle('hidden',isLogin); document.getElementById('authMsg').classList.add('hidden'); document.getElementById('resetLoginBox').classList.add('hidden');}
-function findUser(ph){for(var i=0;i<users.length;i++){if(users[i].phone===ph) return users[i];} return null;}
-function doSignup(){var n=document.getElementById('suName').value.trim(); var ph=document.getElementById('suPhone').value.trim(); var city=document.getElementById('suCity').value.trim(); var pw=document.getElementById('suPass').value; if(!n||!ph||!pw){showMsg('Fill name, phone and password',true); return;} var ex=findUser(ph); if(ex){ex.pass=pw; ex.name=n; ex.city=city||ex.city; localStorage.setItem('mpUsers',JSON.stringify(users)); showMsg('You don already get account - password updated to the one you just typed. Logging you in...'); loginUser(ex,true); return;} var u={name:n,phone:ph,city:city||'Nigeria',pass:pw,photo:''}; users.push(u); localStorage.setItem('mpUsers',JSON.stringify(users)); loginUser(u,true);}
-function doLogin(){var ph=document.getElementById('loginPhone').value.trim(); var pw=document.getElementById('loginPass').value; if(!ph||!pw){showMsg('Put phone and password',true); return;} var f=findUser(ph); if(!f){showMsg('No account for this phone. Tap Create Account below.',true); return;} if(f.pass===pw){loginUser(f,false); return;} showMsg('Password no match for this phone. Tap Reset & Enter below or Forgot Password.',true); document.getElementById('resetLoginBox').classList.remove('hidden');}
-function resetAndEnter(){var ph=document.getElementById('loginPhone').value.trim(); var pw=document.getElementById('loginPass').value; var f=findUser(ph); if(!f){showMsg('No account for this phone',true); return;} if(!pw){showMsg('Type the new password you want first, then tap Reset & Enter',true); return;} f.pass=pw; localStorage.setItem('mpUsers',JSON.stringify(users)); showMsg('Password reset! Logging you in...'); loginUser(f,false);}
-function forgotPass(){var ph=document.getElementById('loginPhone').value.trim(); if(!ph){showMsg('Type your phone number first',true); return;} var f=findUser(ph); if(!f){showMsg('No account for this phone. Create Account.',true); return;} var np=prompt('Reset for '+f.name+'\nType NEW password you go remember:',''); if(!np) return; f.pass=np; localStorage.setItem('mpUsers',JSON.stringify(users)); document.getElementById('loginPass').value=np; showMsg('Password changed to: '+np+' - Logging you in now...'); loginUser(f,false);}
-function googleLogin(){var name=prompt('Continue with Google (Demo)\nType your full name:','Anthony Usunobun'); if(!name) return; var email=prompt('Type your Gmail:','anthony@gmail.com'); if(!email) return; var u=findUser(email); if(!u){u={name:name,phone:email,city:'Nigeria',pass:'google',photo:'',email:email}; users.push(u); localStorage.setItem('mpUsers',JSON.stringify(users));} loginUser(u,true);}
-function demoLogin(){loginUser({name:'Anthony Usunobun',phone:'08030000000',city:'Benin City',pass:'demo',photo:profile.photo||''},false);}
-function loginUser(u,isNew){currentUser=u; localStorage.setItem('mpCurrentUser',JSON.stringify(u)); profile.name=u.name; profile.bio=u.city||'Nigeria'; if(u.photo) profile.photo=u.photo; localStorage.setItem('mpProfile',JSON.stringify(profile)); document.getElementById('authScreen').classList.add('hidden'); document.getElementById('appScreen').classList.remove('hidden'); loadProfile(); renderPlans(); showPage('home'); var hm=document.getElementById('homeMsg'); hm.className='toast'; hm.innerText=isNew?('Welcome '+u.name.split(' ')[0]+'! 🎉'):'Welcome back '+u.name.split(' ')[0]+'! 👋'; hm.classList.remove('hidden'); setTimeout(function(){hm.classList.add('hidden')},4000);}
-function doLogout(){localStorage.removeItem('mpCurrentUser'); currentUser=null; document.getElementById('appScreen').classList.add('hidden'); document.getElementById('authScreen').classList.remove('hidden'); toggleAuth(true);}
-function resetApp(){if(confirm('Reset app? E go clear login.')){localStorage.removeItem('mpCurrentUser'); localStorage.removeItem('mpUsers'); location.reload();}}
-function loadProfile(){if(!currentUser) return; document.getElementById('profileName').innerText=currentUser.name; document.getElementById('heroName').innerText=currentUser.name.split(' ')[0]; document.getElementById('profileBio').innerText=currentUser.city; document.getElementById('profilePhone').innerText='📱 '+currentUser.phone; document.getElementById('heroUser').innerText='📱 '+currentUser.phone+' • '+currentUser.city; document.getElementById('editName').value=currentUser.name; document.getElementById('editBio').value=currentUser.city; document.getElementById('avatarLetter').innerText=currentUser.name.charAt(0); if(profile.photo){document.getElementById('avatarBox').innerHTML='<img src="'+profile.photo+'">';}}
-function saveProfile(){currentUser.name=document.getElementById('editName').value||currentUser.name; currentUser.city=document.getElementById('editBio').value||currentUser.city; localStorage.setItem('mpCurrentUser',JSON.stringify(currentUser)); profile.name=currentUser.name; profile.bio=currentUser.city; localStorage.setItem('mpProfile',JSON.stringify(profile)); loadProfile();}
-function changePhoto(e){var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){profile.photo=r.result; currentUser.photo=r.result; localStorage.setItem('mpProfile',JSON.stringify(profile)); localStorage.setItem('mpCurrentUser',JSON.stringify(currentUser)); loadProfile();}; r.readAsDataURL(f);}
-function savePlans(){localStorage.setItem('mpPlansV5',JSON.stringify(plans));}
-function calcProgress(p){return Math.min(100,Math.round((p.contributed/p.budget)*100));}
-function renderPlans(){var total=0,tc=0; for(var i=0;i<plans.length;i++){total+=plans[i].budget; tc+=plans[i].contributed||0;} var avg=0; for(var j=0;j<plans.length;j++){avg+=calcProgress(plans[j]);} avg=plans.length?Math.round(avg/plans.length):0; document.getElementById('budgetText').innerText='₦'+total.toLocaleString()+' planned'; document.getElementById('totalPlans').innerText=plans.length+' Active Plans'; document.getElementById('heroSub').innerText='₦'+tc.toLocaleString()+' contributed • '+avg+'% funded'; document.getElementById('statPlans').innerText=plans.length; document.getElementById('statBudget').innerText='₦'+Math.round(total/1000)+'k'; document.getElementById('statDone').innerText=avg+'%'; document.getElementById('walletTotal').innerText='₦'+tc.toLocaleString(); var html=''; for(var k=0;k<plans.length;k++){var p=plans[k]; var pr=calcProgress(p); html+='<div class="card"><div onclick="openDetail('+k+')"><div class="flex"><b>'+p.title+'</b><span class="tag">'+p.type+'</span></div><p>'+p.desc+'</p><div class="bar"><div class="fill" style="width:'+pr+'%"></div></div><p>👥 '+(p.members||[]).length+' • 💰 ₦'+(p.contributed||0).toLocaleString()+'</p></div><div style="display:flex;gap:8px"><button class="btn btn-green" onclick="openDetail('+k+');goToPaymentFromList('+k+')">Pay 💳</button><button class="btn btn-wa" onclick="sharePlan('+k+')">WhatsApp</button></div></div>';} document.getElementById('myPlans').innerHTML=html; var ph=''; for(var a=0;a<plans.length;a++){ph+='<div class="card" onclick="openDetail('+a+')"><b>'+plans[a].title+'</b><p>₦'+(plans[a].contributed||0).toLocaleString()+' / ₦'+plans[a].budget.toLocaleString()+'</p></div>';} document.getElementById('profilePlans').innerHTML=ph; var ch=''; for(var b=0;b<plans.length;b++){ch+='<div class="card" onclick="openDetail('+b+')"><b>'+plans[b].title+'</b><p>👥 '+(plans[b].members||[]).length+' • '+calcProgress(plans[b])+'%</p></div>';} document.getElementById('circleList').innerHTML=ch; var wh=''; if(!payments.length){wh='<div class="card"><p>No payment yet.</p></div>';} else {for(var c=payments.length-1;c>=0;c--){wh+='<div class="card"><b>'+payments[c].plan+'</b><p>'+payments[c].method+' • '+payments[c].date+'</p><b>₦'+payments[c].amount.toLocaleString()+'</b></div>';}} document.getElementById('walletHistory').innerHTML=wh;}
-function showPage(p){var pages=['home','create','detail','profile','circle','payment','wallet']; for(var i=0;i<pages.length;i++){document.getElementById('page-'+pages[i]).classList.add('hidden');} document.getElementById('page-'+p).classList.remove('hidden'); window.scrollTo(0,0);}
-function setNav(el){var all=document.querySelectorAll('.bottom div'); for(var i=0;i<all.length;i++){all[i].classList.remove('active');} el.classList.add('active');}
-function createPlan(){var t=document.getElementById('pTitle').value; var type=document.getElementById('pType').value; var b=Number(document.getElementById('pBudget').value||0); var d=document.getElementById('pDesc').value; if(!t||!b){alert('Put title and budget'); return;} plans.unshift({title:t,type:type,budget:b,desc:d||'New plan',contributed:0,members:[{name:currentUser.name.split(' ')[0],amount:0}]}); savePlans(); renderPlans(); showPage('home');}
-function openDetail(i){currentIndex=i; var p=plans[i]; var pr=calcProgress(p); document.getElementById('detailCard').innerHTML='<b>'+p.title+'</b><p>'+p.desc+'</p><p>Budget: <b>₦'+p.budget.toLocaleString()+'</b></p><div class="bar"><div class="fill" style="width:'+pr+'%"></div></div><p>💰 ₦'+(p.contributed||0).toLocaleString()+' • '+pr+'% • 👥 '+(p.members||[]).length+'</p>'; renderCircle(); showPage('detail');}
-function renderCircle(){var p=plans[currentIndex]; var pr=calcProgress(p); document.getElementById('circleSummary').innerHTML='<b>👥 '+p.members.length+' members</b><br>₦'+(p.contributed||0).toLocaleString()+' of ₦'+p.budget.toLocaleString()+' ('+pr+'%)'; var h=''; for(var i=0;i<p.members.length;i++){h+='<div class="member"><b>'+p.members[i].name+'</b><span>₦'+p.members[i].amount.toLocaleString()+'</span></div>';} document.getElementById('circleMembers').innerHTML=h;}
-function pickAmount(a,el){selectedAmount=a; document.getElementById('contributeAmount').value=a; var chips=document.querySelectorAll('.chip'); for(var i=0;i<chips.length;i++){chips[i].classList.remove('sel');} el.classList.add('sel');}
-function goToPayment(){var amt=Number(document.getElementById('contributeAmount').value||selectedAmount); if(!amt){alert('Put amount'); return;} pendingAmount=amt; var p=plans[currentIndex]; document.getElementById('payPlanInfo').innerHTML='<b>'+p.title+'</b><p>'+p.desc+'</p>'; document.getElementById('payAmountBig').innerText='₦'+amt.toLocaleString(); document.getElementById('transferAmount').innerText='₦'+amt.toLocaleString(); showPage('payment');}
-function goToPaymentFromList(i){currentIndex=i; document.getElementById('contributeAmount').value=10000; pendingAmount=10000; goToPayment();}
-function pickPay(m){payMethod=m; var ms=['card','transfer','ussd']; for(var i=0;i<ms.length;i++){document.getElementById('opt-'+ms[i]).classList.toggle('sel',ms[i]===m); document.getElementById('pay-'+ms[i]).classList.toggle('hidden',ms[i]!==m);}}
-function confirmPayment(){var p=plans[currentIndex]; var name=currentUser.name.split(' ')[0]; p.contributed=(p.contributed||0)+pendingAmount; var mm=null; for(var i=0;i<p.members.length;i++){if(p.members[i].name.toLowerCase()===name.toLowerCase()){mm=p.members[i];}} if(mm){mm.amount+=pendingAmount;} else {p.members.push({name:name,amount:pendingAmount});} payments.push({plan:p.title,amount:pendingAmount,method:payMethod.toUpperCase(),by:currentUser.name,date:new Date().toLocaleString()}); localStorage.setItem('mpPayments',JSON.stringify(payments)); savePlans(); renderPlans(); openDetail(currentIndex);}
-function sharePlan(i){var p=plans[i]; var msg='🔥 Join my Plan Circle!\n\n📌 '+p.title+'\n💰 ₦'+p.budget.toLocaleString()+'\n\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}
-function inviteCircle(){sharePlan(currentIndex);}
-if(currentUser){document.getElementById('authScreen').classList.add('hidden'); document.getElementById('appScreen').classList.remove('hidden'); loadProfile(); renderPlans();} else {renderPlans();}
+const PAYSTACK_KEY = "pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2";
+
+function pay(amountKobo, planName){
+  const email = document.getElementById('email').value.trim();
+  const name = document.getElementById('name').value.trim();
+  if(!email || !email.includes('@')){ alert('Abeg put your email first'); return; }
+  if(!name){ alert('Abeg put your full name'); return; }
+
+  let handler = PaystackPop.setup({
+    key: PAYSTACK_KEY,
+    email: email,
+    amount: amountKobo,
+    currency: 'NGN',
+    ref: 'MP-' + Math.floor(Math.random()*1000000000),
+    metadata: { custom_fields: [{ display_name: "Plan", variable_name: "plan", value: planName }, { display_name: "Customer Name", variable_name: "customer_name", value: name }] },
+    callback: function(response){
+      const box = document.getElementById('msg');
+      box.style.display = 'block';
+      box.innerHTML = '✅ Payment Successful!<br>Plan: <b>'+planName+'</b><br>Ref: '+response.reference+'<br>Welcome, '+name+'!';
+      window.scrollTo(0, document.body.scrollHeight);
+    },
+    onClose: function(){ alert('Payment window closed. You fit try again.'); }
+  });
+  handler.openIframe();
+}
 </script>
 </body>
-                                                                                                                                                                                 </html>
+</html>
