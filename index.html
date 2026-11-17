@@ -15,7 +15,7 @@
   .btn-danger{background:#fee2e2;color:#dc2626}
   .btn-outline{background:#fff;color:#0a7a42;border:1px solid #0a7a42}
   input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
-  textarea{height:100px;font-size:15px;line-height:1.5}
+  textarea{height:100px}
   .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid #ddd;padding:12px 0}
   .nav button{border:none;background:none;font-size:14px;cursor:pointer}
   .nav button.active{color:#0a7a42;font-weight:bold}
@@ -24,62 +24,41 @@
   .menu-item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #eee;cursor:pointer}
   .progress{height:8px;background:#eee;border-radius:10px;overflow:hidden;margin-top:8px}
   .progress-bar{height:100%;background:#0a7a42;width:24%}
-  .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0a7a42;color:#fff;padding:12px 20px;border-radius:8px;z-index:999;display:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);font-size:14px;text-align:center;max-width:90%}
-  .map-box{width:100%;height:220px;border:1px solid #ddd;border-radius:10px;overflow:hidden;margin-top:10px;display:none}
-  .map-box iframe{width:100%;height:100%;border:0}
-  .location-status{font-size:13px;color:#0a7a42;background:#e6f4ec;padding:10px;border-radius:8px;margin-top:10px;display:none}
-  .cover-wrap{position:relative;margin:-20px -20px 0 -20px;border-radius:12px 12px 0 0;overflow:hidden}
-  .cover-photo{width:100%;height:180px;background:linear-gradient(135deg,#0a7a42,#0e9a54);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;position:relative}
+  .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0a7a42;color:#fff;padding:12px 20px;border-radius:8px;z-index:999;display:none;max-width:90%;text-align:center}
+  .cover-photo{width:100%;height:150px;background:linear-gradient(135deg,#0a7a42,#0e9a54);display:flex;align-items:center;justify-content:center;color:#fff;position:relative;overflow:hidden}
   .cover-photo img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
-  .profile-photo-wrap{position:relative;margin-top:-55px;text-align:center}
-  .avatar{width:110px;height:110px;background:#fff;color:#0a7a42;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto;border:4px solid #fff;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.2)}
+  .avatar{width:100px;height:100px;background:#fff;color:#0a7a42;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:-50px auto 0;border:4px solid #fff;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.2);position:relative;z-index:2}
   .avatar img{width:100%;height:100%;object-fit:cover}
-  .photo-preview-box{width:100%;height:130px;background:#f1f1f1;border:1px dashed #ccc;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#888;font-size:13px;margin-top:8px}
-  .photo-preview-box img{width:100%;height:100%;object-fit:cover}
-  .photo-preview-circle{width:90px;height:90px;border-radius:50%;background:#f1f1f1;border:1px dashed #ccc;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#888;font-size:12px;margin-top:8px}
-  .photo-preview-circle img{width:100%;height:100%;object-fit:cover}
-  /* CHAT */
-  .chat-box{max-height:300px;overflow-y:auto;background:#f9f9f9;padding:12px;border-radius:10px;margin-top:10px}
-  .chat-msg{background:#fff;padding:10px 12px;border-radius:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+  .chat-box{max-height:250px;overflow-y:auto;background:#f9f9f9;padding:12px;border-radius:10px;margin-top:10px}
+  .chat-msg{background:#fff;padding:10px;border-radius:10px;margin-bottom:8px}
   .chat-msg.mine{background:#dcf8c6;margin-left:30px}
-  .chat-name{font-size:12px;font-weight:bold;color:#0a7a42}
-  .chat-time{font-size:11px;color:#999}
-  .member-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee}
-  .member-avatar{width:38px;height:38px;background:#e6f4ec;color:#0a7a42;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
   .danger-zone{border:1px solid #fecaca;background:#fef2f2;border-radius:10px;padding:15px;margin-top:15px}
 </style>
 </head>
 <body>
 
 <div id="toast" class="toast"></div>
-
-<div class="header">
-  <h2>MP Plan</h2>
-  <p>Save together. Achieve together.</p>
-</div>
+<div class="header"><h2>MP Plan</h2><p>Save together. Achieve together.</p></div>
 
 <!-- HOME -->
 <div id="homePage">
   <div class="card">
     <span class="badge">3 Active Plans</span>
     <h3>Trip to Abuja</h3>
-    <p>Target: ₦500,000 &nbsp;|&nbsp; Saved: ₦120,000</p>
+    <p>Target: ₦500,000 | Saved: ₦120,000</p>
     <div class="progress"><div class="progress-bar"></div></div>
-    <button class="btn" onclick="openPayment('Trip to Abuja')">Contribute to Trip to Abuja</button>
-    <button class="btn btn-secondary" onclick="openShare('Trip to Abuja','₦500,000')">Share Plan</button>
+    <button class="btn" onclick="openPayment()">Contribute</button>
+    <button class="btn btn-secondary" onclick="openShare()">Share Plan</button>
     <button class="btn btn-outline" onclick="showPage('community')">Open Circle Chat</button>
   </div>
-  <div class="card"><h3>Your Wallet</h3><p>Available Balance: <b>₦0.00</b></p><button class="btn btn-secondary" onclick="showPage('wallet')">View Wallet</button></div>
+  <div class="card"><h3>Your Wallet</h3><p>Balance: <b>₦0.00</b></p><button class="btn btn-secondary" onclick="showPage('wallet')">View Wallet</button></div>
 </div>
 
 <!-- CREATE -->
 <div id="createPage" style="display:none">
-  <div class="card">
-    <h3>Create a New Plan</h3>
+  <div class="card"><h3>Create a New Plan</h3>
     <span class="label">Plan Name</span><input type="text" id="newPlanName" placeholder="Example: Trip to Abuja">
-    <span class="label">Target Amount (₦)</span><input type="number" id="newPlanTarget" placeholder="Example: 500000">
-    <span class="label">Target Date</span><input type="date" id="newPlanDate">
-    <span class="label">Description</span><textarea id="newPlanDesc" placeholder="Describe what this plan is for..."></textarea>
+    <span class="label">Target Amount (₦)</span><input type="number" id="newPlanTarget" placeholder="500000">
     <button class="btn" onclick="createPlan()">Create Plan</button>
     <button class="btn btn-secondary" onclick="showPage('home')">Cancel</button>
   </div>
@@ -88,172 +67,91 @@
 <!-- CIRCLE -->
 <div id="circlePage" style="display:none">
   <div class="card"><h3>My Circles</h3><p>You belong to 2 circles.</p></div>
-  <div class="card">
-    <h3>Trip to Abuja Circle</h3>
-    <p>Members: Anthony, Chiamaka, Emeka</p>
-    <p>Saved: ₦120,000 of ₦500,000</p>
-    <div class="progress"><div class="progress-bar"></div></div>
-    <button class="btn btn-secondary" onclick="openShare('Trip to Abuja','₦500,000')">Invite Members</button>
-    <button class="btn" onclick="showPage('community')">Open Community Chat</button>
-    <button class="btn btn-outline" onclick="leaveCircle('Trip to Abuja Circle')">Leave This Circle</button>
-  </div>
-  <div class="card">
-    <h3>Family Savings Circle</h3>
-    <p>Members: Anthony, Ada, Obi</p>
-    <p>Saved: ₦80,000 of ₦200,000</p>
-    <div class="progress"><div class="progress-bar" style="width:40%"></div></div>
-    <button class="btn btn-secondary" onclick="openShare('Family Savings Circle','₦200,000')">Invite Members</button>
-    <button class="btn" onclick="showPage('community')">Open Community Chat</button>
-    <button class="btn btn-outline" onclick="leaveCircle('Family Savings Circle')">Leave This Circle</button>
-  </div>
+  <div class="card"><h3>Trip to Abuja Circle</h3><p>Members: Anthony, Chiamaka, Emeka</p><p>Saved: ₦120,000 of ₦500,000</p><button class="btn" onclick="showPage('community')">Open Community Chat</button><button class="btn btn-outline" onclick="leaveCircle('Trip to Abuja Circle')">Leave This Circle</button></div>
+  <div class="card"><h3>Family Savings Circle</h3><p>Members: Anthony, Ada, Obi</p><button class="btn" onclick="showPage('community')">Open Community Chat</button><button class="btn btn-outline" onclick="leaveCircle('Family Savings Circle')">Leave This Circle</button></div>
 </div>
 
-<!-- COMMUNITY - NEW - FACEBOOK LIKE -->
+<!-- COMMUNITY -->
 <div id="communityPage" style="display:none">
-  <div class="card">
-    <h3>Trip to Abuja - Community</h3>
-    <p>Plan together with your circle members.</p>
-    <button class="btn btn-whatsapp" onclick="openWhatsAppGroup()">Connect on WhatsApp</button>
-    <button class="btn btn-secondary" onclick="showPage('circle')">View All Members</button>
-  </div>
-
-  <div class="card">
-    <h3>Members (3)</h3>
-    <div class="member-row"><div style="display:flex;gap:10px;align-items:center"><div class="member-avatar">A</div><div><b>Anthony Usunobun</b><br><span style="font-size:12px;color:#666">Admin - Port Harcourt</span></div></div><span class="badge">Admin</span></div>
-    <div class="member-row"><div style="display:flex;gap:10px;align-items:center"><div class="member-avatar">C</div><div><b>Chiamaka</b><br><span style="font-size:12px;color:#666">Abuja</span></div></div><button class="btn-secondary" style="border:none;padding:6px 12px;border-radius:6px;cursor:pointer" onclick="showToast('Chat request sent to Chiamaka')">Message</button></div>
-    <div class="member-row"><div style="display:flex;gap:10px;align-items:center"><div class="member-avatar">E</div><div><b>Emeka</b><br><span style="font-size:12px;color:#666">Lagos</span></div></div><button class="btn-secondary" style="border:none;padding:6px 12px;border-radius:6px;cursor:pointer" onclick="showToast('Chat request sent to Emeka')">Message</button></div>
-  </div>
-
-  <div class="card">
-    <h3>Plan Our Trip</h3>
-    <span class="label">Trip Destination</span><input type="text" id="tripDest" value="Abuja">
-    <span class="label">Trip Date</span><input type="date" id="tripDate" value="2026-12-20">
+  <div class="card"><h3>Trip to Abuja - Community</h3><p>Plan together with your circle members.</p><button class="btn btn-whatsapp" onclick="openWhatsAppGroup()">Connect on WhatsApp</button></div>
+  <div class="card"><h3>Trip Budget Planner</h3>
     <span class="label">Total Budget (₦)</span><input type="number" id="tripBudget" value="500000" oninput="calcBudget()">
-    <p id="budgetResult" style="background:#e6f4ec;padding:12px;border-radius:8px">Each person pays: ₦166,667 (3 members)</p>
+    <p id="budgetResult" style="background:#e6f4ec;padding:12px;border-radius:8px">Each person pays: ₦166,667</p>
     <button class="btn" onclick="saveTripPlan()">Save Trip Plan</button>
   </div>
-
-  <div class="card">
-    <h3>Circle Chat</h3>
+  <div class="card"><h3>Circle Chat</h3>
     <div class="chat-box" id="chatBox">
-      <div class="chat-msg"><div class="chat-name">Chiamaka</div><div>Hello everyone, are we still going to Abuja in December?</div><div class="chat-time">Today, 9:12 AM</div></div>
-      <div class="chat-msg mine"><div class="chat-name">You</div><div>Yes! We have saved ₦120,000 already. Let us keep going.</div><div class="chat-time">Today, 9:15 AM</div></div>
-      <div class="chat-msg"><div class="chat-name">Emeka</div><div>I will contribute ₦20,000 on Friday. What about transport?</div><div class="chat-time">Today, 9:20 AM</div></div>
+      <div class="chat-msg"><b>Chiamaka</b><br>Are we still going to Abuja in December?</div>
+      <div class="chat-msg mine"><b>You</b><br>Yes! We have saved ₦120,000 already.</div>
     </div>
-    <input type="text" id="chatInput" placeholder="Type a message to your circle...">
+    <input type="text" id="chatInput" placeholder="Type a message...">
     <button class="btn" onclick="sendChat()">Send Message</button>
-    <button class="btn btn-whatsapp" onclick="openWhatsAppGroup()">Continue on WhatsApp</button>
-  </div>
-
-  <div class="card">
-    <h3>Circle Settings</h3>
-    <button class="btn btn-outline" onclick="leaveCircle('Trip to Abuja Circle')">Leave This Circle</button>
-    <button class="btn btn-secondary" onclick="showToast('Notifications muted for this circle.')">Mute Notifications</button>
   </div>
 </div>
 
 <!-- WALLET -->
-<div id="walletPage" style="display:none"><div class="card"><h3>Wallet</h3><p>Available Balance: <b>₦0.00</b></p><button class="btn" onclick="openPayment('Wallet Funding')">Fund Wallet</button></div></div>
+<div id="walletPage" style="display:none"><div class="card"><h3>Wallet</h3><p>Balance: <b>₦0.00</b></p><button class="btn" onclick="openPayment()">Fund Wallet</button></div></div>
 
 <!-- PAYMENT -->
 <div id="paymentPage" style="display:none">
-  <div class="card"><h3>Choose Payment Method</h3><p id="payTitle">Contribute to Trip to Abuja</p><select id="method"><option value="card">Card</option><option value="transfer">Bank Transfer</option><option value="ussd">USSD</option></select><input type="number" id="amount" placeholder="Enter amount e.g. 10000"><input type="email" id="email" placeholder="Enter your email address"><button class="btn" onclick="payWithPaystack()">Pay Now</button><button class="btn btn-secondary" onclick="showPage('home')">Cancel</button></div>
+  <div class="card"><h3>Pay Now</h3><input type="number" id="amount" placeholder="Enter amount e.g. 10000"><input type="email" id="email" placeholder="Enter your email"><button class="btn" onclick="payWithPaystack()">Pay Now</button><button class="btn btn-secondary" onclick="showPage('home')">Cancel</button></div>
 </div>
 
 <!-- SHARE -->
 <div id="sharePage" style="display:none">
-  <div class="card"><h3>Share This Plan</h3><p>Edit the message below to describe your plan, then share it.</p><span class="label">Plan Name</span><input type="text" id="sharePlanName" value="Trip to Abuja" oninput="updateShareMessage()"><span class="label">Target Amount</span><input type="text" id="shareTarget" value="₦500,000" oninput="updateShareMessage()"><span class="label">Your App Link</span><input type="text" id="shareLink" value="https://mp-plan.netlify.app" oninput="updateShareMessage()"><span class="label">Message Preview - You Can Edit This Directly</span><textarea id="shareMessage" style="height:220px"></textarea><button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">Share on WhatsApp</button><button class="btn btn-secondary" onclick="copyShareMessage()">Copy Message</button><button class="btn btn-secondary" onclick="showPage('home')">Back to Home</button></div>
+  <div class="card"><h3>Share This Plan</h3><p>Edit the message, then share it.</p>
+    <span class="label">Plan Name</span><input type="text" id="sharePlanName" value="Trip to Abuja" oninput="updateShareMessage()">
+    <span class="label">Target Amount</span><input type="text" id="shareTarget" value="₦500,000" oninput="updateShareMessage()">
+    <span class="label">Message - You Can Edit This</span><textarea id="shareMessage" style="height:180px"></textarea>
+    <button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+    <button class="btn btn-secondary" onclick="copyShareMessage()">Copy Message</button>
+    <button class="btn btn-secondary" onclick="showPage('home')">Back</button>
+  </div>
 </div>
 
 <!-- PROFILE -->
 <div id="profilePage" style="display:none">
   <div class="card" style="padding:0;overflow:hidden">
-    <div class="cover-wrap"><div class="cover-photo" id="coverDisplay"><img id="coverPreviewMain" style="display:none"><div id="coverPlaceholder" style="position:relative;z-index:1;text-align:center;opacity:0.9">MP Plan<br><span style="font-size:12px">Your cover photo will appear here</span></div></div></div>
-    <div class="profile-photo-wrap"><div class="avatar"><span id="avatarLetter">A</span><img id="profilePicPreviewMain" style="display:none"></div></div>
+    <div class="cover-photo"><img id="coverPreviewMain" style="display:none"><span id="coverPlaceholder">MP Plan</span></div>
+    <div class="avatar"><span id="avatarLetter">A</span><img id="profilePicPreviewMain" style="display:none"></div>
     <div style="text-align:center;padding:10px 20px 20px">
-      <h3 id="profileName" style="margin:8px 0 4px">Anthony Usunobun</h3>
-      <p id="profileEmail" style="color:#666;margin:0">usunobunanthonynosakhare@gmail.com</p>
-      <p id="profilePhone" style="color:#666;margin:5px 0 0">+234 8164665585</p>
-      <p style="color:#666;margin:5px 0 0;font-size:14px">🎂 <span id="profileDOBDisplay">Date of birth not set</span> &nbsp;|&nbsp; 📍 <span id="profileLocationMini">Port Harcourt</span></p>
-      <button class="btn btn-secondary" onclick="editProfile()" style="max-width:280px">Edit Profile</button>
+      <h3 id="profileName">Anthony Usunobun</h3>
+      <p style="color:#666;margin:0">usunobunanthonynosakhare@gmail.com</p>
+      <p style="color:#666;margin:5px 0">+234 8164665585</p>
+      <p style="color:#666;margin:5px 0">🎂 <span id="profileDOBDisplay">Date of birth not set</span> | 📍 <span id="profileLocationMini">Port Harcourt</span></p>
+      <button class="btn btn-secondary" onclick="editProfile()">Edit Profile</button>
     </div>
   </div>
-  <div class="card"><h3>Personal Details</h3><p><b>Full Name:</b> <span id="detailName">Anthony Usunobun</span></p><p><b>Email:</b> <span id="detailEmail">usunobunanthonynosakhare@gmail.com</span></p><p><b>Phone:</b> <span id="detailPhone">+234 8164665585</span></p><p><b>Date of Birth:</b> <span id="detailDOB">Not set</span></p><p><b>Location:</b> <span id="detailLocation">Port Harcourt, Nigeria</span></p><p><b>Member Since:</b> November 2026</p></div>
-  <div class="card"><h3>Account Centre</h3><div class="menu-item" onclick="showPage('account')"><span>Account Settings - Password, Date of Birth, Disable Account</span><span>&gt;</span></div><div class="menu-item" onclick="editProfile()"><span>Change Location</span><span>&gt;</span></div><div class="menu-item" onclick="toggleSetting(this)"><span>Notifications</span><span class="toggle">On &gt;</span></div><div class="menu-item" onclick="showPage('community')"><span>Circle Community</span><span>&gt;</span></div><div class="menu-item" onclick="showToast('Help Center: Contact support at support@mpplan.com')"><span>Help and Support</span><span>&gt;</span></div></div>
-  <div class="card"><button class="btn btn-danger" onclick="logout()">Log Out</button><p style="text-align:center;color:#999;font-size:12px;margin-top:10px">MP Plan Version 16</p></div>
+  <div class="card"><h3>Personal Details</h3><p><b>Full Name:</b> <span id="detailName">Anthony Usunobun</span></p><p><b>Date of Birth:</b> <span id="detailDOB">Not set</span></p><p><b>Location:</b> <span id="detailLocation">Port Harcourt, Nigeria</span></p></div>
+  <div class="card"><h3>Account Centre</h3><div class="menu-item" onclick="showPage('account')"><span>Password, Date of Birth, Disable / Delete Account</span><span>&gt;</span></div><div class="menu-item" onclick="showPage('community')"><span>Circle Community</span><span>&gt;</span></div></div>
+  <div class="card"><button class="btn btn-danger" onclick="logout()">Log Out</button><p style="text-align:center;color:#999;font-size:12px">MP Plan Version 17</p></div>
 </div>
 
-<!-- ACCOUNT CENTRE - NEW -->
+<!-- ACCOUNT CENTRE -->
 <div id="accountPage" style="display:none">
-  <div class="card">
-    <h3>Account Centre</h3>
-    <p>Manage your account like Facebook - password, date of birth, and account control.</p>
-  </div>
-
-  <div class="card">
-    <h3>Date of Birth</h3>
-    <p style="font-size:13px;color:#666">Your date of birth helps us verify your account. Only you can see the full date.</p>
-    <span class="label">Date of Birth</span>
-    <input type="date" id="dobInput">
-    <button class="btn" onclick="saveDOB()">Save Date of Birth</button>
-  </div>
-
-  <div class="card">
-    <h3>Password</h3>
-    <p style="font-size:13px;color:#666">Forgot your password? Or want to change it?</p>
-    <span class="label">Email for Password Reset</span>
-    <input type="email" id="resetEmail" value="usunobunanthonynosakhare@gmail.com">
-    <button class="btn btn-secondary" onclick="forgotPassword()">Send Password Reset Link</button>
-    <span class="label">Current Password</span><input type="password" id="oldPass" placeholder="Enter current password">
-    <span class="label">New Password</span><input type="password" id="newPass" placeholder="Enter new password">
-    <span class="label">Confirm New Password</span><input type="password" id="confirmPass" placeholder="Confirm new password">
-    <button class="btn" onclick="changePassword()">Change Password</button>
-  </div>
-
-  <div class="card">
-    <h3>My Circles - Leave a Circle</h3>
-    <p style="font-size:13px;color:#666">If you do not want to be in a chat again, you can leave it here.</p>
-    <div class="menu-item"><span>Trip to Abuja Circle</span><button onclick="leaveCircle('Trip to Abuja Circle')" style="background:#fee2e2;color:#dc2626;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">Leave</button></div>
-    <div class="menu-item"><span>Family Savings Circle</span><button onclick="leaveCircle('Family Savings Circle')" style="background:#fee2e2;color:#dc2626;border:none;padding:6px 12px;border-radius:6px;cursor:pointer">Leave</button></div>
-  </div>
-
-  <div class="card">
-    <div class="danger-zone">
-      <h3 style="color:#dc2626;margin-top:0">Danger Zone</h3>
-      <p style="font-size:13px">Disable your account temporarily, or delete it permanently.</p>
-      <button class="btn btn-outline" onclick="disableAccount()">Disable My Account</button>
-      <button class="btn btn-danger" onclick="deleteAccount()">Delete My Account Permanently</button>
-    </div>
-    <button class="btn btn-secondary" onclick="showPage('profile')">Back to Profile</button>
-  </div>
+  <div class="card"><h3>Account Centre</h3><p>Manage your account like Facebook.</p></div>
+  <div class="card"><h3>Date of Birth</h3><input type="date" id="dobInput"><button class="btn" onclick="saveDOB()">Save Date of Birth</button></div>
+  <div class="card"><h3>Password</h3><input type="email" id="resetEmail" value="usunobunanthonynosakhare@gmail.com"><button class="btn btn-secondary" onclick="forgotPassword()">Send Password Reset Link</button><input type="password" id="newPass" placeholder="New password"><input type="password" id="confirmPass" placeholder="Confirm new password"><button class="btn" onclick="changePassword()">Change Password</button></div>
+  <div class="card"><h3>Leave a Circle</h3><button class="btn btn-outline" onclick="leaveCircle('Trip to Abuja Circle')">Leave Trip to Abuja Circle</button><button class="btn btn-outline" onclick="leaveCircle('Family Savings Circle')">Leave Family Savings Circle</button></div>
+  <div class="card"><div class="danger-zone"><h3 style="color:#dc2626;margin-top:0">Danger Zone</h3><button class="btn btn-outline" onclick="disableAccount()">Disable My Account</button><button class="btn btn-danger" onclick="deleteAccount()">Delete My Account</button></div><button class="btn btn-secondary" onclick="showPage('profile')">Back to Profile</button></div>
 </div>
 
 <!-- EDIT PROFILE -->
 <div id="editProfilePage" style="display:none">
-  <div class="card">
-    <h3>Edit Profile</h3>
-    <h3 style="margin-top:20px;border-top:1px solid #eee;padding-top:15px">Photos</h3>
-    <span class="label">Profile Photo</span>
-    <div class="photo-preview-circle"><span id="editAvatarLetter">A</span><img id="editProfilePicPreview" style="display:none"></div>
-    <input type="file" id="profilePicInput" accept="image/*" style="display:none" onchange="previewProfilePicture(event)">
-    <button class="btn btn-secondary" onclick="document.getElementById('profilePicInput').click()">Change Profile Photo</button>
-    <span class="label">Cover Photo</span>
-    <div class="photo-preview-box"><span id="editCoverPlaceholder">No cover photo yet</span><img id="editCoverPreview" style="display:none"></div>
-    <input type="file" id="coverPicInput" accept="image/*" style="display:none" onchange="previewCoverPicture(event)">
-    <button class="btn btn-secondary" onclick="document.getElementById('coverPicInput').click()">Change Cover Photo</button>
-
-    <h3 style="margin-top:25px;border-top:1px solid #eee;padding-top:15px">Personal Information</h3>
+  <div class="card"><h3>Edit Profile</h3>
+    <h3>Photos</h3>
+    <span class="label">Profile Photo</span><input type="file" id="profilePicInput" accept="image/*" onchange="previewProfilePicture(event)"><span style="font-size:12px;color:#888">Choose a photo, then tap Save Changes below.</span>
+    <span class="label">Cover Photo</span><input type="file" id="coverPicInput" accept="image/*" onchange="previewCoverPicture(event)"><span style="font-size:12px;color:#888">Choose a cover photo, then tap Save Changes.</span>
+    <h3 style="margin-top:20px">Personal Information</h3>
     <span class="label">Full Name</span><input type="text" id="editName" value="Anthony Usunobun">
-    <span class="label">Email Address</span><input type="email" id="editEmail" value="usunobunanthonynosakhare@gmail.com">
-    <span class="label">Phone Number</span><input type="text" id="editPhone" value="+234 8164665585">
+    <span class="label">Email</span><input type="email" id="editEmail" value="usunobunanthonynosakhare@gmail.com">
+    <span class="label">Phone</span><input type="text" id="editPhone" value="+234 8164665585">
     <span class="label">Date of Birth</span><input type="date" id="editDOB">
     <span class="label">Location</span>
     <button class="btn btn-secondary" onclick="getCurrentLocation()">📍 Use My Current Location</button>
-    <div id="locationStatus" class="location-status"></div>
-    <div id="mapBox" class="map-box"><iframe id="mapFrame" src=""></iframe></div>
-    <select id="editLocation"><option>Port Harcourt, Nigeria</option><option>Abuja, Nigeria</option><option>Lagos, Nigeria</option><option>Benin City, Nigeria</option><option>Enugu, Nigeria</option><option>Kano, Nigeria</option><option>Ibadan, Nigeria</option><option>Other</option></select>
-    <input type="text" id="editLocationCustom" placeholder="Detected location will appear here - you can edit it" style="display:none">
-    <span class="label">Coordinates (Automatic)</span><input type="text" id="editCoords" placeholder="Latitude, Longitude will appear here" readonly>
+    <p id="locationStatus" style="font-size:13px;color:#0a7a42;display:none"></p>
+    <select id="editLocation"><option>Port Harcourt, Nigeria</option><option>Abuja, Nigeria</option><option>Lagos, Nigeria</option><option>Benin City, Nigeria</option><option>Other</option></select>
+    <input type="text" id="editLocationCustom" placeholder="Detected location will appear here" style="display:none">
     <button class="btn" onclick="saveProfile()">Save Changes</button>
     <button class="btn btn-secondary" onclick="showPage('profile')">Cancel</button>
   </div>
@@ -268,70 +166,28 @@
 </div>
 
 <script>
-let tempProfilePic=null; let tempCoverPic=null;
-function showToast(msg){ let t=document.getElementById('toast'); t.innerText=msg; t.style.display='block'; setTimeout(()=>{t.style.display='none';},3500); }
+// SAFE HELPER - this prevents freezing
+function el(id){ return document.getElementById(id); }
+function showToast(msg){
+  try{
+    var t = el('toast'); if(!t) return; t.innerText = msg; t.style.display='block';
+    setTimeout(function(){ t.style.display='none'; }, 3000);
+  }catch(e){ alert(msg); }
+}
 function showPage(page){
-  ['homePage','createPage','circlePage','walletPage','paymentPage','sharePage','profilePage','editProfilePage','accountPage','communityPage'].forEach(id=>{document.getElementById(id).style.display='none';});
-  let map={home:'homePage',create:'createPage',circle:'circlePage',wallet:'walletPage',profile:'profilePage',account:'accountPage',community:'communityPage'};
-  if(map[page]) document.getElementById(map[page]).style.display='block';
-  ['home','create','circle','wallet','profile'].forEach(n=>{let el=document.getElementById('nav-'+n); if(el) el.classList.toggle('active',n===page);});
-  window.scrollTo(0,0);
+  try{
+    var pages = ['homePage','createPage','circlePage','walletPage','paymentPage','sharePage','profilePage','editProfilePage','accountPage','communityPage'];
+    for(var i=0;i<pages.length;i++){ var p=el(pages[i]); if(p) p.style.display='none'; }
+    var map = {home:'homePage',create:'createPage',circle:'circlePage',wallet:'walletPage',profile:'profilePage',account:'accountPage',community:'communityPage'};
+    if(map[page]){ var target=el(map[page]); if(target) target.style.display='block'; }
+    var navs = ['home','create','circle','wallet','profile'];
+    for(var j=0;j<navs.length;j++){ var n=el('nav-'+navs[j]); if(n) n.classList.toggle('active', navs[j]===page); }
+    window.scrollTo(0,0);
+  }catch(e){ showToast('Page loading...'); }
 }
-function openPayment(plan){ showPage('home'); document.getElementById('payTitle').innerText='Contribute to '+plan; document.getElementById('homePage').style.display='none'; document.getElementById('paymentPage').style.display='block'; }
-function openShare(planName,target){ document.getElementById('sharePlanName').value=planName; document.getElementById('shareTarget').value=target; updateShareMessage(); ['homePage','createPage','circlePage','walletPage','profilePage','communityPage'].forEach(id=>document.getElementById(id).style.display='none'); document.getElementById('sharePage').style.display='block'; window.scrollTo(0,0); }
-function updateShareMessage(){ let name=document.getElementById('sharePlanName').value; let target=document.getElementById('shareTarget').value; let link=document.getElementById('shareLink').value; document.getElementById('shareMessage').value="Hello everyone,\n\nI am pleased to introduce MP Plan - a simple way for us to save together towards a shared goal.\n\nOur plan is: "+name+"\nTarget: "+target+"\n\nYou can join the circle, view our progress, and contribute securely with your card, bank transfer, or USSD.\n\nJoin here: "+link+"\n\nWould you like me to add you to this circle? Reply \"Yes\" and I will send you the details.\n\nThank you,\nAnthony"; }
-function shareOnWhatsApp(){ let text=document.getElementById('shareMessage').value; window.open("https://wa.me/?text="+encodeURIComponent(text),'_blank'); }
-function copyShareMessage(){ let t=document.getElementById('shareMessage'); t.select(); document.execCommand('copy'); showToast('Message copied successfully.'); }
-function createPlan(){ let name=document.getElementById('newPlanName').value; let target=document.getElementById('newPlanTarget').value; if(!name||!target){showToast('Please enter a plan name and target amount.'); return;} showToast('Plan created successfully: '+name); document.getElementById('newPlanName').value=''; document.getElementById('newPlanTarget').value=''; document.getElementById('newPlanDesc').value=''; setTimeout(()=>showPage('home'),800); }
-
-// COMMUNITY FUNCTIONS
-function sendChat(){
-  let input=document.getElementById('chatInput');
-  let text=input.value.trim(); if(!text) return;
-  let box=document.getElementById('chatBox');
-  let div=document.createElement('div'); div.className='chat-msg mine';
-  div.innerHTML='<div class="chat-name">You</div><div>'+text+'</div><div class="chat-time">Just now</div>';
-  box.appendChild(div); input.value=''; box.scrollTop=box.scrollHeight;
-  showToast('Message sent to your circle.');
-}
-function calcBudget(){
-  let budget=document.getElementById('tripBudget').value || 0;
-  let perPerson=Math.ceil(budget/3);
-  document.getElementById('budgetResult').innerText='Each person pays: ₦'+perPerson.toLocaleString()+' (3 members) - Total Budget: ₦'+Number(budget).toLocaleString();
-}
-function saveTripPlan(){
-  let dest=document.getElementById('tripDest').value;
-  let date=document.getElementById('tripDate').value;
-  let budget=document.getElementById('tripBudget').value;
-  showToast('Trip plan saved: '+dest+' on '+date+' - Budget ₦'+Number(budget).toLocaleString());
-}
-function openWhatsAppGroup(){
-  let text="Hello Trip to Abuja Circle! Let us plan our trip together on MP Plan. Our target is ₦500,000. Join our chat here: https://mp-plan.netlify.app";
-  window.open("https://wa.me/?text="+encodeURIComponent(text),'_blank');
-}
-function leaveCircle(circleName){
-  if(confirm('Are you sure you want to leave '+circleName+'? You will no longer receive messages or updates from this circle.')){
-    showToast('You have left '+circleName+'. You will no longer receive messages from this circle.');
-    showPage('circle');
-  }
-}
-
-// ACCOUNT CENTRE FUNCTIONS
-function saveDOB(){
-  let dob=document.getElementById('dobInput').value;
-  if(!dob){ showToast('Please select your date of birth.'); return; }
-  document.getElementById('detailDOB').innerText=dob;
-  document.getElementById('profileDOBDisplay').innerText=dob;
-  document.getElementById('editDOB').value=dob;
-  showToast('Date of birth saved successfully: '+dob);
-}
-function forgotPassword(){
-  let email=document.getElementById('resetEmail').value;
-  if(!email){ showToast('Please enter your email address.'); return; }
-  showToast('Password reset link sent to '+email+'. Please check your email.');
-}
-function changePassword(){
-  let oldP=document.getElementById('oldPass').value;
-  let newP=document.getElementById('newPass').value;
-  let conf=document.getElementById('confirmPass').value;
-  if(!oldP||!newP||!conf){ showToast('Please fill in all password fields.'); return; }
+function openPayment(){ showPage('home'); var h=el('homePage'); if(h) h.style.display='none'; var pay=el('paymentPage'); if(pay) pay.style.display='block'; }
+function openShare(){
+  var nameEl=el('sharePlanName'); if(nameEl) nameEl.value='Trip to Abuja';
+  var tarEl=el('shareTarget'); if(tarEl) tarEl.value='₦500,000';
+  updateShareMessage();
+  showPage('home'); var h=el('homePage'); if(h) h.style.display='
