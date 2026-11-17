@@ -14,20 +14,25 @@
   .btn-whatsapp{background:#25D366}
   .btn-danger{background:#fee2e2;color:#dc2626}
   input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
-  textarea{height:220px;font-size:15px;line-height:1.5}
+  textarea{height:120px;font-size:15px;line-height:1.5}
   .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid #ddd;padding:12px 0}
   .nav button{border:none;background:none;font-size:14px;cursor:pointer}
   .nav button.active{color:#0a7a42;font-weight:bold}
   .badge{background:#e6f4ec;color:#0a7a42;padding:4px 10px;border-radius:20px;font-size:12px}
   .label{font-size:13px;color:#666;margin-top:12px;display:block}
   .profile-header{text-align:center}
-  .avatar{width:80px;height:80px;background:#0a7a42;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 10px}
+  .avatar{width:90px;height:90px;background:#0a7a42;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 10px;overflow:hidden;cursor:pointer;position:relative}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .avatar span{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.5);font-size:11px;padding:3px}
   .menu-item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #eee;cursor:pointer}
-  .menu-item:last-child{border-bottom:none}
-  .toggle{color:#0a7a42}
+  .progress{height:8px;background:#eee;border-radius:10px;overflow:hidden;margin-top:8px}
+  .progress-bar{height:100%;background:#0a7a42;width:24%}
+  .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0a7a42;color:#fff;padding:12px 20px;border-radius:8px;z-index:999;display:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);font-size:14px;text-align:center;max-width:90%}
 </style>
 </head>
 <body>
+
+<div id="toast" class="toast"></div>
 
 <div class="header">
   <h2>MP Plan</h2>
@@ -40,6 +45,7 @@
     <span class="badge">3 Active Plans</span>
     <h3>Trip to Abuja</h3>
     <p>Target: ₦500,000 &nbsp;|&nbsp; Saved: ₦120,000</p>
+    <div class="progress"><div class="progress-bar"></div></div>
     <p>Next Contribution: Friday</p>
     <button class="btn" onclick="openPayment('Trip to Abuja')">Contribute to Trip to Abuja</button>
     <button class="btn btn-secondary" onclick="openShare('Trip to Abuja','₦500,000')">Share Plan</button>
@@ -51,13 +57,57 @@
   </div>
 </div>
 
+<!-- CREATE - NEW PAGE -->
+<div id="createPage" style="display:none">
+  <div class="card">
+    <h3>Create a New Plan</h3>
+    <p>Create a plan for you and your circle to save towards.</p>
+    <span class="label">Plan Name</span>
+    <input type="text" id="newPlanName" placeholder="Example: Trip to Abuja, New Laptop">
+    <span class="label">Target Amount (₦)</span>
+    <input type="number" id="newPlanTarget" placeholder="Example: 500000">
+    <span class="label">Target Date</span>
+    <input type="date" id="newPlanDate">
+    <span class="label">Description</span>
+    <textarea id="newPlanDesc" placeholder="Describe what this plan is for..."></textarea>
+    <button class="btn" onclick="createPlan()">Create Plan</button>
+    <button class="btn btn-secondary" onclick="showPage('home')">Cancel</button>
+  </div>
+  <div class="card">
+    <h3>Your Created Plans</h3>
+    <p><b>Trip to Abuja</b> - ₦500,000 - 3 members</p>
+    <p id="createdPlanList"></p>
+  </div>
+</div>
+
+<!-- CIRCLE - NEW PAGE -->
+<div id="circlePage" style="display:none">
+  <div class="card">
+    <h3>My Circles</h3>
+    <p>You belong to 2 circles.</p>
+  </div>
+  <div class="card">
+    <h3>Trip to Abuja Circle</h3>
+    <p>Members: Anthony, Chiamaka, Emeka</p>
+    <p>Saved: ₦120,000 of ₦500,000</p>
+    <div class="progress"><div class="progress-bar"></div></div>
+    <button class="btn btn-secondary" onclick="openShare('Trip to Abuja','₦500,000')">Invite Members</button>
+  </div>
+  <div class="card">
+    <h3>Family Savings Circle</h3>
+    <p>Members: Anthony, Ada, Obi</p>
+    <p>Saved: ₦80,000 of ₦200,000</p>
+    <div class="progress"><div class="progress-bar" style="width:40%"></div></div>
+    <button class="btn btn-secondary" onclick="openShare('Family Savings Circle','₦200,000')">Invite Members</button>
+  </div>
+  <div class="card">
+    <button class="btn" onclick="showPage('create')">Create New Circle</button>
+  </div>
+</div>
+
 <!-- WALLET -->
 <div id="walletPage" style="display:none">
-  <div class="card">
-    <h3>Wallet</h3>
-    <p>Available Balance: <b>₦0.00</b></p>
-    <button class="btn" onclick="openPayment('Wallet Funding')">Fund Wallet</button>
-  </div>
+  <div class="card"><h3>Wallet</h3><p>Available Balance: <b>₦0.00</b></p><button class="btn" onclick="openPayment('Wallet Funding')">Fund Wallet</button></div>
 </div>
 
 <!-- PAYMENT -->
@@ -85,21 +135,27 @@
     <span class="label">Your App Link</span>
     <input type="text" id="shareLink" value="https://mp-plan.netlify.app" oninput="updateShareMessage()">
     <span class="label">Message Preview - You Can Edit This Directly</span>
-    <textarea id="shareMessage"></textarea>
+    <textarea id="shareMessage" style="height:220px"></textarea>
     <button class="btn btn-whatsapp" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
     <button class="btn btn-secondary" onclick="copyShareMessage()">Copy Message</button>
     <button class="btn btn-secondary" onclick="showPage('home')">Back to Home</button>
   </div>
 </div>
 
-<!-- PROFILE - FIXED -->
+<!-- PROFILE -->
 <div id="profilePage" style="display:none">
   <div class="card profile-header">
-    <div class="avatar">A</div>
+    <div class="avatar" onclick="document.getElementById('profilePicInput').click()">
+      <span id="avatarLetter">A</span>
+      <img id="profilePicPreview" style="display:none">
+      <span>Change Photo</span>
+    </div>
+    <input type="file" id="profilePicInput" accept="image/*" style="display:none" onchange="updateProfilePicture(event)">
     <h3 id="profileName">Anthony F Smith</h3>
     <p id="profileEmail" style="color:#666;margin:0">anthony@example.com</p>
     <p id="profilePhone" style="color:#666;margin:5px 0 0">+234 800 000 0000</p>
     <button class="btn btn-secondary" onclick="editProfile()">Edit Profile</button>
+    <p style="font-size:12px;color:#999;margin-top:8px">Tap your photo to change it</p>
   </div>
 
   <div class="card">
@@ -107,22 +163,22 @@
     <p><b>Full Name:</b> <span id="detailName">Anthony F Smith</span></p>
     <p><b>Email:</b> <span id="detailEmail">anthony@example.com</span></p>
     <p><b>Phone:</b> <span id="detailPhone">+234 800 000 0000</span></p>
-    <p><b>Location:</b> Port Harcourt, Nigeria</p>
+    <p><b>Location:</b> <span id="detailLocation">Port Harcourt, Nigeria</span></p>
     <p><b>Member Since:</b> November 2026</p>
   </div>
 
   <div class="card">
     <h3>Settings</h3>
+    <div class="menu-item" onclick="editProfile()"><span>Change Location</span><span>&gt;</span></div>
     <div class="menu-item" onclick="toggleSetting(this)"><span>Notifications</span><span class="toggle">On &gt;</span></div>
-    <div class="menu-item" onclick="alert('Security settings will open here. You can change your password and enable 2FA.')"><span>Security and Password</span><span>&gt;</span></div>
-    <div class="menu-item" onclick="alert('Your plans and payment history will show here.')"><span>My Plans and Payment History</span><span>&gt;</span></div>
-    <div class="menu-item" onclick="alert('Help Center: Contact support at support@mpplan.com')"><span>Help and Support</span><span>&gt;</span></div>
-    <div class="menu-item" onclick="alert('Terms and Privacy Policy will show here.')"><span>Terms and Privacy</span><span>&gt;</span></div>
+    <div class="menu-item" onclick="showToast('Security settings opened. You can change your password here.')"><span>Security and Password</span><span>&gt;</span></div>
+    <div class="menu-item" onclick="showPage('circle')"><span>My Plans and Payment History</span><span>&gt;</span></div>
+    <div class="menu-item" onclick="showToast('Help Center: Contact support at support@mpplan.com')"><span>Help and Support</span><span>&gt;</span></div>
   </div>
 
   <div class="card">
     <button class="btn btn-danger" onclick="logout()">Log Out</button>
-    <p style="text-align:center;color:#999;font-size:12px;margin-top:10px">MP Plan Version 12</p>
+    <p style="text-align:center;color:#999;font-size:12px;margin-top:10px">MP Plan Version 13</p>
   </div>
 </div>
 
@@ -130,12 +186,26 @@
 <div id="editProfilePage" style="display:none">
   <div class="card">
     <h3>Edit Profile</h3>
+    <span class="label">Profile Picture</span>
+    <button class="btn btn-secondary" onclick="document.getElementById('profilePicInput').click()">Choose New Photo</button>
     <span class="label">Full Name</span>
     <input type="text" id="editName" value="Anthony F Smith">
     <span class="label">Email Address</span>
     <input type="email" id="editEmail" value="anthony@example.com">
     <span class="label">Phone Number</span>
     <input type="text" id="editPhone" value="+234 800 000 0000">
+    <span class="label">Location</span>
+    <select id="editLocation">
+      <option>Port Harcourt, Nigeria</option>
+      <option>Abuja, Nigeria</option>
+      <option>Lagos, Nigeria</option>
+      <option>Benin City, Nigeria</option>
+      <option>Enugu, Nigeria</option>
+      <option>Kano, Nigeria</option>
+      <option>Ibadan, Nigeria</option>
+      <option>Other</option>
+    </select>
+    <input type="text" id="editLocationCustom" placeholder="Or type your location here" style="display:none">
     <button class="btn" onclick="saveProfile()">Save Changes</button>
     <button class="btn btn-secondary" onclick="showPage('profile')">Cancel</button>
   </div>
@@ -143,97 +213,135 @@
 
 <div class="nav">
   <button id="nav-home" class="active" onclick="showPage('home')">Home</button>
-  <button onclick="showPage('home')">Create</button>
-  <button onclick="showPage('home')">Circle</button>
-  <button onclick="showPage('wallet')">Wallet</button>
+  <button id="nav-create" onclick="showPage('create')">Create</button>
+  <button id="nav-circle" onclick="showPage('circle')">Circle</button>
+  <button id="nav-wallet" onclick="showPage('wallet')">Wallet</button>
   <button id="nav-profile" onclick="showPage('profile')">Profile</button>
 </div>
 
 <script>
+function showToast(msg){
+  let t=document.getElementById('toast'); t.innerText=msg; t.style.display='block';
+  setTimeout(()=>{ t.style.display='none'; }, 3000);
+}
 function showPage(page){
-  document.getElementById('homePage').style.display = page==='home' ? 'block':'none';
-  document.getElementById('walletPage').style.display = page==='wallet' ? 'block':'none';
-  document.getElementById('paymentPage').style.display = 'none';
-  document.getElementById('sharePage').style.display = 'none';
-  document.getElementById('profilePage').style.display = page==='profile' ? 'block':'none';
-  document.getElementById('editProfilePage').style.display = 'none';
-  document.getElementById('nav-home').classList.toggle('active', page==='home');
-  document.getElementById('nav-profile').classList.toggle('active', page==='profile');
+  ['homePage','createPage','circlePage','walletPage','paymentPage','sharePage','profilePage','editProfilePage'].forEach(id=>{
+    document.getElementById(id).style.display='none';
+  });
+  let map={home:'homePage',create:'createPage',circle:'circlePage',wallet:'walletPage',profile:'profilePage'};
+  if(map[page]) document.getElementById(map[page]).style.display='block';
+  ['home','create','circle','wallet','profile'].forEach(n=>{
+    let el=document.getElementById('nav-'+n); if(el) el.classList.toggle('active', n===page);
+  });
   window.scrollTo(0,0);
 }
 function openPayment(plan){
-  document.getElementById('payTitle').innerText = 'Contribute to ' + plan;
+  showPage('home');
+  document.getElementById('payTitle').innerText='Contribute to '+plan;
   document.getElementById('homePage').style.display='none';
-  document.getElementById('walletPage').style.display='none';
-  document.getElementById('profilePage').style.display='none';
   document.getElementById('paymentPage').style.display='block';
-  window.scrollTo(0,0);
 }
-function openShare(planName, target){
-  document.getElementById('sharePlanName').value = planName;
-  document.getElementById('shareTarget').value = target;
+function openShare(planName,target){
+  document.getElementById('sharePlanName').value=planName;
+  document.getElementById('shareTarget').value=target;
   updateShareMessage();
-  document.getElementById('homePage').style.display='none';
-  document.getElementById('walletPage').style.display='none';
-  document.getElementById('profilePage').style.display='none';
+  ['homePage','createPage','circlePage','walletPage','profilePage'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('sharePage').style.display='block';
   window.scrollTo(0,0);
 }
 function updateShareMessage(){
-  let name = document.getElementById('sharePlanName').value;
-  let target = document.getElementById('shareTarget').value;
-  let link = document.getElementById('shareLink').value;
-  document.getElementById('shareMessage').value = "Hello everyone,\n\nI am pleased to introduce MP Plan - a simple way for us to save together towards a shared goal.\n\nOur plan is: " + name + "\nTarget: " + target + "\n\nYou can join the circle, view our progress, and contribute securely with your card, bank transfer, or USSD.\n\nJoin here: " + link + "\n\nWould you like me to add you to this circle? Reply \"Yes\" and I will send you the details.\n\nThank you,\nAnthony";
+  let name=document.getElementById('sharePlanName').value;
+  let target=document.getElementById('shareTarget').value;
+  let link=document.getElementById('shareLink').value;
+  document.getElementById('shareMessage').value="Hello everyone,\n\nI am pleased to introduce MP Plan - a simple way for us to save together towards a shared goal.\n\nOur plan is: "+name+"\nTarget: "+target+"\n\nYou can join the circle, view our progress, and contribute securely with your card, bank transfer, or USSD.\n\nJoin here: "+link+"\n\nWould you like me to add you to this circle? Reply \"Yes\" and I will send you the details.\n\nThank you,\nAnthony";
 }
 function shareOnWhatsApp(){
-  let text = document.getElementById('shareMessage').value;
-  window.open("https://wa.me/?text=" + encodeURIComponent(text), '_blank');
+  let text=document.getElementById('shareMessage').value;
+  window.open("https://wa.me/?text="+encodeURIComponent(text),'_blank');
 }
 function copyShareMessage(){
-  let t = document.getElementById('shareMessage'); t.select(); document.execCommand('copy');
-  alert('Message copied. You can now paste it in WhatsApp, SMS, or anywhere.');
+  let t=document.getElementById('shareMessage'); t.select(); document.execCommand('copy');
+  showToast('Message copied successfully.');
+}
+function createPlan(){
+  let name=document.getElementById('newPlanName').value;
+  let target=document.getElementById('newPlanTarget').value;
+  if(!name||!target){ showToast('Please enter a plan name and target amount.'); return; }
+  document.getElementById('createdPlanList').innerHTML += "<p><b>"+name+"</b> - ₦"+target+" - Just created</p>";
+  showToast('Plan created successfully: '+name);
+  document.getElementById('newPlanName').value=''; document.getElementById('newPlanTarget').value=''; document.getElementById('newPlanDesc').value='';
+  setTimeout(()=>showPage('home'), 800);
+}
+// PROFILE PICTURE
+function updateProfilePicture(event){
+  let file=event.target.files[0];
+  if(!file) return;
+  let reader=new FileReader();
+  reader.onload=function(e){
+    let img=document.getElementById('profilePicPreview');
+    img.src=e.target.result; img.style.display='block';
+    document.getElementById('avatarLetter').style.display='none';
+    showToast('Profile picture updated successfully.');
+  };
+  reader.readAsDataURL(file);
 }
 function editProfile(){
   document.getElementById('profilePage').style.display='none';
   document.getElementById('editProfilePage').style.display='block';
+  // Show custom location input if Other is selected
+  document.getElementById('editLocation').onchange=function(){
+    document.getElementById('editLocationCustom').style.display = this.value==='Other' ? 'block':'none';
+  };
 }
 function saveProfile(){
-  let n = document.getElementById('editName').value;
-  let e = document.getElementById('editEmail').value;
-  let p = document.getElementById('editPhone').value;
-  document.getElementById('profileName').innerText = n;
-  document.getElementById('detailName').innerText = n;
-  document.getElementById('profileEmail').innerText = e;
-  document.getElementById('detailEmail').innerText = e;
-  document.getElementById('profilePhone').innerText = p;
-  document.getElementById('detailPhone').innerText = p;
-  document.getElementById('avatarLetter').innerText = n.charAt(0);
-  alert('Profile updated successfully.');
+  let n=document.getElementById('editName').value;
+  let e=document.getElementById('editEmail').value;
+  let p=document.getElementById('editPhone').value;
+  let loc=document.getElementById('editLocation').value;
+  if(loc==='Other'){
+    let custom=document.getElementById('editLocationCustom').value;
+    if(custom) loc=custom;
+  }
+  document.getElementById('profileName').innerText=n;
+  document.getElementById('detailName').innerText=n;
+  document.getElementById('profileEmail').innerText=e;
+  document.getElementById('detailEmail').innerText=e;
+  document.getElementById('profilePhone').innerText=p;
+  document.getElementById('detailPhone').innerText=p;
+  document.getElementById('detailLocation').innerText=loc;
+  // Update avatar letter if no photo
+  let img=document.getElementById('profilePicPreview');
+  if(img.style.display==='none'){
+    document.getElementById('avatarLetter').innerText=n.charAt(0);
+  }
   showPage('profile');
+  showToast('Profile updated successfully.');
 }
 function toggleSetting(el){
-  let s = el.querySelector('.toggle');
-  s.innerText = s.innerText.includes('On') ? 'Off >' : 'On >';
+  let s=el.querySelector('.toggle');
+  let isOn=s.innerText.includes('On');
+  s.innerText=isOn?'Off >':'On >';
+  showToast(isOn?'Notifications turned off.':'Notifications turned on.');
 }
 function logout(){
   if(confirm('Are you sure you want to log out?')){
-    alert('You have been logged out.');
+    showToast('You have been logged out.');
     showPage('home');
   }
 }
 function payWithPaystack(){
-  let amount = document.getElementById('amount').value;
-  let email = document.getElementById('email').value;
-  if(!amount || !email){ alert('Please enter an amount and a valid email address.'); return; }
-  let handler = PaystackPop.setup({
-    key: 'pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2',
-    email: email, amount: amount * 100, currency: 'NGN',
-    ref: 'MP-' + Math.floor(Math.random()*1000000000),
-    callback: function(response){ alert('Payment Successful! Reference: ' + response.reference); showPage('wallet'); },
-    onClose: function(){ alert('Payment window closed.'); }
+  let amount=document.getElementById('amount').value;
+  let email=document.getElementById('email').value;
+  if(!amount||!email){ showToast('Please enter an amount and a valid email address.'); return; }
+  let handler=PaystackPop.setup({
+    key:'pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2',
+    email:email, amount:amount*100, currency:'NGN',
+    ref:'MP-'+Math.floor(Math.random()*1000000000),
+    callback:function(response){ showToast('Payment Successful! Reference: '+response.reference); showPage('wallet'); },
+    onClose:function(){ showToast('Payment window closed.'); }
   });
   handler.openIframe();
 }
 </script>
 </body>
-  </html>
+</html>
