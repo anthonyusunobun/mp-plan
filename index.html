@@ -31,8 +31,9 @@ input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #
 <div class="header"><h2>MP Plan</h2><p>Save together. Achieve together.</p></div>
 
 <div id="homePage">
-<div class="card"><span class="badge">3 Active Plans</span><h3>Trip to Abuja</h3><p>Target: ₦500,000 | Saved: ₦120,000</p><div class="prog"><div class="bar"></div></div><button class="btn" onclick="openPay()">Contribute</button><button class="btn btn2" onclick="openShare()">Share Plan</button><button class="btn btnO" onclick="showPage('community')">Open Circle Chat</button></div>
-<div class="card"><h3>Wallet</h3><p>Balance: <b>₦0.00</b></p><button class="btn btn2" onclick="showPage('wallet')">View Wallet</button></div>
+<div class="card"><span class="badge" id="planCount">3 Active Plans</span><h3 id="homePlanTitle">Trip to Abuja</h3><p>Target: ₦500,000 | Saved: ₦120,000</p><div class="prog"><div class="bar"></div></div><button class="btn" onclick="openPay()">Contribute</button><button class="btn btn2" onclick="openShare()">Share Plan</button><button class="btn btnO" onclick="showPage('community')">Open Circle Chat</button></div>
+<div class="card"><h3>Your Plans</h3><div id="myPlansList"><p><b>Trip to Abuja</b> - ₦500,000</p><p><b>Family Savings</b> - ₦200,000</p></div></div>
+<div class="card"><h3>Wallet</h3><p>Balance: <b id="walletBal">₦0.00</b></p><button class="btn btn2" onclick="showPage('wallet')">View Wallet</button></div>
 </div>
 
 <div id="createPage" style="display:none"><div class="card"><h3>Create a New Plan</h3><span class="label">Plan Name</span><input id="newPlanName" placeholder="Example: Trip to Abuja"><span class="label">Target Amount (₦)</span><input id="newPlanTarget" type="number" placeholder="500000"><span class="label">Target Date</span><input id="newPlanDate" type="date"><span class="label">Description</span><textarea id="newPlanDesc" placeholder="Describe this plan..."></textarea><button class="btn" onclick="createPlan()">Create Plan</button><button class="btn btn2" onclick="showPage('home')">Cancel</button></div></div>
@@ -50,7 +51,7 @@ input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #
 <div class="card"><h3>Circle Chat</h3><div class="chat" id="chatBox"><div class="msg"><b>Chiamaka</b><br>Are we still going to Abuja in December?</div><div class="msg mine"><b>You</b><br>Yes! We have saved ₦120,000 already.</div></div><input id="chatInput" placeholder="Type a message..."><button class="btn" onclick="sendChat()">Send Message</button><button class="btn btnW" onclick="openWhatsApp()">Continue on WhatsApp</button></div>
 </div>
 
-<div id="walletPage" style="display:none"><div class="card"><h3>Wallet</h3><p>Balance: <b>₦0.00</b></p><button class="btn" onclick="openPay()">Fund Wallet</button></div></div>
+<div id="walletPage" style="display:none"><div class="card"><h3>Wallet</h3><p>Balance: <b id="walletBal2">₦0.00</b></p><button class="btn" onclick="openPay()">Fund Wallet</button></div></div>
 
 <div id="paymentPage" style="display:none"><div class="card"><h3>Pay Now</h3><select id="method"><option>Card</option><option>Bank Transfer</option><option>USSD</option></select><input id="amount" type="number" placeholder="Enter amount e.g. 10000"><input id="email" type="email" placeholder="Enter your email"><button class="btn" onclick="payNow()">Pay Now</button><button class="btn btn2" onclick="showPage('home')">Cancel</button></div></div>
 
@@ -60,7 +61,7 @@ input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #
 <div class="card" style="padding:0;overflow:hidden"><div class="cover"><img id="coverMain" style="display:none"><span id="coverTxt">MP Plan</span></div><div class="avatar"><span id="avatarLetter">A</span><img id="profileMain" style="display:none"></div><div style="text-align:center;padding:10px 20px 20px"><h3 id="profileName">Anthony Usunobun</h3><p style="color:#666;margin:0">usunobunanthonynosakhare@gmail.com</p><p style="color:#666;margin:5px 0">+234 8164665585</p><p style="color:#666;margin:5px 0">🎂 <span id="profileDOB">Date of birth not set</span> | 📍 <span id="profileLoc">Port Harcourt</span></p><button class="btn btn2" onclick="editProfile()">Edit Profile</button></div></div>
 <div class="card"><h3>Personal Details</h3><p><b>Name:</b> <span id="detailName">Anthony Usunobun</span></p><p><b>Date of Birth:</b> <span id="detailDOB">Not set</span></p><p><b>Location:</b> <span id="detailLoc">Port Harcourt, Nigeria</span></p></div>
 <div class="card"><h3>Account Centre</h3><div class="menu" onclick="showPage('account')"><span>Password, Date of Birth, Disable / Delete Account</span><span>&gt;</span></div><div class="menu" onclick="showPage('community')"><span>Circle Community</span><span>&gt;</span></div></div>
-<div class="card"><button class="btn btnD" onclick="logout()">Log Out</button><p style="text-align:center;color:#999;font-size:12px">MP Plan Version 18</p></div>
+<div class="card"><button class="btn btnD" onclick="logout()">Log Out</button><p style="text-align:center;color:#999;font-size:12px">MP Plan Version 19 - Auto Save ON</p></div>
 </div>
 
 <div id="accountPage" style="display:none">
@@ -86,31 +87,51 @@ input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #
 <script>
 function el(id){return document.getElementById(id)}
 function toast(m){var t=el('toast');if(!t)return;t.innerText=m;t.style.display='block';setTimeout(function(){t.style.display='none'},3000)}
+// SAVE FOREVER - localStorage
+var appData={name:'Anthony Usunobun',email:'usunobunanthonynosakhare@gmail.com',phone:'+234 8164665585',dob:'',location:'Port Harcourt, Nigeria',profilePic:'',coverPic:'',plans:['Trip to Abuja - ₦500,000','Family Savings - ₦200,000'],tripDest:'Abuja',tripDate:'2026-12-20',tripBudget:'500000',chat:[]};
+function saveData(){try{localStorage.setItem('mpplan_data',JSON.stringify(appData));}catch(e){}}
+function loadData(){try{var s=localStorage.getItem('mpplan_data');if(s){var d=JSON.parse(s);for(var k in d){appData[k]=d[k]}applyData();}}catch(e){}}
+function applyData(){
+  if(el('profileName'))el('profileName').innerText=appData.name;
+  if(el('detailName'))el('detailName').innerText=appData.name;
+  if(el('editName'))el('editName').value=appData.name;
+  if(appData.dob){if(el('detailDOB'))el('detailDOB').innerText=appData.dob;if(el('profileDOB'))el('profileDOB').innerText=appData.dob;if(el('editDOB'))el('editDOB').value=appData.dob;if(el('dobInput'))el('dobInput').value=appData.dob;}
+  if(appData.location){if(el('detailLoc'))el('detailLoc').innerText=appData.location;if(el('profileLoc'))el('profileLoc').innerText=appData.location.split(',')[0];}
+  if(appData.profilePic){var img=el('profileMain');if(img){img.src=appData.profilePic;img.style.display='block';}var al=el('avatarLetter');if(al)al.style.display='none';}
+  if(appData.coverPic){var c=el('coverMain');if(c){c.src=appData.coverPic;c.style.display='block';}var ct=el('coverTxt');if(ct)ct.style.display='none';}
+  if(appData.tripDest&&el('tripDest'))el('tripDest').value=appData.tripDest;
+  if(appData.tripDate&&el('tripDate'))el('tripDate').value=appData.tripDate;
+  if(appData.tripBudget&&el('tripBudget'))el('tripBudget').value=appData.tripBudget;
+  renderPlans();
+  if(appData.chat&&appData.chat.length>0){var box=el('chatBox');if(box){box.innerHTML='<div class="msg"><b>Chiamaka</b><br>Are we still going to Abuja in December?</div><div class="msg mine"><b>You</b><br>Yes! We have saved ₦120,000 already.</div>';for(var i=0;i<appData.chat.length;i++){var d=document.createElement('div');d.className='msg mine';d.innerHTML='<b>You</b><br>'+appData.chat[i];box.appendChild(d);}}}
+  calcBudget();
+}
+function renderPlans(){var list=el('myPlansList');if(!list)return;var html='';for(var i=0;i<appData.plans.length;i++){html+='<p><b>'+appData.plans[i]+'</b></p>';}list.innerHTML=html;var cnt=el('planCount');if(cnt)cnt.innerText=appData.plans.length+' Active Plans';}
 function showPage(p){var pages=['homePage','createPage','circlePage','walletPage','paymentPage','sharePage','profilePage','editProfilePage','accountPage','communityPage'];for(var i=0;i<pages.length;i++){var x=el(pages[i]);if(x)x.style.display='none'}var map={home:'homePage',create:'createPage',circle:'circlePage',wallet:'walletPage',profile:'profilePage',account:'accountPage',community:'communityPage'};if(map[p]){var y=el(map[p]);if(y)y.style.display='block'}var navs=['home','create','circle','wallet','profile'];for(var j=0;j<navs.length;j++){var n=el('nav-'+navs[j]);if(n)n.classList.toggle('active',navs[j]===p)}window.scrollTo(0,0)}
 function openPay(){showPage('home');el('homePage').style.display='none';el('paymentPage').style.display='block'}
 function openShare(){el('sharePlanName').value='Trip to Abuja';el('shareTarget').value='₦500,000';updateShare();showPage('home');el('homePage').style.display='none';el('sharePage').style.display='block'}
 function updateShare(){var n=el('sharePlanName').value;var t=el('shareTarget').value;el('shareMessage').value="Hello everyone,\n\nI am pleased to introduce MP Plan.\n\nOur plan is: "+n+"\nTarget: "+t+"\n\nJoin here: https://mp-plan.netlify.app\n\nThank you,\nAnthony"}
 function shareWA(){window.open("https://wa.me/?text="+encodeURIComponent(el('shareMessage').value),'_blank')}
 function copyShare(){el('shareMessage').select();try{document.execCommand('copy')}catch(e){}toast('Message copied successfully.')}
-function createPlan(){var n=el('newPlanName').value;var t=el('newPlanTarget').value;if(!n||!t){toast('Please enter plan name and target.');return}toast('Plan created: '+n);el('newPlanName').value='';el('newPlanTarget').value='';setTimeout(function(){showPage('home')},800)}
-function sendChat(){var inp=el('chatInput');var txt=inp.value.trim();if(!txt)return;var box=el('chatBox');var d=document.createElement('div');d.className='msg mine';d.innerHTML='<b>You</b><br>'+txt;box.appendChild(d);inp.value='';toast('Message sent.')}
+function createPlan(){var n=el('newPlanName').value;var t=el('newPlanTarget').value;if(!n||!t){toast('Please enter plan name and target.');return}appData.plans.push(n+' - ₦'+Number(t).toLocaleString());saveData();renderPlans();toast('Plan created and saved: '+n);el('newPlanName').value='';el('newPlanTarget').value='';setTimeout(function(){showPage('home')},800)}
+function sendChat(){var inp=el('chatInput');var txt=inp.value.trim();if(!txt)return;appData.chat.push(txt);saveData();var box=el('chatBox');var d=document.createElement('div');d.className='msg mine';d.innerHTML='<b>You</b><br>'+txt;box.appendChild(d);inp.value='';toast('Message sent and saved.')}
 function calcBudget(){var b=el('tripBudget').value||0;el('budgetResult').innerText='Each person pays: ₦'+Math.ceil(b/3).toLocaleString()}
-function saveTrip(){toast('Trip plan saved successfully.')}
+function saveTrip(){appData.tripDest=el('tripDest').value;appData.tripDate=el('tripDate').value;appData.tripBudget=el('tripBudget').value;saveData();toast('Trip plan saved successfully. It will stay saved.')}
 function openWhatsApp(){window.open("https://wa.me/?text="+encodeURIComponent("Hello Trip to Abuja Circle! Let us plan our trip on MP Plan. Target: ₦500,000. Join: https://mp-plan.netlify.app"),'_blank')}
 function leaveCircle(n){if(confirm('Leave '+n+'?')){toast('You have left '+n);showPage('circle')}}
-function saveDOB(){var d=el('dobInput').value;if(!d){toast('Please select date of birth.');return}el('detailDOB').innerText=d;el('profileDOB').innerText=d;el('editDOB').value=d;toast('Date of birth saved: '+d)}
+function saveDOB(){var d=el('dobInput').value;if(!d){toast('Please select date of birth.');return}appData.dob=d;saveData();applyData();toast('Date of birth saved forever: '+d)}
 function forgotPass(){toast('Password reset link sent to '+el('resetEmail').value)}
 function changePass(){var a=el('newPass').value;var b=el('confirmPass').value;if(!a||!b){toast('Fill both password fields.');return}if(a!==b){toast('Passwords do not match.');return}el('newPass').value='';el('confirmPass').value='';toast('Password changed successfully.')}
 function disableAcc(){if(confirm('Disable your account? You can log in again to reactivate.')){toast('Account disabled.');showPage('home')}}
-function deleteAcc(){var c=prompt('Type DELETE to delete your account:');if(c==='DELETE'){toast('Account deleted.');showPage('home')}else if(c!==null){toast('Deletion cancelled.')}}
+function deleteAcc(){var c=prompt('Type DELETE to delete your account:');if(c==='DELETE'){try{localStorage.removeItem('mpplan_data');}catch(e){}toast('Account deleted. All saved data cleared.');showPage('home')}else if(c!==null){toast('Deletion cancelled.')}}
 function getLoc(){var s=el('locStatus');s.style.display='block';s.innerText='Finding your location... Please allow permission.';if(!navigator.geolocation){s.innerText='Location not supported.';return}navigator.geolocation.getCurrentPosition(function(pos){var lat=pos.coords.latitude;var lng=pos.coords.longitude;s.innerText='Location found: '+lat.toFixed(4)+', '+lng.toFixed(4)+' - Tap Save Changes.';var cu=el('editLocCustom');cu.style.display='block';cu.value='Port Harcourt, Nigeria - '+lat.toFixed(4)+', '+lng.toFixed(4);el('editLocation').value='Other';toast('Location found successfully.')},function(){s.innerText='Could not get location. Please allow permission.'},{timeout:8000})}
 var tempP=null;var tempC=null;
 function previewPic(e,type){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){if(type==='profile'){tempP=ev.target.result}else{tempC=ev.target.result}toast('Photo selected. Tap Save Changes.')};r.readAsDataURL(f)}
 function editProfile(){showPage('home');el('homePage').style.display='none';el('editProfilePage').style.display='block'}
-function saveProfile(){var n=el('editName').value;var dob=el('editDOB').value;var loc=el('editLocation').value;if(loc==='Other'){var cu=el('editLocCustom').value;if(cu)loc=cu}el('profileName').innerText=n;el('detailName').innerText=n;el('detailLoc').innerText=loc;el('profileLoc').innerText=loc.split(',')[0];if(dob){el('detailDOB').innerText=dob;el('profileDOB').innerText=dob}if(tempP){el('profileMain').src=tempP;el('profileMain').style.display='block';el('avatarLetter').style.display='none'}if(tempC){el('coverMain').src=tempC;el('coverMain').style.display='block';el('coverTxt').style.display='none'}showPage('profile');toast('Profile updated successfully.')}
+function saveProfile(){var n=el('editName').value;var dob=el('editDOB').value;var loc=el('editLocation').value;if(loc==='Other'){var cu=el('editLocCustom').value;if(cu)loc=cu}appData.name=n;if(dob)appData.dob=dob;appData.location=loc;if(tempP)appData.profilePic=tempP;if(tempC)appData.coverPic=tempC;saveData();applyData();showPage('profile');toast('Profile saved successfully. It will stay saved.')}
 function logout(){if(confirm('Log out?')){toast('You have been logged out.');showPage('home')}}
 function payNow(){var a=el('amount').value;var em=el('email').value;if(!a||!em){toast('Please enter amount and email.');return}try{var h=PaystackPop.setup({key:'pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2',email:em,amount:a*100,currency:'NGN',ref:'MP-'+Math.floor(Math.random()*1000000000),callback:function(res){toast('Payment Successful! Ref: '+res.reference);showPage('wallet')},onClose:function(){toast('Payment window closed.')}});h.openIframe()}catch(e){toast('Payment loading... try again.')}}
-updateShare();
+updateShare();loadData();
 </script>
 </body>
-                                                                                                                                                                                                                                             </html>
+                    </html>
