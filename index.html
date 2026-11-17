@@ -30,12 +30,14 @@ header{background:#2B2D31;color:#fff;padding:16px 16px 22px;border-radius:0 0 22
 .card p{margin:4px 0;color:#666;font-size:13px}
 .tag{display:inline-block;background:#E8F9EE;color:#00A344;font-size:11px;padding:4px 8px;border-radius:20px;font-weight:700}
 .tag.gray{background:#EDEDEF;color:#555}
+.tag.orange{background:#FFF3E0;color:#E65100}
 .flex{display:flex;justify-content:space-between;align-items:center}
 .btn{border:0;border-radius:10px;padding:11px;font-weight:800;cursor:pointer;width:100%}
 .btn-green{background:#00C853;color:#fff}
 .btn-dark{background:#2B2D31;color:#fff}
 .btn-light{background:#EDEDEF;color:#222}
 .btn-wa{background:#25D366;color:#fff}
+.btn-orange{background:#FF6D00;color:#fff}
 input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0;font-size:14px;background:#fff}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;max-width:560px;margin:auto}
 .bottom div{text-align:center;font-size:11px;color:#888;cursor:pointer}
@@ -53,37 +55,54 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radiu
 .stat b{font-size:20px;display:block}
 .stat span{font-size:11px;color:#888}
 .menu-item{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:14px;border-radius:12px;margin-bottom:8px;cursor:pointer;font-weight:600;font-size:14px}
+.member{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.member-ava{width:38px;height:38px;border-radius:50%;background:#2B2D31;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.circle-box{background:#E8F9EE;border-radius:14px;padding:12px;margin:10px 0;text-align:center}
+.chip{display:inline-block;background:#fff;border:1px solid #ddd;border-radius:20px;padding:8px 14px;margin:4px;font-weight:700;cursor:pointer;font-size:13px}
+.chip.sel{background:#00C853;color:#fff;border-color:#00C853}
 </style>
 </head>
 <body>
 <header>
 <div class="top"><div class="logo"><div class="logo-mark">M<span>P</span></div><div><b>MP PLAN</b><small>PLAN • SHARE • GROW</small></div></div><div class="bell" onclick="showPage('profile');setNav(document.querySelectorAll('.bottom div')[3])">👤</div></div>
-<div class="hero"><small>Hi, <span id="heroName">Anthony</span> 👋</small><div class="big" id="totalPlans">3 Active Plans</div><div class="flex"><small>Total Budget</small><small id="budgetText">₦0 spent</small></div><div class="bar" style="margin-top:8px"><div class="fill" id="mainFill" style="width:35%"></div></div><p style="font-size:12px">35% of your plans completed this month. Keep going!</p></div>
+<div class="hero"><small>Hi, <span id="heroName">Anthony</span> 👋</small><div class="big" id="totalPlans">3 Active Plans</div><div class="flex"><small>Total Budget</small><small id="budgetText">₦0 planned</small></div><div class="bar" style="margin-top:8px"><div class="fill" id="mainFill" style="width:35%"></div></div><p style="font-size:12px" id="heroSub">35% of your plans completed. Keep going!</p></div>
 </header>
 <div class="wrap">
 <div id="page-home">
-<div class="grid"><div class="action" onclick="showPage('create')"><span>➕</span><p>Create Plan</p></div><div class="action" onclick="filterPlans('Travel')"><span>✈️</span><p>Travel</p></div><div class="action" onclick="filterPlans('Budget')"><span>💰</span><p>Budget</p></div><div class="action" onclick="filterPlans('Daily')"><span>✅</span><p>Daily</p></div></div>
+<div class="grid"><div class="action" onclick="showPage('create')"><span>➕</span><p>Create Plan</p></div><div class="action" onclick="showPage('circle')"><span>👥</span><p>Plan Circle</p></div><div class="action" onclick="filterPlans('Budget')"><span>💰</span><p>Budget</p></div><div class="action" onclick="filterPlans('Daily')"><span>✅</span><p>Daily</p></div></div>
 <div class="flex"><h3 style="margin:0">My Plans</h3><span style="color:#00C853;font-size:13px;font-weight:700" onclick="showPage('create')">+ New Plan</span></div>
 <div id="myPlans"></div>
-<h3>Friends Plans - Give Suggestion</h3>
-<div class="card"><div class="flex"><b>Chiamaka • Lagos Trip</b><span class="tag">Travel</span></div><p>Going to Lagos for wedding. Budget ₦80,000. Need cheap hotel.</p><div class="bar"><div class="fill" style="width:60%"></div></div><p>60% done • 12 people following</p><div class="comment"><b>You:</b> Try Mile 2 hotel, e cheap and safe.</div><input placeholder="Suggest something for Chiamaka..."><button class="btn btn-light" onclick="alert('Suggestion sent to Chiamaka!')">Send Suggestion</button><br><br><button class="btn btn-wa" onclick="shareFriendPlan('Chiamaka - Lagos Trip','₦80,000 for wedding trip')">Share on WhatsApp 📲</button></div>
-<div class="card"><div class="flex"><b>Emeka • Monthly Food</b><span class="tag gray">Budget</span></div><p>₦200,000 for 5 months. Rice, Beans, Yam...</p><div class="bar"><div class="fill" style="width:25%"></div></div><p>25% done • 8 people supporting</p><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-green" onclick="alert('You are now supporting Emeka plan!')">Support Plan</button><button class="btn btn-wa" onclick="shareFriendPlan('Emeka - Monthly Food','₦200,000 for 5 months')">WhatsApp</button></div></div>
+<h3>Friends Plans - Join Their Circle</h3>
+<div class="card"><div class="flex"><b>Chiamaka • Lagos Trip</b><span class="tag">Travel</span></div><p>Going to Lagos for wedding. Budget ₦80,000.</p><div class="circle-box">👥 <b>5 members</b> • ₦48,000 contributed (60%)<br><small>Chiamaka, Emeka, Faith + 2 others</small></div><div style="display:flex;gap:8px"><button class="btn btn-orange" onclick="joinFriendCircle('Chiamaka Lagos Trip')">Join Circle 👥</button><button class="btn btn-wa" onclick="shareFriendPlan('Chiamaka - Lagos Trip','₦80,000')">WhatsApp</button></div></div>
+<div class="card"><div class="flex"><b>Emeka • Monthly Food</b><span class="tag gray">Budget</span></div><p>₦200,000 for 5 months. Rice, Beans, Yam...</p><div class="circle-box">👥 <b>3 members</b> • ₦50,000 contributed (25%)<br><small>Emeka, Anthony + 1 other</small></div><div style="display:flex;gap:8px"><button class="btn btn-orange" onclick="joinFriendCircle('Emeka Monthly Food')">Join Circle 👥</button><button class="btn btn-green" onclick="alert('You are now supporting Emeka plan!')">Support</button></div></div>
 </div>
 <div id="page-create" class="hidden">
-<h2>Create New Plan</h2><p style="color:#666;font-size:14px">Make am, share am, make people help you achieve am.</p>
+<h2>Create New Plan</h2><p style="color:#666;font-size:14px">Make am, share am, invite people to join your Circle.</p>
 <label>Plan Title</label><input id="pTitle" placeholder="e.g. Trip to Abuja, Food Budget">
 <label>Type</label><select id="pType"><option>Travel</option><option>Budget</option><option>Daily</option><option>Weekly</option><option>Monthly</option></select>
 <label>Budget ₦</label><input id="pBudget" type="number" placeholder="e.g. 200000">
 <label>Date</label><input id="pDate" type="date">
 <label>Describe your plan</label><textarea id="pDesc" rows="3" placeholder="Wetin you want achieve?"></textarea>
-<label>Who can see it?</label><select id="pPrivacy"><option>Public - Everybody</option><option>Friends Only</option><option>Private - Only Me</option></select>
+<label>Allow friends to join & contribute?</label><select id="pCircle"><option>Yes - Open Circle (Anybody fit join)</option><option>Friends Only</option><option>No - Private Plan</option></select>
 <button class="btn btn-green" onclick="createPlan()">Create Plan →</button><br><br><button class="btn btn-light" onclick="showPage('home')">Cancel</button>
 </div>
 <div id="page-detail" class="hidden">
-<div class="card" id="detailCard"></div><h3>Checklist</h3>
+<div class="card" id="detailCard"></div>
+<h3>👥 Plan Circle</h3>
+<div class="card"><div class="circle-box" id="circleSummary"></div><div id="circleMembers"></div>
+<label>Your Name (to join)</label><input id="joinName" placeholder="e.g. Chiamaka">
+<div style="display:flex;gap:8px"><button class="btn btn-orange" onclick="joinCircle()">Join Circle 👥</button><button class="btn btn-wa" onclick="inviteCircle()">Invite via WhatsApp 📲</button></div>
+</div>
+<h3>💰 Contribute to this Plan</h3>
+<div class="card"><p style="font-size:13px">How much you want contribute?</p><div style="text-align:center"><span class="chip" onclick="pickAmount(5000,this)">₦5,000</span><span class="chip" onclick="pickAmount(10000,this)">₦10,000</span><span class="chip" onclick="pickAmount(20000,this)">₦20,000</span><span class="chip" onclick="pickAmount(50000,this)">₦50,000</span></div><label>Or type amount</label><input id="contributeAmount" type="number" placeholder="e.g. 15000"><label>Your Name</label><input id="contributeName" placeholder="Your name"><button class="btn btn-green" onclick="contribute()">Contribute Now 💰</button><p style="font-size:11px;color:#888;text-align:center">Demo: This go record your contribution for this phone. Real payment go come for Version 5.</p></div>
+<h3>Checklist</h3>
 <div class="card" id="checklist"><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Book transport</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Buy food stuff</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Pack bag</div><div class="check" onclick="this.classList.toggle('done')"><input type="checkbox"> Confirm accommodation</div></div>
 <h3>Suggestions</h3><div class="card"><div class="comment"><b>Chiamaka:</b> Add ₦5,000 for transport, e don increase.</div><div class="comment"><b>Emeka:</b> Buy yam for Mile 3, e cheaper there.</div><input id="suggestInput" placeholder="Give suggestion..."><button class="btn btn-dark" onclick="addSuggestion()">Send Suggestion</button></div>
-<button class="btn btn-wa" onclick="shareCurrentPlan()">Share This Plan on WhatsApp 📲</button><br><br><button class="btn btn-green" onclick="copyLink()">Copy App Link 🔗</button><br><br><button class="btn btn-light" onclick="showPage('home')">Back to Home</button>
+<button class="btn btn-wa" onclick="shareCurrentPlan()">Share This Plan on WhatsApp 📲</button><br><br><button class="btn btn-light" onclick="showPage('home')">Back to Home</button>
+</div>
+<div id="page-circle" class="hidden">
+<h2>👥 My Plan Circles</h2><p style="color:#666;font-size:14px">All the plans where people don join you, and where you join others.</p><div id="circleList"></div>
+<div class="card" style="background:#FFF3E0"><b>🔥 How Plan Circle Works</b><p>1. Create plan → 2. Share link for WhatsApp → 3. Friends tap Join → 4. Dem contribute money → 5. You achieve plan together!</p><button class="btn btn-orange" onclick="showPage('create')">Create a Circle Plan →</button></div>
 </div>
 <div id="page-friends" class="hidden">
 <h2>Connect With People</h2><input placeholder="Search people, plans...">
@@ -92,54 +111,45 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radiu
 <div class="card"><div class="flex"><b>Faith A.</b><span class="tag">20 Plans</span></div><p>Abuja • Daily plans streak 14 days 🔥</p><button class="btn btn-green">Follow</button></div>
 </div>
 <div id="page-profile" class="hidden">
-<div class="profile-head">
-<div class="avatar" id="avatarBox"><span id="avatarLetter">A</span></div>
-<h2 style="margin:10px 0 2px" id="profileName">Anthony F Smith</h2>
-<p style="color:#888;margin:0;font-size:13px" id="profileBio">Port Harcourt • Plan, Share, Grow 🚀</p>
-<p style="margin:6px 0"><span class="tag">🔥 7 Days Streak</span> <span class="tag gray">⭐ Top Planner</span></p>
-</div>
-<div class="stat-row">
-<div class="stat"><b id="statPlans">3</b><span>Plans</span></div>
-<div class="stat"><b id="statBudget">₦285k</b><span>Total Budget</span></div>
-<div class="stat"><b id="statDone">38%</b><span>Completed</span></div>
-</div>
-<div class="card">
-<h3>Edit Profile</h3>
-<label>Your Name</label><input id="editName" placeholder="Your name">
-<label>Your Bio / Location</label><input id="editBio" placeholder="e.g. Port Harcourt • I love travel">
-<label>Your Photo</label><input type="file" id="photoInput" accept="image/*" onchange="changePhoto(event)">
-<button class="btn btn-green" onclick="saveProfile()">Save Profile ✅</button>
-</div>
+<div class="profile-head"><div class="avatar" id="avatarBox"><span id="avatarLetter">A</span></div><h2 style="margin:10px 0 2px" id="profileName">Anthony F Smith</h2><p style="color:#888;margin:0;font-size:13px" id="profileBio">Benin City • Plan, Share, Grow 🚀</p><p style="margin:6px 0"><span class="tag">🔥 7 Days Streak</span> <span class="tag gray">⭐ Top Planner</span></p></div>
+<div class="stat-row"><div class="stat"><b id="statPlans">3</b><span>Plans</span></div><div class="stat"><b id="statBudget">₦285k</b><span>Total Budget</span></div><div class="stat"><b id="statDone">38%</b><span>Completed</span></div></div>
+<div class="stat-row" style="grid-template-columns:1fr 1fr"><div class="stat"><b id="statCircle">5</b><span>Circle Members</span></div><div class="stat"><b id="statContributed">₦0</b><span>Contributed</span></div></div>
+<div class="card"><h3>Edit Profile</h3><label>Your Name</label><input id="editName" placeholder="Your name"><label>Your Bio / Location</label><input id="editBio" placeholder="e.g. Benin City • I love travel"><label>Your Photo</label><input type="file" id="photoInput" accept="image/*" onchange="changePhoto(event)"><button class="btn btn-green" onclick="saveProfile()">Save Profile ✅</button></div>
 <h3>My Plans</h3><div id="profilePlans"></div>
 <div class="menu-item" onclick="shareProfile()"><span>📲 Share My Profile on WhatsApp</span><span>→</span></div>
 <div class="menu-item" onclick="copyLink()"><span>🔗 Copy My App Link</span><span>→</span></div>
-<div class="menu-item" onclick="alert('Settings coming soon!')"><span>⚙️ Settings</span><span>→</span></div>
-<div class="menu-item" onclick="alert('Help: Chat us on WhatsApp for support')"><span>❓ Help & Support</span><span>→</span></div>
 </div>
 </div>
-<div class="bottom"><div class="active" onclick="showPage('home');setNav(this)"><span>🏠</span>Home</div><div onclick="showPage('create');setNav(this)"><span>➕</span>Create</div><div onclick="showPage('friends');setNav(this)"><span>👥</span>Friends</div><div onclick="showPage('profile');setNav(this)"><span>👤</span>Profile</div></div>
+<div class="bottom"><div class="active" onclick="showPage('home');setNav(this)"><span>🏠</span>Home</div><div onclick="showPage('create');setNav(this)"><span>➕</span>Create</div><div onclick="showPage('circle');setNav(this)"><span>👥</span>Circle</div><div onclick="showPage('profile');setNav(this)"><span>👤</span>Profile</div></div>
 <script>
-let plans = JSON.parse(localStorage.getItem('mpPlans') || '[]');
-if(plans.length===0){ plans=[{title:'Food Budget - 5 Months',type:'Budget',budget:200000,desc:'Rice, Beans, Yam, Spaghetti, Oil, Tomato, Egusi, Onion, Plantain',date:'2026-11-16',progress:35},{title:'Trip to Abuja',type:'Travel',budget:80000,desc:'Visit family, see friends',date:'2026-12-20',progress:60},{title:'Daily Plan - Today',type:'Daily',budget:5000,desc:'Gym, Market, Read, Pray',date:'2026-11-16',progress:20}]; localStorage.setItem('mpPlans',JSON.stringify(plans)); }
-let currentIndex = 0;
-let APP_LINK = 'https://anthonyusunobun.github.io/mp-plan/';
-let profile = JSON.parse(localStorage.getItem('mpProfile') || '{"name":"Anthony F Smith","bio":"Port Harcourt • Plan, Share, Grow 🚀","photo":""}');
+let plans = JSON.parse(localStorage.getItem('mpPlansV4') || 'null');
+if(!plans){ plans=[{title:'Food Budget - 5 Months',type:'Budget',budget:200000,desc:'Rice, Beans, Yam, Spaghetti, Oil, Tomato, Egusi, Onion, Plantain',date:'2026-11-16',progress:35,contributed:70000,members:[{name:'Anthony',amount:40000},{name:'Chiamaka',amount:20000},{name:'Emeka',amount:10000}]},{title:'Trip to Abuja',type:'Travel',budget:80000,desc:'Visit family, see friends',date:'2026-12-20',progress:60,contributed:48000,members:[{name:'Anthony',amount:30000},{name:'Faith',amount:18000}]},{title:'Daily Plan - Today',type:'Daily',budget:5000,desc:'Gym, Market, Read, Pray',date:'2026-11-16',progress:20,contributed:1000,members:[{name:'Anthony',amount:1000}]}]; localStorage.setItem('mpPlansV4',JSON.stringify(plans)); }
+let currentIndex=0; let APP_LINK='https://anthonyusunobun.github.io/mp-plan/'; let selectedAmount=10000;
+let profile = JSON.parse(localStorage.getItem('mpProfile') || '{"name":"Anthony Usunobun","bio":"Benin City • Plan, Share, Grow 🚀","photo":""}');
 function loadProfile(){ document.getElementById('profileName').innerText=profile.name; document.getElementById('heroName').innerText=profile.name.split(' ')[0]; document.getElementById('profileBio').innerText=profile.bio; document.getElementById('editName').value=profile.name; document.getElementById('editBio').value=profile.bio; document.getElementById('avatarLetter').innerText=profile.name.charAt(0); if(profile.photo){ document.getElementById('avatarBox').innerHTML='<img src="'+profile.photo+'">'; } }
 function saveProfile(){ profile.name=document.getElementById('editName').value||profile.name; profile.bio=document.getElementById('editBio').value||profile.bio; localStorage.setItem('mpProfile',JSON.stringify(profile)); loadProfile(); alert('Profile saved! ✅'); }
 function changePhoto(e){ let f=e.target.files[0]; if(!f) return; let r=new FileReader(); r.onload=function(){ profile.photo=r.result; localStorage.setItem('mpProfile',JSON.stringify(profile)); loadProfile(); }; r.readAsDataURL(f); }
-function renderPlans(){ let total=plans.reduce((a,b)=>a+b.budget,0); let avg=Math.round(plans.reduce((a,b)=>a+b.progress,0)/plans.length); document.getElementById('budgetText').innerText='₦'+total.toLocaleString()+' planned'; document.getElementById('totalPlans').innerText=plans.length+' Active Plans'; document.getElementById('statPlans').innerText=plans.length; document.getElementById('statBudget').innerText='₦'+Math.round(total/1000)+'k'; document.getElementById('statDone').innerText=avg+'%'; document.getElementById('myPlans').innerHTML=plans.map((p,i)=>`<div class="card"><div onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><div class="flex" style="margin-top:8px"><small>Budget: ₦${p.budget.toLocaleString()}</small><small style="color:#00C853;font-weight:800">${p.progress}% done →</small></div></div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-wa" onclick="sharePlan(${i})">Share on WhatsApp 📲</button><button class="btn btn-light" onclick="openDetail(${i})">View</button></div></div>`).join(''); document.getElementById('profilePlans').innerHTML=plans.map((p,i)=>`<div class="card" onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>₦${p.budget.toLocaleString()} • ${p.progress}% done</p></div>`).join(''); }
-function showPage(p){ ['home','create','detail','friends','profile'].forEach(x=>document.getElementById('page-'+x).classList.add('hidden')); document.getElementById('page-'+p).classList.remove('hidden'); window.scrollTo(0,0); }
+function savePlans(){ localStorage.setItem('mpPlansV4',JSON.stringify(plans)); }
+function calcProgress(p){ return Math.min(100, Math.round((p.contributed/p.budget)*100)); }
+function renderPlans(){ let total=plans.reduce((a,b)=>a+b.budget,0); let totalContrib=plans.reduce((a,b)=>a+(b.contributed||0),0); let totalMembers=plans.reduce((a,b)=>a+(b.members||[]).length,0); let avg=Math.round(plans.reduce((a,b)=>a+calcProgress(b),0)/plans.length); document.getElementById('budgetText').innerText='₦'+total.toLocaleString()+' planned'; document.getElementById('totalPlans').innerText=plans.length+' Active Plans'; document.getElementById('heroSub').innerText='₦'+totalContrib.toLocaleString()+' contributed by your Circles • '+avg+'% funded'; document.getElementById('statPlans').innerText=plans.length; document.getElementById('statBudget').innerText='₦'+Math.round(total/1000)+'k'; document.getElementById('statDone').innerText=avg+'%'; document.getElementById('statCircle').innerText=totalMembers; document.getElementById('statContributed').innerText='₦'+totalContrib.toLocaleString(); document.getElementById('myPlans').innerHTML=plans.map((p,i)=>{ let pr=calcProgress(p); return `<div class="card"><div onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><div class="bar"><div class="fill" style="width:${pr}%"></div></div><div class="flex" style="margin-top:8px"><small>Budget: ₦${p.budget.toLocaleString()}</small><small style="color:#00C853;font-weight:800">${pr}% funded</small></div><p style="margin-top:6px">👥 ${(p.members||[]).length} members • 💰 ₦${(p.contributed||0).toLocaleString()} contributed</p></div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-orange" onclick="openDetail(${i});document.getElementById('joinName').focus()">Join Circle 👥</button><button class="btn btn-wa" onclick="sharePlan(${i})">WhatsApp 📲</button></div></div>`; }).join(''); document.getElementById('profilePlans').innerHTML=plans.map((p,i)=>`<div class="card" onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>₦${(p.contributed||0).toLocaleString()} / ₦${p.budget.toLocaleString()} • 👥 ${(p.members||[]).length} members</p></div>`).join(''); document.getElementById('circleList').innerHTML=plans.map((p,i)=>{ let pr=calcProgress(p); return `<div class="card" onclick="openDetail(${i})"><div class="flex"><b>${p.title}</b><span class="tag orange">👥 ${(p.members||[]).length} members</span></div><p>${p.desc}</p><div class="bar"><div class="fill" style="width:${pr}%"></div></div><p>💰 ₦${(p.contributed||0).toLocaleString()} of ₦${p.budget.toLocaleString()} • ${pr}% funded</p><button class="btn btn-orange">View Circle →</button></div>`; }).join(''); }
+function showPage(p){ ['home','create','detail','friends','profile','circle'].forEach(x=>document.getElementById('page-'+x).classList.add('hidden')); document.getElementById('page-'+p).classList.remove('hidden'); window.scrollTo(0,0); }
 function setNav(el){ document.querySelectorAll('.bottom div').forEach(d=>d.classList.remove('active')); el.classList.add('active'); }
-function createPlan(){ let t=document.getElementById('pTitle').value; let type=document.getElementById('pType').value; let b=Number(document.getElementById('pBudget').value||0); let d=document.getElementById('pDesc').value; if(!t) return alert('Put plan title'); plans.unshift({title:t,type:type,budget:b,desc:d||'New plan',date:'2026-11-16',progress:0}); localStorage.setItem('mpPlans',JSON.stringify(plans)); renderPlans(); showPage('home'); if(confirm('Plan created! Share am on WhatsApp now?')){ sharePlan(0); } }
-function openDetail(i){ currentIndex=i; let p=plans[i]; document.getElementById('detailCard').innerHTML=`<div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><p>Budget: <b>₦${p.budget.toLocaleString()}</b></p><div class="bar"><div class="fill" style="width:${p.progress}%"></div></div><p>${p.progress}% completed</p>`; showPage('detail'); }
+function createPlan(){ let t=document.getElementById('pTitle').value; let type=document.getElementById('pType').value; let b=Number(document.getElementById('pBudget').value||0); let d=document.getElementById('pDesc').value; if(!t) return alert('Put plan title'); if(!b) return alert('Put budget'); plans.unshift({title:t,type:type,budget:b,desc:d||'New plan',date:'2026-11-16',progress:0,contributed:0,members:[{name:profile.name.split(' ')[0],amount:0}]}); savePlans(); renderPlans(); showPage('home'); if(confirm('Plan created with Circle! Invite friends on WhatsApp now?')){ sharePlan(0); } }
+function openDetail(i){ currentIndex=i; let p=plans[i]; let pr=calcProgress(p); document.getElementById('detailCard').innerHTML=`<div class="flex"><b>${p.title}</b><span class="tag">${p.type}</span></div><p>${p.desc}</p><p>Budget: <b>₦${p.budget.toLocaleString()}</b></p><div class="bar"><div class="fill" style="width:${pr}%"></div></div><p>💰 ₦${(p.contributed||0).toLocaleString()} contributed • ${pr}% funded • 👥 ${(p.members||[]).length} members</p>`; renderCircle(); showPage('detail'); }
+function renderCircle(){ let p=plans[currentIndex]; let pr=calcProgress(p); document.getElementById('circleSummary').innerHTML=`<b>👥 ${p.members.length} members</b><br>₦${(p.contributed||0).toLocaleString()} of ₦${p.budget.toLocaleString()} funded (${pr}%)<br><small>${p.budget-(p.contributed||0) > 0 ? '₦'+(p.budget-(p.contributed||0)).toLocaleString()+' still needed' : '🎉 Fully funded!'}</small>`; document.getElementById('circleMembers').innerHTML=p.members.map(m=>`<div class="member"><div style="display:flex;gap:10px;align-items:center"><div class="member-ava">${m.name.charAt(0)}</div><b>${m.name}</b></div><span style="color:#00C853;font-weight:800">₦${m.amount.toLocaleString()}</span></div>`).join(''); }
+function joinCircle(){ let n=document.getElementById('joinName').value.trim(); if(!n) return alert('Put your name to join'); let p=plans[currentIndex]; if(p.members.find(m=>m.name.toLowerCase()===n.toLowerCase())) return alert(n+' don already join this Circle'); p.members.push({name:n,amount:0}); savePlans(); renderPlans(); renderCircle(); alert('Welcome to the Circle, '+n+'! 🎉 Now contribute to help reach the goal.'); }
+function pickAmount(a,el){ selectedAmount=a; document.getElementById('contributeAmount').value=a; document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel')); el.classList.add('sel'); }
+function contribute(){ let amt=Number(document.getElementById('contributeAmount').value||selectedAmount); let name=document.getElementById('contributeName').value.trim()||profile.name.split(' ')[0]; if(!amt || amt<=0) return alert('Put amount'); let p=plans[currentIndex]; p.contributed=(p.contributed||0)+amt; let m=p.members.find(x=>x.name.toLowerCase()===name.toLowerCase()); if(m){ m.amount+=amt; } else { p.members.push({name:name,amount:amt}); } savePlans(); renderPlans(); openDetail(currentIndex); alert('Thank you '+name+'! You contributed ₦'+amt.toLocaleString()+' 🎉'); }
 function filterPlans(t){ alert('Showing '+t+' plans'); showPage('home'); }
 function addSuggestion(){ let v=document.getElementById('suggestInput').value; if(v) alert('Suggestion sent: '+v); }
-function sharePlan(i){ let p=plans[i]; let msg='🔥 Check my plan on MP PLAN!\n\n📌 '+p.title+'\n📂 Type: '+p.type+'\n💰 Budget: ₦'+p.budget.toLocaleString()+'\n📝 '+p.desc+'\n📊 Progress: '+p.progress+'%\n\nJoin me, make we plan together! 👇\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); }
+function sharePlan(i){ let p=plans[i]; let pr=calcProgress(p); let msg='🔥 Join my Plan Circle on MP PLAN!\n\n📌 '+p.title+'\n📂 Type: '+p.type+'\n💰 Budget: ₦'+p.budget.toLocaleString()+'\n👥 '+(p.members||[]).length+' members already\n💰 ₦'+(p.contributed||0).toLocaleString()+' contributed ('+pr+'% funded)\n📝 '+p.desc+'\n\nTap link, join my Circle and contribute! 👇\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); }
 function shareCurrentPlan(){ sharePlan(currentIndex); }
-function shareFriendPlan(title,desc){ let msg='🔥 See this plan on MP PLAN!\n\n📌 '+title+'\n📝 '+desc+'\n\nCheck am here 👇\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); }
+function inviteCircle(){ sharePlan(currentIndex); }
+function shareFriendPlan(title,desc){ let msg='🔥 Join this Plan Circle on MP PLAN!\n\n📌 '+title+'\n📝 '+desc+'\n\nCheck am here 👇\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); }
+function joinFriendCircle(name){ alert('You don join '+name+' Circle! 🎉 Now you fit contribute.'); }
 function shareProfile(){ let msg='👋 Hi! Na '+profile.name+' be this.\n\nI dey use MP PLAN to plan my life, share my budgets and trips.\n\nCheck my profile and plans here 👇\n'+APP_LINK; window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'); }
 function copyLink(){ navigator.clipboard.writeText(APP_LINK).then(()=>alert('Link copied! Paste am for WhatsApp.')); }
 loadProfile(); renderPlans();
 </script>
 </body>
-                                          </html>
+</html>
