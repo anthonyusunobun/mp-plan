@@ -3,112 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MP Plan</title>
+<title>MP Plan - Save Together</title>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
-*{box-sizing:border-box;font-family:system-ui,Arial} body{margin:0;background:#f6f7fb;color:#111;padding-bottom:80px}
-.top{background:#fff;padding:18px 16px 12px;border-radius:0 0 20px 20px;box-shadow:0 2px 10px #0001}
-.top small{color:#666} .top h2{margin:4px 0} .bar{height:10px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin:10px 0}
-.bar i{display:block;height:100%;background:#22c55e;width:38%}
-.card{background:#fff;border-radius:16px;padding:16px;margin:14px 16px;box-shadow:0 2px 8px #0001}
-.card h3{margin:0} .pill{display:inline-block;background:#dcfce7;color:#166534;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
-.btn{width:100%;padding:13px;border:0;border-radius:12px;background:#22c55e;font-weight:800;font-size:15px;cursor:pointer;margin-top:10px}
-.btn2{background:#111;color:#fff} input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin:7px 0;font-size:15px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;z-index:20}
-.bottom button{border:0;background:none;font-size:12px;cursor:pointer;color:#666} .bottom button.active{color:#16a34a;font-weight:800}
-.page{display:none;padding:0} .page.show{display:block}
-.modal{display:none;position:fixed;inset:0;background:#0008;z-index:30;align-items:flex-end;justify-content:center}
-.modal.show{display:flex} .sheet{background:#fff;width:100%;max-width:600px;border-radius:20px 20px 0 0;padding:18px;max-height:85vh;overflow:auto}
-.paytabs{display:flex;gap:8px} .paytabs button{flex:1;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff;cursor:pointer;font-weight:700}
-.paytabs button.active{border-color:#22c55e;background:#f0fdf4}
-.receipt{background:#f0fdf4;border:1px solid #22c55e;padding:12px;border-radius:10px;margin-top:10px;display:none}
+  body{font-family:Arial,sans-serif;background:#f6f7f9;margin:0;padding-bottom:80px}
+  .header{background:#0a7a42;color:#fff;padding:20px;text-align:center}
+  .card{background:#fff;margin:15px;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+  .btn{background:#0a7a42;color:#fff;border:none;padding:12px 18px;border-radius:8px;width:100%;font-size:16px;cursor:pointer;margin-top:10px}
+  .btn-secondary{background:#eef2f0;color:#0a7a42}
+  input,select{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px}
+  .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid #ddd;padding:10px 0}
+  .nav button{border:none;background:none;font-size:14px;cursor:pointer}
+  .active{color:#0a7a42;font-weight:bold}
+  .badge{background:#e6f4ec;color:#0a7a42;padding:4px 10px;border-radius:20px;font-size:12px}
 </style>
 </head>
 <body>
 
-<!-- HOME -->
-<div id="page-home" class="page show">
-<div class="top">
-<small>Hi, Anthony 👋</small>
-<h2>3 Active Plans</h2>
-<small>Total Budget</small><b style="float:right">₦285,000 planned</b>
-<div class="bar"><i></i></div>
-<small>₦119,000 contributed • 38% funded</small><br>
-<small>📍 Logged in as 08164000000 • Benin City, Nigeria</small>
+<div class="header">
+  <h2>MP Plan</h2>
+  <p>Save together. Achieve together.</p>
 </div>
 
-<div class="card"><h3>✈️ Trip to Abuja</h3><p style="color:#666">Goal: ₦150,000 • Saved: ₦70,000</p><div class="bar"><i style="width:46%"></i></div><span class="pill">46% funded</span><button class="btn" onclick="openPay('Trip to Abuja',70000)">Contribute to Trip to Abuja</button></div>
+<div id="homePage">
+  <div class="card">
+    <span class="badge">3 Active Plans</span>
+    <h3>Trip to Abuja</h3>
+    <p>Target: ₦500,000 &nbsp;|&nbsp; Saved: ₦120,000</p>
+    <p>Next Contribution: Friday</p>
+    <button class="btn" onclick="openPayment('Trip to Abuja')">Contribute to Trip to Abuja</button>
+  </div>
 
-<div class="card"><h3>🎓 School Fees Plan</h3><p style="color:#666">Goal: ₦85,000 • Saved: ₦30,000</p><div class="bar"><i style="width:35%"></i></div><span class="pill">35% funded</span><button class="btn" onclick="openPay('School Fees Plan',30000)">Contribute to School Fees</button></div>
-
-<div class="card"><h3>🏠 Rent / House Plan</h3><p style="color:#666">Goal: ₦50,000 • Saved: ₦19,000</p><div class="bar"><i style="width:38%"></i></div><span class="pill">38% funded</span><button class="btn" onclick="openPay('Rent / House Plan',19000)">Contribute to Rent</button></div>
+  <div class="card">
+    <h3>Your Wallet</h3>
+    <p>Available Balance: <b>₦0.00</b></p>
+    <p>Transaction History will appear here after payment.</p>
+    <button class="btn btn-secondary" onclick="showPage('wallet')">View Wallet</button>
+  </div>
 </div>
 
-<!-- CREATE -->
-<div id="page-create" class="page">
-<div class="card"><h3>➕ Create New Plan</h3><input id="newName" placeholder="Plan name e.g. New Phone"><input id="newGoal" type="number" placeholder="Goal amount e.g. 100000"><button class="btn" onclick="createPlan()">Create Plan</button><p id="createMsg" style="color:green"></p></div>
+<div id="walletPage" style="display:none">
+  <div class="card">
+    <h3>Wallet</h3>
+    <p>Available Balance: <b>₦0.00</b></p>
+    <button class="btn" onclick="openPayment('Wallet Funding')">Fund Wallet</button>
+  </div>
 </div>
 
-<!-- CIRCLE -->
-<div id="page-circle" class="page">
-<div class="card"><h3>👥 My Circle</h3><p style="color:#666">People wey dey contribute with you</p><p>• Anthony - Admin<br>• Member 2<br>• Member 3</p><button class="btn btn2" onclick="alert('Invite link copied! Share am for WhatsApp')">Invite Member</button></div>
+<div id="paymentPage" style="display:none">
+  <div class="card">
+    <h3>Choose Payment Method</h3>
+    <p id="payTitle">Contribute to Trip to Abuja</p>
+    <select id="method">
+      <option value="card">Card</option>
+      <option value="transfer">Bank Transfer</option>
+      <option value="ussd">USSD</option>
+    </select>
+    <input type="number" id="amount" placeholder="Enter amount e.g. 10000">
+    <input type="email" id="email" placeholder="Enter your email address">
+    <button class="btn" onclick="payWithPaystack()">Pay Now</button>
+    <button class="btn btn-secondary" onclick="showPage('home')">Cancel</button>
+  </div>
 </div>
 
-<!-- WALLET -->
-<div id="page-wallet" class="page">
-<div class="card"><h3>💳 Wallet</h3><h2>₦119,000</h2><p style="color:#666">Total Contributed</p><button class="btn" onclick="showPage('home')">Contribute Now</button></div>
-<div class="card"><h3>Recent Transactions</h3><p>• Trip to Abuja - ₦10,000 ✅<br>• School Fees - ₦5,000 ✅<br>• Rent - ₦2,000 ✅ (MP-83555334)</p></div>
-</div>
-
-<!-- PROFILE -->
-<div id="page-profile" class="page">
-<div class="card"><h3>👤 Profile</h3><p><b>Name:</b> Anthony Usunobun<br><b>Phone:</b> 08164000000<br><b>City:</b> Benin City, Nigeria<br><b>Plans:</b> 3 Active</p><button class="btn btn2" onclick="alert('Profile saved!')">Save Profile</button></div>
-</div>
-
-<!-- PAYMENT MODAL -->
-<div id="payModal" class="modal"><div class="sheet">
-<h3 id="payTitle">Contribute</h3>
-<p>Choose Payment Method</p>
-<div class="paytabs"><button id="t-card" class="active" onclick="setMethod('card')">💳 Card</button><button id="t-transfer" onclick="setMethod('transfer')">🏦 Transfer</button><button id="t-ussd" onclick="setMethod('ussd')">📱 USSD</button></div>
-
-<div id="box-card">
-<p>Card Number</p><input placeholder="1234 5678 9012 3456" value="4084 0840 8408 4081">
-<input id="payEmail" type="email" placeholder="Your email e.g. you@gmail.com" value="anthony@gmail.com">
-<input id="payAmount" type="number" placeholder="Amount e.g. 10000">
-<button class="btn" onclick="payWithPaystack()">Pay with Paystack - Card</button>
-</div>
-
-<div id="box-transfer" style="display:none"><p><b>Transfer to:</b><br>Bank: OPAY<br>Account: 08164000000<br>Name: MP Plan - Anthony</p><button class="btn btn2" onclick="alert('After transfer, tap WhatsApp to confirm')">I Don Transfer</button></div>
-<div id="box-ussd" style="display:none"><p><b>Dial:</b> *955*Amount*Account#<br>Use your bank USSD to complete payment.</p></div>
-
-<div id="receipt" class="receipt"></div>
-<button class="btn btn2" onclick="closePay()">Close</button>
-</div></div>
-
-<div class="bottom">
-<button class="active" id="b-home" onclick="showPage('home')">🏠<br>Home</button>
-<button id="b-create" onclick="showPage('create')">➕<br>Create</button>
-<button id="b-circle" onclick="showPage('circle')">👥<br>Circle</button>
-<button id="b-wallet" onclick="showPage('wallet')">💳<br>Wallet</button>
-<button id="b-profile" onclick="showPage('profile')">👤<br>Profile</button>
+<div class="nav">
+  <button class="active" onclick="showPage('home')">Home</button>
+  <button onclick="showPage('home')">Create</button>
+  <button onclick="showPage('home')">Circle</button>
+  <button onclick="showPage('wallet')">Wallet</button>
+  <button onclick="showPage('home')">Profile</button>
 </div>
 
 <script>
-const PAYSTACK_KEY="pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2";
-let currentPlan="Trip to Abuja";
-function showPage(n){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('show')); document.getElementById('page-'+n).classList.add('show'); document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active')); document.getElementById('b-'+n).classList.add('active'); window.scrollTo(0,0); }
-function openPay(plan,amt){ currentPlan=plan; document.getElementById('payTitle').innerText="₦"+amt.toLocaleString()+" To: "+plan; document.getElementById('payAmount').value=amt; document.getElementById('payModal').classList.add('show'); }
-function closePay(){ document.getElementById('payModal').classList.remove('show'); }
-function setMethod(m){ ['card','transfer','ussd'].forEach(x=>{ document.getElementById('t-'+x).classList.remove('active'); document.getElementById('box-'+x).style.display='none'; }); document.getElementById('t-'+m).classList.add('active'); document.getElementById('box-'+m).style.display='block'; }
-function createPlan(){ const n=document.getElementById('newName').value; const g=document.getElementById('newGoal').value; if(!n||!g){alert('Put plan name and goal');return;} document.getElementById('createMsg').innerText='✅ '+n+' created! Go to Home to see am.'; }
+let currentPlan = 'Trip to Abuja';
+function showPage(page){
+  document.getElementById('homePage').style.display = page==='home' ? 'block':'none';
+  document.getElementById('walletPage').style.display = page==='wallet' ? 'block':'none';
+  document.getElementById('paymentPage').style.display = 'none';
+}
+function openPayment(plan){
+  currentPlan = plan;
+  document.getElementById('payTitle').innerText = 'Contribute to ' + plan;
+  document.getElementById('homePage').style.display='none';
+  document.getElementById('walletPage').style.display='none';
+  document.getElementById('paymentPage').style.display='block';
+  window.scrollTo(0,0);
+}
 function payWithPaystack(){
-  const email=document.getElementById('payEmail').value.trim();
-  const amt=parseInt(document.getElementById('payAmount').value);
-  if(!email||!email.includes('@')){alert('Put correct email');return;}
-  if(!amt||amt<100){alert('Put amount');return;}
-  let h=PaystackPop.setup({key:PAYSTACK_KEY,email:email,amount:amt*100,currency:'NGN',ref:'MP-'+Math.floor(Math.random()*1000000000),
-  callback:function(res){ const r=document.getElementById('receipt'); r.style.display='block'; r.innerHTML='✅ Payment Successful!<br>Plan: '+currentPlan+'<br>Amount: ₦'+amt.toLocaleString()+'<br>Ref: '+res.reference+'<br><button class="btn" onclick="closePay();showPage(\'wallet\')">Go to Wallet</button>'; },
-  onClose:function(){alert('Payment closed');}}); h.openIframe();
+  let amount = document.getElementById('amount').value;
+  let email = document.getElementById('email').value;
+  if(!amount || !email){ alert('Please enter an amount and a valid email address.'); return; }
+  let handler = PaystackPop.setup({
+    key: 'pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2', // Replace with pk_live_... after approval
+    email: email,
+    amount: amount * 100,
+    currency: 'NGN',
+    ref: 'MP-' + Math.floor(Math.random()*1000000000),
+    callback: function(response){
+      alert('Payment Successful! Reference: ' + response.reference);
+      showPage('wallet');
+    },
+    onClose: function(){ alert('Payment window closed.'); }
+  });
+  handler.openIframe();
 }
 </script>
 </body>
