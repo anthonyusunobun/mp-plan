@@ -8,13 +8,13 @@
 *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 body{margin:0;background:#0f172a;color:#fff;min-height:100vh}
 .hidden{display:none!important}
-.top{background:#10b981;padding:18px;text-align:center}
-.top h1{margin:0;font-size:26px}
-.top p{margin:4px 0 0;opacity:.9}
-.wrap{max-width:480px;margin:0 auto;padding:16px}
-.card{background:#1e293b;border-radius:16px;padding:18px;margin-bottom:14px}
-input,select{width:100%;padding:13px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;margin:8px 0;font-size:15px}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:#10b981;color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
+.top{background:#10b981;padding:14px;text-align:center}
+.top h1{margin:0;font-size:24px}
+.top p{margin:2px 0 0;opacity:.9;font-size:14px}
+.wrap{max-width:480px;margin:0 auto;padding:12px}
+.card{background:#1e293b;border-radius:16px;padding:16px;margin-bottom:12px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;margin:6px 0;font-size:15px}
+button{width:100%;padding:13px;border:0;border-radius:12px;background:#10b981;color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
 button.outline{background:transparent;border:1px solid #475569}
 button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
 .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
@@ -22,11 +22,14 @@ button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
 .fill{height:100%;background:#10b981;width:24%}
 .badge{background:#10b981;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700}
 .muted{opacity:.7;font-size:13px}
-.link{color:#34d399;text-align:center;cursor:pointer;margin-top:12px;font-weight:700}
-.logo{font-size:44px;text-align:center}
-h2{margin:6px 0}
-.plan{border:1px solid #334155}
-.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:20px;user-select:none}
+.link{color:#34d399;text-align:center;cursor:pointer;margin-top:10px;font-weight:700;font-size:14px}
+.logo{font-size:36px;text-align:center}
+h2{margin:4px 0}
+.eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:20px}
+.tabs{display:flex;background:#0f172a;border-radius:12px;padding:4px;margin:10px 0}
+.tab{flex:1;text-align:center;padding:10px;border-radius:9px;cursor:pointer;font-weight:800;font-size:14px;color:#94a3b8}
+.tab.active{background:#10b981;color:#fff}
+.forgot{text-align:right;color:#34d399;font-size:13px;cursor:pointer;margin-top:2px;font-weight:600}
 </style>
 </head>
 <body>
@@ -38,12 +41,154 @@ h2{margin:6px 0}
     <div class="card">
       <div class="logo">💰</div>
       <h2 style="text-align:center" id="authTitle">Welcome Back</h2>
-      <p class="muted" style="text-align:center">Log in to see your plans</p>
+      <p class="muted" style="text-align:center;margin:0">Log in to see your plans</p>
+
+      <!-- TABS - ALWAYS VISIBLE -->
+      <div class="tabs">
+        <div class="tab active" id="tabLogin" onclick="setMode(false)">LOG IN</div>
+        <div class="tab" id="tabSignup" onclick="setMode(true)">CREATE ACCOUNT</div>
+      </div>
+
       <div id="signupFields" class="hidden">
         <input id="suName" placeholder="Full Name e.g. Anthony Smith">
       </div>
       <input id="authEmail" placeholder="Email or Phone e.g. anthony@gmail.com" type="text">
-      <!-- PASSWORD WITH EYE -->
       <div style="position:relative">
         <input id="authPass" placeholder="Password (min 4 chars)" type="password" style="padding-right:50px">
-        <span class="eye" onclick="togglePass()" id="eyeIcon">👁️
+        <span class="eye" onclick="togglePass()" id="eyeIcon">👁️</span>
+      </div>
+      <div class="forgot" onclick="forgotPass()">Forgot Password?</div>
+
+      <button onclick="doAuth()" id="authBtn">LOG IN</button>
+      <div class="link" onclick="toggleAuth()" id="toggleLink">Don't have account? Create Account →</div>
+      <p class="muted" style="text-align:center;margin:10px 0 0">Tap 👁️ to show / hide password.</p>
+    </div>
+    <p class="muted" style="text-align:center">If buttons are hidden, scroll down or zoom out (Ctrl + -)</p>
+  </div>
+</div>
+
+<!-- APP SCREEN -->
+<div id="appScreen" class="hidden">
+  <div class="top">
+    <div class="row"><span style="font-weight:800">MP Plan</span><button class="small outline" style="width:auto" onclick="logout()">Log Out</button></div>
+    <h1 style="font-size:20px;margin-top:10px">Hello, <span id="userName">Friend</span> 👋</h1>
+    <p id="userEmail" class="muted"></p>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <div class="row"><b>Your Active Plan</b><span class="badge">Auto Save ON</span></div>
+      <h2 id="planTitle">Trip to Abuja</h2>
+      <p class="muted">Target ₦<span id="planTarget">500,000</span> | Saved ₦<span id="planSaved">120,000</span></p>
+      <div class="bar"><div class="fill" id="progressFill"></div></div>
+      <p id="progressText" class="muted">24% complete</p>
+      <input id="amountInput" type="number" placeholder="Amount to contribute e.g. 10000">
+      <button onclick="contribute()">Contribute</button>
+      <div class="row" style="margin-top:10px">
+        <button class="outline" onclick="sharePlan()">Share Plan</button>
+        <button class="outline" onclick="openChat()">Open Circle Chat</button>
+      </div>
+    </div>
+    <div class="card">
+      <b>Create New Plan</b>
+      <input id="newTitle" placeholder="Plan name e.g. New Phone">
+      <input id="newTarget" type="number" placeholder="Target e.g. 250000">
+      <button onclick="createPlan()">Create Plan</button>
+    </div>
+    <div class="card"><b>Your Plans</b><div id="planList" style="margin-top:10px"></div></div>
+    <div class="card" id="chatCard" style="display:none">
+      <b>Circle Chat</b>
+      <div id="chatBox" style="background:#0f172a;border-radius:10px;padding:10px;min-height:80px;margin:10px 0"></div>
+      <input id="chatInput" placeholder="Type message...">
+      <button onclick="sendChat()">Send</button>
+    </div>
+    <p class="muted" style="text-align:center">MP Plan V20.2 • Logged in as <span id="footerEmail"></span></p>
+  </div>
+</div>
+
+<script>
+let isSignup = false;
+let currentUser = null;
+let data = {plans:[{title:"Trip to Abuja",target:500000,saved:120000}], chats:[]};
+
+function togglePass(){
+  let p = document.getElementById('authPass');
+  let icon = document.getElementById('eyeIcon');
+  if(p.type === 'password'){ p.type='text'; icon.innerText='🙈'; }
+  else { p.type='password'; icon.innerText='👁️'; }
+}
+function setMode(signup){
+  isSignup = signup;
+  document.getElementById('signupFields').classList.toggle('hidden', !isSignup);
+  document.getElementById('tabLogin').classList.toggle('active', !isSignup);
+  document.getElementById('tabSignup').classList.toggle('active', isSignup);
+  document.getElementById('authTitle').innerText = isSignup ? "Create Account" : "Welcome Back";
+  document.getElementById('authBtn').innerText = isSignup ? "CREATE ACCOUNT" : "LOG IN";
+  document.getElementById('toggleLink').innerText = isSignup ? "Already have account? Log In →" : "Don't have account? Create Account →";
+}
+function toggleAuth(){ setMode(!isSignup); }
+function forgotPass(){
+  let email = document.getElementById('authEmail').value.trim().toLowerCase();
+  if(!email){ alert("Type your Email / Phone first, then tap Forgot Password."); return; }
+  let users = getUsers();
+  if(!users[email]){ alert("No account found for "+email+". Please tap CREATE ACCOUNT first."); return; }
+  let newPass = prompt("Reset password for "+email+"\nEnter NEW password (min 4 chars):");
+  if(!newPass || newPass.length<4){ alert("Password too short."); return; }
+  users[email].pass = newPass;
+  saveUsers(users);
+  alert("Password changed! Now log in with your new password.");
+}
+function getUsers(){ return JSON.parse(localStorage.getItem('mp_users')||"{}"); }
+function saveUsers(u){ localStorage.setItem('mp_users', JSON.stringify(u)); }
+function loadData(email){ let d=localStorage.getItem('mp_data_'+email); if(d) data=JSON.parse(d); else { data={plans:[{title:"Trip to Abuja",target:500000,saved:120000}], chats:[]}; saveData(email);} }
+function saveData(email){ localStorage.setItem('mp_data_'+email, JSON.stringify(data)); }
+function doAuth(){
+  let email = document.getElementById('authEmail').value.trim().toLowerCase();
+  let pass = document.getElementById('authPass').value;
+  let name = document.getElementById('suName').value.trim();
+  if(!email || !pass || pass.length<4){ alert("Enter email/phone and password (min 4 chars)"); return; }
+  let users = getUsers();
+  if(isSignup){
+    if(!name){ alert("Enter your name"); return; }
+    if(users[email]){ alert("Account already exists. Please Log In."); setMode(false); return; }
+    users[email] = {name:name, pass:pass, email:email};
+    saveUsers(users);
+    alert("Account created! Welcome "+name);
+  } else {
+    if(!users[email] || users[email].pass !== pass){ alert("Wrong email/phone or password. Tap Forgot Password? if you forgot it."); return; }
+  }
+  currentUser = users[email];
+  localStorage.setItem('mp_session', email);
+  loadData(email);
+  showApp();
+}
+function showApp(){
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('appScreen').classList.remove('hidden');
+  document.getElementById('userName').innerText = currentUser.name.split(' ')[0];
+  document.getElementById('userEmail').innerText = currentUser.email;
+  document.getElementById('footerEmail').innerText = currentUser.email;
+  render();
+}
+function logout(){ localStorage.removeItem('mp_session'); location.reload(); }
+function render(){
+  let p=data.plans[0]; if(!p) return;
+  document.getElementById('planTitle').innerText=p.title;
+  document.getElementById('planTarget').innerText=p.target.toLocaleString();
+  document.getElementById('planSaved').innerText=p.saved.toLocaleString();
+  let pct=Math.min(100,Math.round(p.saved/p.target*100));
+  document.getElementById('progressFill').style.width=pct+"%";
+  document.getElementById('progressText').innerText=pct+"% complete • ₦"+(p.target-p.saved).toLocaleString()+" left";
+  let html=""; data.plans.forEach((pl,i)=>{ html+=`<div style="padding:10px;border-bottom:1px solid #334155"><b>${pl.title}</b><br><span class="muted">Saved ₦${pl.saved.toLocaleString()} / ₦${pl.target.toLocaleString()}</span> <button class="small" style="float:right" onclick="selectPlan(${i})">Open</button></div>`; });
+  document.getElementById('planList').innerHTML=html;
+  document.getElementById('chatBox').innerHTML=data.chats.map(c=>`<div><b>${c.name}:</b> ${c.text}</div>`).join('')||"<span class='muted'>No messages yet.</span>";
+}
+function contribute(){ let amt=parseInt(document.getElementById('amountInput').value); if(!amt||amt<=0){alert("Enter amount");return;} data.plans[0].saved+=amt; saveData(currentUser.email); render(); document.getElementById('amountInput').value=""; alert("₦"+amt.toLocaleString()+" added!"); }
+function createPlan(){ let t=document.getElementById('newTitle').value.trim(); let tg=parseInt(document.getElementById('newTarget').value); if(!t||!tg){alert("Enter plan name and target");return;} data.plans.unshift({title:t,target:tg,saved:0}); saveData(currentUser.email); render(); document.getElementById('newTitle').value=""; document.getElementById('newTarget').value=""; }
+function selectPlan(i){ let p=data.plans.splice(i,1)[0]; data.plans.unshift(p); saveData(currentUser.email); render(); }
+function sharePlan(){ let p=data.plans[0]; navigator.clipboard.writeText(`Join my MP Plan: ${p.title} - ${location.href}`); alert("Link copied!"); }
+function openChat(){ document.getElementById('chatCard').style.display='block'; }
+function sendChat(){ let txt=document.getElementById('chatInput').value.trim(); if(!txt) return; data.chats.push({name:currentUser.name.split(' ')[0], text:txt}); saveData(currentUser.email); render(); document.getElementById('chatInput').value=""; }
+window.onload=()=>{ let email=localStorage.getItem('mp_session'); if(email){ let users=getUsers(); if(users[email]){ currentUser=users[email]; loadData(email); showApp(); } } }
+</script>
+</body>
+</html>
