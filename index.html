@@ -3,135 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MP Plan - Save Together</title>
-<script src="https://js.paystack.co/v1/inline.js"></script>
+<title>MP Plan - Save together. Achieve together.</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f6f7f9;margin:0;padding-bottom:90px}
-.header{background:#0a7a42;color:#fff;padding:20px;text-align:center}
-.card{background:#fff;margin:15px;padding:20px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.btn{background:#0a7a42;color:#fff;border:none;padding:12px;border-radius:8px;width:100%;font-size:16px;cursor:pointer;margin-top:10px}
-.btn2{background:#eef2f0;color:#0a7a42}.btnW{background:#25D366}.btnD{background:#fee2e2;color:#dc2626}.btnO{background:#fff;color:#0a7a42;border:1px solid #0a7a42}
-input,select,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;border-top:1px solid #ddd;padding:12px 0}
-.nav button{border:none;background:none;font-size:14px}.nav button.active{color:#0a7a42;font-weight:bold}
-.badge{background:#e6f4ec;color:#0a7a42;padding:4px 10px;border-radius:20px;font-size:12px}
-.label{font-size:13px;color:#666;margin-top:12px;display:block}.menu{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #eee;cursor:pointer}
-.prog{height:8px;background:#eee;border-radius:10px;overflow:hidden;margin-top:8px}.bar{height:100%;background:#0a7a42;width:24%}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#0a7a42;color:#fff;padding:12px 20px;border-radius:8px;z-index:999;display:none;max-width:90%;text-align:center}
-.cover{width:100%;height:150px;background:linear-gradient(135deg,#0a7a42,#0e9a54);display:flex;align-items:center;justify-content:center;color:#fff;position:relative;overflow:hidden}
-.cover img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
-.avatar{width:100px;height:100px;background:#fff;color:#0a7a42;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:-50px auto 0;border:4px solid #fff;overflow:hidden;position:relative;z-index:2}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.chat{max-height:250px;overflow-y:auto;background:#f9f9f9;padding:12px;border-radius:10px;margin-top:10px}.msg{background:#fff;padding:10px;border-radius:10px;margin-bottom:8px}.mine{background:#dcf8c6;margin-left:30px}
-.danger{border:1px solid #fecaca;background:#fef2f2;border-radius:10px;padding:15px;margin-top:15px}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{margin:0;background:#0f172a;color:#fff;min-height:100vh}
+.hidden{display:none!important}
+.top{background:#10b981;padding:18px;text-align:center}
+.top h1{margin:0;font-size:26px}
+.top p{margin:4px 0 0;opacity:.9}
+.wrap{max-width:480px;margin:0 auto;padding:16px}
+.card{background:#1e293b;border-radius:16px;padding:18px;margin-bottom:14px}
+input,select{width:100%;padding:13px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;margin:8px 0;font-size:15px}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:#10b981;color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
+button.outline{background:transparent;border:1px solid #475569}
+button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.bar{height:12px;background:#0f172a;border-radius:99px;overflow:hidden;margin:10px 0}
+.fill{height:100%;background:#10b981;width:24%}
+.badge{background:#10b981;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:700}
+.muted{opacity:.7;font-size:13px}
+.link{color:#34d399;text-align:center;cursor:pointer;margin-top:12px;font-weight:700}
+.logo{font-size:44px;text-align:center}
+h2{margin:6px 0}
+.plan{border:1px solid #334155}
 </style>
 </head>
 <body>
-<div id="toast" class="toast"></div>
-<div class="header"><h2>MP Plan</h2><p>Save together. Achieve together.</p></div>
 
-<div id="homePage">
-<div class="card"><span class="badge" id="planCount">3 Active Plans</span><h3 id="homePlanTitle">Trip to Abuja</h3><p>Target: ₦500,000 | Saved: ₦120,000</p><div class="prog"><div class="bar"></div></div><button class="btn" onclick="openPay()">Contribute</button><button class="btn btn2" onclick="openShare()">Share Plan</button><button class="btn btnO" onclick="showPage('community')">Open Circle Chat</button></div>
-<div class="card"><h3>Your Plans</h3><div id="myPlansList"><p><b>Trip to Abuja</b> - ₦500,000</p><p><b>Family Savings</b> - ₦200,000</p></div></div>
-<div class="card"><h3>Wallet</h3><p>Balance: <b id="walletBal">₦0.00</b></p><button class="btn btn2" onclick="showPage('wallet')">View Wallet</button></div>
+<!-- AUTH SCREEN -->
+<div id="authScreen">
+  <div class="top"><h1>MP Plan</h1><p>Save together. Achieve together.</p></div>
+  <div class="wrap">
+    <div class="card">
+      <div class="logo">💰</div>
+      <h2 style="text-align:center" id="authTitle">Welcome Back</h2>
+      <p class="muted" style="text-align:center">Log in to see your plans</p>
+      <div id="signupFields" class="hidden">
+        <input id="suName" placeholder="Full Name e.g. Anthony Smith">
+      </div>
+      <input id="authEmail" placeholder="Email e.g. anthony@gmail.com" type="email">
+      <input id="authPass" placeholder="Password (min 4 chars)" type="password">
+      <button onclick="doAuth()" id="authBtn">Log In</button>
+      <div class="link" onclick="toggleAuth()" id="toggleLink">Don't have account? Sign Up</div>
+      <p class="muted" style="text-align:center;margin-top:14px">Demo: Sign up with any email, it saves on this device.</p>
+    </div>
+  </div>
 </div>
 
-<div id="createPage" style="display:none"><div class="card"><h3>Create a New Plan</h3><span class="label">Plan Name</span><input id="newPlanName" placeholder="Example: Trip to Abuja"><span class="label">Target Amount (₦)</span><input id="newPlanTarget" type="number" placeholder="500000"><span class="label">Target Date</span><input id="newPlanDate" type="date"><span class="label">Description</span><textarea id="newPlanDesc" placeholder="Describe this plan..."></textarea><button class="btn" onclick="createPlan()">Create Plan</button><button class="btn btn2" onclick="showPage('home')">Cancel</button></div></div>
+<!-- APP SCREEN -->
+<div id="appScreen" class="hidden">
+  <div class="top">
+    <div class="row"><span style="font-weight:800">MP Plan</span><button class="small outline" style="width:auto" onclick="logout()">Log Out</button></div>
+    <h1 style="font-size:20px;margin-top:10px">Hello, <span id="userName">Friend</span> 👋</h1>
+    <p id="userEmail" class="muted"></p>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <div class="row"><b>Your Active Plan</b><span class="badge">Auto Save ON</span></div>
+      <h2 id="planTitle">Trip to Abuja</h2>
+      <p class="muted">Target ₦<span id="planTarget">500,000</span> | Saved ₦<span id="planSaved">120,000</span></p>
+      <div class="bar"><div class="fill" id="progressFill"></div></div>
+      <p id="progressText" class="muted">24% complete</p>
+      <input id="amountInput" type="number" placeholder="Amount to contribute e.g. 10000">
+      <button onclick="contribute()">Contribute</button>
+      <div class="row" style="margin-top:10px">
+        <button class="outline" onclick="sharePlan()">Share Plan</button>
+        <button class="outline" onclick="openChat()">Open Circle Chat</button>
+      </div>
+    </div>
 
-<div id="circlePage" style="display:none">
-<div class="card"><h3>My Circles</h3><p>You belong to 2 circles.</p></div>
-<div class="card"><h3>Trip to Abuja Circle</h3><p>Members: Anthony, Chiamaka, Emeka</p><p>Saved: ₦120,000 of ₦500,000</p><button class="btn" onclick="showPage('community')">Open Community Chat</button><button class="btn btnO" onclick="leaveCircle('Trip to Abuja Circle')">Leave This Circle</button></div>
-<div class="card"><h3>Family Savings Circle</h3><p>Members: Anthony, Ada, Obi</p><p>Saved: ₦80,000 of ₦200,000</p><button class="btn" onclick="showPage('community')">Open Community Chat</button><button class="btn btnO" onclick="leaveCircle('Family Savings Circle')">Leave This Circle</button></div>
-</div>
+    <div class="card">
+      <b>Create New Plan</b>
+      <input id="newTitle" placeholder="Plan name e.g. New Phone">
+      <input id="newTarget" type="number" placeholder="Target e.g. 250000">
+      <button onclick="createPlan()">Create Plan</button>
+    </div>
 
-<div id="communityPage" style="display:none">
-<div class="card"><h3>Trip to Abuja - Community</h3><p>Plan together with your circle.</p><button class="btn btnW" onclick="openWhatsApp()">Connect on WhatsApp</button></div>
-<div class="card"><h3>Members (3)</h3><p><b>Anthony Usunobun</b> - Admin</p><p><b>Chiamaka</b> - Abuja</p><p><b>Emeka</b> - Lagos</p></div>
-<div class="card"><h3>Plan Our Trip</h3><span class="label">Destination</span><input id="tripDest" value="Abuja"><span class="label">Trip Date</span><input id="tripDate" type="date" value="2026-12-20"><span class="label">Total Budget (₦)</span><input id="tripBudget" type="number" value="500000" oninput="calcBudget()"><p id="budgetResult" style="background:#e6f4ec;padding:12px;border-radius:8px">Each person pays: ₦166,667</p><button class="btn" onclick="saveTrip()">Save Trip Plan</button></div>
-<div class="card"><h3>Circle Chat</h3><div class="chat" id="chatBox"><div class="msg"><b>Chiamaka</b><br>Are we still going to Abuja in December?</div><div class="msg mine"><b>You</b><br>Yes! We have saved ₦120,000 already.</div></div><input id="chatInput" placeholder="Type a message..."><button class="btn" onclick="sendChat()">Send Message</button><button class="btn btnW" onclick="openWhatsApp()">Continue on WhatsApp</button></div>
-</div>
+    <div class="card">
+      <b>Your Plans</b>
+      <div id="planList" style="margin-top:10px"></div>
+    </div>
 
-<div id="walletPage" style="display:none"><div class="card"><h3>Wallet</h3><p>Balance: <b id="walletBal2">₦0.00</b></p><button class="btn" onclick="openPay()">Fund Wallet</button></div></div>
+    <div class="card" id="chatCard" style="display:none">
+      <b>Circle Chat</b>
+      <div id="chatBox" style="background:#0f172a;border-radius:10px;padding:10px;min-height:80px;margin:10px 0"></div>
+      <input id="chatInput" placeholder="Type message...">
+      <button onclick="sendChat()">Send</button>
+    </div>
 
-<div id="paymentPage" style="display:none"><div class="card"><h3>Pay Now</h3><select id="method"><option>Card</option><option>Bank Transfer</option><option>USSD</option></select><input id="amount" type="number" placeholder="Enter amount e.g. 10000"><input id="email" type="email" placeholder="Enter your email"><button class="btn" onclick="payNow()">Pay Now</button><button class="btn btn2" onclick="showPage('home')">Cancel</button></div></div>
-
-<div id="sharePage" style="display:none"><div class="card"><h3>Share This Plan</h3><p>Edit the message, then share it.</p><span class="label">Plan Name</span><input id="sharePlanName" value="Trip to Abuja" oninput="updateShare()"><span class="label">Target Amount</span><input id="shareTarget" value="₦500,000" oninput="updateShare()"><span class="label">Message - You Can Edit This</span><textarea id="shareMessage" style="height:180px"></textarea><button class="btn btnW" onclick="shareWA()">Share on WhatsApp</button><button class="btn btn2" onclick="copyShare()">Copy Message</button><button class="btn btn2" onclick="showPage('home')">Back</button></div></div>
-
-<div id="profilePage" style="display:none">
-<div class="card" style="padding:0;overflow:hidden"><div class="cover"><img id="coverMain" style="display:none"><span id="coverTxt">MP Plan</span></div><div class="avatar"><span id="avatarLetter">A</span><img id="profileMain" style="display:none"></div><div style="text-align:center;padding:10px 20px 20px"><h3 id="profileName">Anthony Usunobun</h3><p style="color:#666;margin:0">usunobunanthonynosakhare@gmail.com</p><p style="color:#666;margin:5px 0">+234 8164665585</p><p style="color:#666;margin:5px 0">🎂 <span id="profileDOB">Date of birth not set</span> | 📍 <span id="profileLoc">Port Harcourt</span></p><button class="btn btn2" onclick="editProfile()">Edit Profile</button></div></div>
-<div class="card"><h3>Personal Details</h3><p><b>Name:</b> <span id="detailName">Anthony Usunobun</span></p><p><b>Date of Birth:</b> <span id="detailDOB">Not set</span></p><p><b>Location:</b> <span id="detailLoc">Port Harcourt, Nigeria</span></p></div>
-<div class="card"><h3>Account Centre</h3><div class="menu" onclick="showPage('account')"><span>Password, Date of Birth, Disable / Delete Account</span><span>&gt;</span></div><div class="menu" onclick="showPage('community')"><span>Circle Community</span><span>&gt;</span></div></div>
-<div class="card"><button class="btn btnD" onclick="logout()">Log Out</button><p style="text-align:center;color:#999;font-size:12px">MP Plan Version 19 - Auto Save ON</p></div>
-</div>
-
-<div id="accountPage" style="display:none">
-<div class="card"><h3>Account Centre</h3><p>Manage your account like Facebook.</p></div>
-<div class="card"><h3>Date of Birth</h3><input id="dobInput" type="date"><button class="btn" onclick="saveDOB()">Save Date of Birth</button></div>
-<div class="card"><h3>Password</h3><input id="resetEmail" type="email" value="usunobunanthonynosakhare@gmail.com"><button class="btn btn2" onclick="forgotPass()">Send Password Reset Link</button><input id="newPass" type="password" placeholder="New password"><input id="confirmPass" type="password" placeholder="Confirm new password"><button class="btn" onclick="changePass()">Change Password</button></div>
-<div class="card"><h3>Leave a Circle</h3><button class="btn btnO" onclick="leaveCircle('Trip to Abuja Circle')">Leave Trip to Abuja Circle</button><button class="btn btnO" onclick="leaveCircle('Family Savings Circle')">Leave Family Savings Circle</button></div>
-<div class="card"><div class="danger"><h3 style="color:#dc2626;margin-top:0">Danger Zone</h3><button class="btn btnO" onclick="disableAcc()">Disable My Account</button><button class="btn btnD" onclick="deleteAcc()">Delete My Account</button></div><button class="btn btn2" onclick="showPage('profile')">Back to Profile</button></div>
-</div>
-
-<div id="editProfilePage" style="display:none"><div class="card"><h3>Edit Profile</h3>
-<h3>Photos</h3><span class="label">Profile Photo</span><input id="profilePicInput" type="file" accept="image/*" onchange="previewPic(event,'profile')"><span class="label">Cover Photo</span><input id="coverPicInput" type="file" accept="image/*" onchange="previewPic(event,'cover')">
-<h3>Personal Information</h3><span class="label">Full Name</span><input id="editName" value="Anthony Usunobun"><span class="label">Email</span><input id="editEmail" value="usunobunanthonynosakhare@gmail.com"><span class="label">Phone</span><input id="editPhone" value="+234 8164665585"><span class="label">Date of Birth</span><input id="editDOB" type="date"><span class="label">Location</span><button class="btn btn2" onclick="getLoc()">📍 Use My Current Location</button><p id="locStatus" style="font-size:13px;color:#0a7a42;display:none"></p><select id="editLocation"><option>Port Harcourt, Nigeria</option><option>Abuja, Nigeria</option><option>Lagos, Nigeria</option><option>Benin City, Nigeria</option><option>Other</option></select><input id="editLocCustom" placeholder="Detected location will appear here" style="display:none"><button class="btn" onclick="saveProfile()">Save Changes</button><button class="btn btn2" onclick="showPage('profile')">Cancel</button></div></div>
-
-<div class="nav">
-<button id="nav-home" class="active" onclick="showPage('home')">Home</button>
-<button id="nav-create" onclick="showPage('create')">Create</button>
-<button id="nav-circle" onclick="showPage('circle')">Circle</button>
-<button id="nav-wallet" onclick="showPage('wallet')">Wallet</button>
-<button id="nav-profile" onclick="showPage('profile')">Profile</button>
+    <p class="muted" style="text-align:center">MP Plan V20 • Auto Save ON • Logged in as <span id="footerEmail"></span></p>
+  </div>
 </div>
 
 <script>
-function el(id){return document.getElementById(id)}
-function toast(m){var t=el('toast');if(!t)return;t.innerText=m;t.style.display='block';setTimeout(function(){t.style.display='none'},3000)}
-// SAVE FOREVER - localStorage
-var appData={name:'Anthony Usunobun',email:'usunobunanthonynosakhare@gmail.com',phone:'+234 8164665585',dob:'',location:'Port Harcourt, Nigeria',profilePic:'',coverPic:'',plans:['Trip to Abuja - ₦500,000','Family Savings - ₦200,000'],tripDest:'Abuja',tripDate:'2026-12-20',tripBudget:'500000',chat:[]};
-function saveData(){try{localStorage.setItem('mpplan_data',JSON.stringify(appData));}catch(e){}}
-function loadData(){try{var s=localStorage.getItem('mpplan_data');if(s){var d=JSON.parse(s);for(var k in d){appData[k]=d[k]}applyData();}}catch(e){}}
-function applyData(){
-  if(el('profileName'))el('profileName').innerText=appData.name;
-  if(el('detailName'))el('detailName').innerText=appData.name;
-  if(el('editName'))el('editName').value=appData.name;
-  if(appData.dob){if(el('detailDOB'))el('detailDOB').innerText=appData.dob;if(el('profileDOB'))el('profileDOB').innerText=appData.dob;if(el('editDOB'))el('editDOB').value=appData.dob;if(el('dobInput'))el('dobInput').value=appData.dob;}
-  if(appData.location){if(el('detailLoc'))el('detailLoc').innerText=appData.location;if(el('profileLoc'))el('profileLoc').innerText=appData.location.split(',')[0];}
-  if(appData.profilePic){var img=el('profileMain');if(img){img.src=appData.profilePic;img.style.display='block';}var al=el('avatarLetter');if(al)al.style.display='none';}
-  if(appData.coverPic){var c=el('coverMain');if(c){c.src=appData.coverPic;c.style.display='block';}var ct=el('coverTxt');if(ct)ct.style.display='none';}
-  if(appData.tripDest&&el('tripDest'))el('tripDest').value=appData.tripDest;
-  if(appData.tripDate&&el('tripDate'))el('tripDate').value=appData.tripDate;
-  if(appData.tripBudget&&el('tripBudget'))el('tripBudget').value=appData.tripBudget;
-  renderPlans();
-  if(appData.chat&&appData.chat.length>0){var box=el('chatBox');if(box){box.innerHTML='<div class="msg"><b>Chiamaka</b><br>Are we still going to Abuja in December?</div><div class="msg mine"><b>You</b><br>Yes! We have saved ₦120,000 already.</div>';for(var i=0;i<appData.chat.length;i++){var d=document.createElement('div');d.className='msg mine';d.innerHTML='<b>You</b><br>'+appData.chat[i];box.appendChild(d);}}}
-  calcBudget();
+let isSignup = false;
+let currentUser = null;
+let data = {plans:[{title:"Trip to Abuja",target:500000,saved:120000}], chats:[]};
+
+function toggleAuth(){
+  isSignup = !isSignup;
+  document.getElementById('signupFields').classList.toggle('hidden', !isSignup);
+  document.getElementById('authTitle').innerText = isSignup ? "Create Account" : "Welcome Back";
+  document.getElementById('authBtn').innerText = isSignup ? "Sign Up" : "Log In";
+  document.getElementById('toggleLink').innerText = isSignup ? "Already have account? Log In" : "Don't have account? Sign Up";
 }
-function renderPlans(){var list=el('myPlansList');if(!list)return;var html='';for(var i=0;i<appData.plans.length;i++){html+='<p><b>'+appData.plans[i]+'</b></p>';}list.innerHTML=html;var cnt=el('planCount');if(cnt)cnt.innerText=appData.plans.length+' Active Plans';}
-function showPage(p){var pages=['homePage','createPage','circlePage','walletPage','paymentPage','sharePage','profilePage','editProfilePage','accountPage','communityPage'];for(var i=0;i<pages.length;i++){var x=el(pages[i]);if(x)x.style.display='none'}var map={home:'homePage',create:'createPage',circle:'circlePage',wallet:'walletPage',profile:'profilePage',account:'accountPage',community:'communityPage'};if(map[p]){var y=el(map[p]);if(y)y.style.display='block'}var navs=['home','create','circle','wallet','profile'];for(var j=0;j<navs.length;j++){var n=el('nav-'+navs[j]);if(n)n.classList.toggle('active',navs[j]===p)}window.scrollTo(0,0)}
-function openPay(){showPage('home');el('homePage').style.display='none';el('paymentPage').style.display='block'}
-function openShare(){el('sharePlanName').value='Trip to Abuja';el('shareTarget').value='₦500,000';updateShare();showPage('home');el('homePage').style.display='none';el('sharePage').style.display='block'}
-function updateShare(){var n=el('sharePlanName').value;var t=el('shareTarget').value;el('shareMessage').value="Hello everyone,\n\nI am pleased to introduce MP Plan.\n\nOur plan is: "+n+"\nTarget: "+t+"\n\nJoin here: https://mp-plan.netlify.app\n\nThank you,\nAnthony"}
-function shareWA(){window.open("https://wa.me/?text="+encodeURIComponent(el('shareMessage').value),'_blank')}
-function copyShare(){el('shareMessage').select();try{document.execCommand('copy')}catch(e){}toast('Message copied successfully.')}
-function createPlan(){var n=el('newPlanName').value;var t=el('newPlanTarget').value;if(!n||!t){toast('Please enter plan name and target.');return}appData.plans.push(n+' - ₦'+Number(t).toLocaleString());saveData();renderPlans();toast('Plan created and saved: '+n);el('newPlanName').value='';el('newPlanTarget').value='';setTimeout(function(){showPage('home')},800)}
-function sendChat(){var inp=el('chatInput');var txt=inp.value.trim();if(!txt)return;appData.chat.push(txt);saveData();var box=el('chatBox');var d=document.createElement('div');d.className='msg mine';d.innerHTML='<b>You</b><br>'+txt;box.appendChild(d);inp.value='';toast('Message sent and saved.')}
-function calcBudget(){var b=el('tripBudget').value||0;el('budgetResult').innerText='Each person pays: ₦'+Math.ceil(b/3).toLocaleString()}
-function saveTrip(){appData.tripDest=el('tripDest').value;appData.tripDate=el('tripDate').value;appData.tripBudget=el('tripBudget').value;saveData();toast('Trip plan saved successfully. It will stay saved.')}
-function openWhatsApp(){window.open("https://wa.me/?text="+encodeURIComponent("Hello Trip to Abuja Circle! Let us plan our trip on MP Plan. Target: ₦500,000. Join: https://mp-plan.netlify.app"),'_blank')}
-function leaveCircle(n){if(confirm('Leave '+n+'?')){toast('You have left '+n);showPage('circle')}}
-function saveDOB(){var d=el('dobInput').value;if(!d){toast('Please select date of birth.');return}appData.dob=d;saveData();applyData();toast('Date of birth saved forever: '+d)}
-function forgotPass(){toast('Password reset link sent to '+el('resetEmail').value)}
-function changePass(){var a=el('newPass').value;var b=el('confirmPass').value;if(!a||!b){toast('Fill both password fields.');return}if(a!==b){toast('Passwords do not match.');return}el('newPass').value='';el('confirmPass').value='';toast('Password changed successfully.')}
-function disableAcc(){if(confirm('Disable your account? You can log in again to reactivate.')){toast('Account disabled.');showPage('home')}}
-function deleteAcc(){var c=prompt('Type DELETE to delete your account:');if(c==='DELETE'){try{localStorage.removeItem('mpplan_data');}catch(e){}toast('Account deleted. All saved data cleared.');showPage('home')}else if(c!==null){toast('Deletion cancelled.')}}
-function getLoc(){var s=el('locStatus');s.style.display='block';s.innerText='Finding your location... Please allow permission.';if(!navigator.geolocation){s.innerText='Location not supported.';return}navigator.geolocation.getCurrentPosition(function(pos){var lat=pos.coords.latitude;var lng=pos.coords.longitude;s.innerText='Location found: '+lat.toFixed(4)+', '+lng.toFixed(4)+' - Tap Save Changes.';var cu=el('editLocCustom');cu.style.display='block';cu.value='Port Harcourt, Nigeria - '+lat.toFixed(4)+', '+lng.toFixed(4);el('editLocation').value='Other';toast('Location found successfully.')},function(){s.innerText='Could not get location. Please allow permission.'},{timeout:8000})}
-var tempP=null;var tempC=null;
-function previewPic(e,type){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){if(type==='profile'){tempP=ev.target.result}else{tempC=ev.target.result}toast('Photo selected. Tap Save Changes.')};r.readAsDataURL(f)}
-function editProfile(){showPage('home');el('homePage').style.display='none';el('editProfilePage').style.display='block'}
-function saveProfile(){var n=el('editName').value;var dob=el('editDOB').value;var loc=el('editLocation').value;if(loc==='Other'){var cu=el('editLocCustom').value;if(cu)loc=cu}appData.name=n;if(dob)appData.dob=dob;appData.location=loc;if(tempP)appData.profilePic=tempP;if(tempC)appData.coverPic=tempC;saveData();applyData();showPage('profile');toast('Profile saved successfully. It will stay saved.')}
-function logout(){if(confirm('Log out?')){toast('You have been logged out.');showPage('home')}}
-function payNow(){var a=el('amount').value;var em=el('email').value;if(!a||!em){toast('Please enter amount and email.');return}try{var h=PaystackPop.setup({key:'pk_test_beb4bb76f21f7afe31ab394db66f53bcc615a6a2',email:em,amount:a*100,currency:'NGN',ref:'MP-'+Math.floor(Math.random()*1000000000),callback:function(res){toast('Payment Successful! Ref: '+res.reference);showPage('wallet')},onClose:function(){toast('Payment window closed.')}});h.openIframe()}catch(e){toast('Payment loading... try again.')}}
-updateShare();loadData();
+function getUsers(){ return JSON.parse(localStorage.getItem('mp_users')||"{}"); }
+function saveUsers(u){ localStorage.setItem('mp_users', JSON.stringify(u)); }
+function loadData(email){ 
+  let d = localStorage.getItem('mp_data_'+email);
+  if(d) data = JSON.parse(d);
+  else { data = {plans:[{title:"Trip to Abuja",target:500000,saved:120000}], chats:[]}; saveData(email); }
+}
+function saveData(email){ localStorage.setItem('mp_data_'+email, JSON.stringify(data)); }
+function doAuth(){
+  let email = document.getElementById('authEmail').value.trim().toLowerCase();
+  let pass = document.getElementById('authPass').value;
+  let name = document.getElementById('suName').value.trim();
+  if(!email || !pass || pass.length<4){ alert("Enter email and password (min 4 chars)"); return; }
+  let users = getUsers();
+  if(isSignup){
+    if(!name){ alert("Enter your name"); return; }
+    if(users[email]){ alert("Account already exists. Please Log In."); toggleAuth(); return; }
+    users[email] = {name:name, pass:pass, email:email};
+    saveUsers(users);
+    alert("Account created! Welcome "+name);
+  } else {
+    if(!users[email] || users[email].pass !== pass){ alert("Wrong email or password. Try Sign Up first."); return; }
+  }
+  currentUser = users[email];
+  localStorage.setItem('mp_session', email);
+  loadData(email);
+  showApp();
+}
+function showApp(){
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('appScreen').classList.remove('hidden');
+  document.getElementById('userName').innerText = currentUser.name.split(' ')[0];
+  document.getElementById('userEmail').innerText = currentUser.email;
+  document.getElementById('footerEmail').innerText = currentUser.email;
+  render();
+}
+function logout(){
+  localStorage.removeItem('mp_session');
+  location.reload();
+}
+function render(){
+  let p = data.plans[0];
+  if(!p) return;
+  document.getElementById('planTitle').innerText = p.title;
+  document.getElementById('planTarget').innerText = p.target.toLocaleString();
+  document.getElementById('planSaved').innerText = p.saved.toLocaleString();
+  let pct = Math.min(100, Math.round(p.saved/p.target*100));
+  document.getElementById('progressFill').style.width = pct+"%";
+  document.getElementById('progressText').innerText = pct+"% complete • ₦"+(p.target-p.saved).toLocaleString()+" left";
+  let html="";
+  data.plans.forEach((pl,i)=>{
+    html+=`<div style="padding:10px;border-bottom:1px solid #334155"><b>${pl.title}</b><br><span class="muted">Saved ₦${pl.saved.toLocaleString()} / ₦${pl.target.toLocaleString()}</span> <button class="small" style="float:right" onclick="selectPlan(${i})">Open</button></div>`;
+  });
+  document.getElementById('planList').innerHTML = html;
+  let chatHtml = data.chats.map(c=>`<div><b>${c.name}:</b> ${c.text}</div>`).join('') || "<span class='muted'>No messages yet. Say hello!</span>";
+  document.getElementById('chatBox').innerHTML = chatHtml;
+}
+function contribute(){
+  let amt = parseInt(document.getElementById('amountInput').value);
+  if(!amt || amt<=0){ alert("Enter amount"); return; }
+  data.plans[0].saved += amt;
+  saveData(currentUser.email); render();
+  document.getElementById('amountInput').value="";
+  alert("₦"+amt.toLocaleString()+" added! Well done "+currentUser.name.split(' ')[0]);
+}
+function createPlan(){
+  let t = document.getElementById('newTitle').value.trim();
+  let tg = parseInt(document.getElementById('newTarget').value);
+  if(!t || !tg){ alert("Enter plan name and target"); return; }
+  data.plans.unshift({title:t,target:tg,saved:0});
+  saveData(currentUser.email); render();
+  document.getElementById('newTitle').value=""; document.getElementById('newTarget').value="";
+}
+function selectPlan(i){ let p=data.plans.splice(i,1)[0]; data.plans.unshift(p); saveData(currentUser.email); render(); }
+function sharePlan(){ let p=data.plans[0]; let txt=`Join my MP Plan: ${p.title} - Target ₦${p.target.toLocaleString()} | Saved ₦${p.saved.toLocaleString()} - ${location.href}`; navigator.clipboard.writeText(txt); alert("Link copied! Share it with friends."); }
+function openChat(){ document.getElementById('chatCard').style.display='block'; }
+function sendChat(){
+  let txt=document.getElementById('chatInput').value.trim(); if(!txt) return;
+  data.chats.push({name:currentUser.name.split(' ')[0], text:txt});
+  saveData(currentUser.email); render(); document.getElementById('chatInput').value="";
+}
+// Auto-login if session exists
+window.onload = ()=>{
+  let email = localStorage.getItem('mp_session');
+  if(email){
+    let users=getUsers();
+    if(users[email]){ currentUser=users[email]; loadData(email); showApp(); }
+  }
+}
 </script>
 </body>
-                    </html>
+</html>
