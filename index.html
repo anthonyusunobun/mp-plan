@@ -2,38 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MP Plan - Version 23</title>
+<title>MP Plan - Full App</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0f172a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
-.card{background:#1e293b;width:100%;max-width:430px;border-radius:20px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
-h1{margin:0 0 4px;font-size:28px} p.sub{color:#94a3b8;margin:0 0 20px}
-.tabs{display:flex;background:#0f172a;border-radius:12px;padding:4px;margin-bottom:14px}
-.tabs button{flex:1;background:transparent;color:#94a3b8;padding:10px;border-radius:10px;font-size:15px}
-.tabs button.active{background:#22c55e;color:#000}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0f172a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:14px}
+.card{background:#1e293b;width:100%;max-width:460px;border-radius:22px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+h1{margin:0 0 4px;font-size:27px} p.sub{color:#94a3b8;margin:0 0 16px;font-size:14px}
+.tabs{display:flex;background:#0f172a;border-radius:12px;padding:4px;margin-bottom:12px}
+.tabs button{flex:1;background:transparent;color:#94a3b8;padding:10px;border-radius:10px;font-size:15px;border:0;cursor:pointer}
+.tabs button.active{background:#22c55e;color:#000;font-weight:700}
 .wrap{position:relative;margin-bottom:12px}
 .wrap input{width:100%;padding:13px 44px 13px 13px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:#fff;font-size:16px;outline:none;margin:0}
-.wrap input:focus{border-color:#22c55e}
-input{width:100%;padding:13px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:#fff;margin-bottom:12px;font-size:16px;outline:none}
+input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:#fff;margin-bottom:10px;font-size:16px;outline:none}
 input:focus{border-color:#22c55e}
-.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#94a3b8;font-size:20px;cursor:pointer;width:36px;padding:0}
-button{width:100%;padding:14px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:16px;cursor:pointer;margin-top:4px}
-button.secondary{background:#334155;color:#fff}
-.link{color:#22c55e;text-align:center;margin-top:14px;cursor:pointer;font-size:14px}
-.msg{padding:12px;border-radius:12px;font-size:14px;margin-bottom:12px;display:none}
+.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#94a3b8;font-size:18px;cursor:pointer;width:36px;padding:0}
+button{width:100%;padding:13px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
+button.secondary{background:#334155;color:#fff} button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
+button.danger{background:#7f1d1d;color:#fff}
+.link{color:#22c55e;text-align:center;margin-top:12px;cursor:pointer;font-size:14px}
+.msg{padding:11px;border-radius:12px;font-size:14px;margin-bottom:10px;display:none}
 .msg.ok{background:#14532d;display:block}.msg.err{background:#7f1d1d;display:block}.msg.info{background:#1e40af;display:block}
 .hidden{display:none!important}
 .badge{background:#22c55e;color:#000;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800}
-.row{display:flex;justify-content:space-between;align-items:center}
-.plan{margin-top:16px;background:#0f172a;padding:16px;border-radius:14px}
-.plan h3{margin:0 0 8px}.plan label{font-size:13px;color:#cbd5e1}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.box{margin-top:14px;background:#0f172a;padding:16px;border-radius:14px}
+.box h3{margin:0 0 8px;font-size:17px}.box label{font-size:13px;color:#cbd5e1}
+.nav{display:flex;gap:6px;margin-bottom:14px}
+.nav button{flex:1;padding:10px 4px;font-size:13px;background:#0f172a;color:#94a3b8}
+.nav button.active{background:#22c55e;color:#000}
+.task{display:flex;align-items:center;gap:10px;background:#1e293b;padding:11px;border-radius:12px;margin-bottom:8px}
+.task input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:#22c55e}
+.task span{flex:1;font-size:15px}.task span.done{text-decoration:line-through;color:#94a3b8}
+.task button{width:30px;padding:6px;background:#7f1d1d;font-size:14px}
+.avatar{width:72px;height:72px;border-radius:50%;background:#22c55e;color:#000;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto 10px}
+.stat{display:flex;gap:8px}.stat div{flex:1;background:#0f172a;padding:12px;border-radius:12px;text-align:center}
+.stat b{font-size:20px;display:block}.stat small{color:#94a3b8}
+.progress{height:10px;background:#334155;border-radius:999px;overflow:hidden;margin:8px 0}
+.progress i{display:block;height:100%;background:#22c55e;width:0%}
+.history{font-size:14px;padding:10px;background:#1e293b;border-radius:10px;margin-bottom:8px}
+.history small{color:#94a3b8}
 </style>
 </head>
 <body>
 <div class="card" id="authCard">
-<h1>MP Plan</h1>
-<p class="sub">Login with Email OR Phone - Version 23</p>
+<h1>MP Plan</h1><p class="sub">Login with Email OR Phone - Full App</p>
 <div id="msg" class="msg"></div>
 <div class="tabs"><button id="tabEmail" class="active">Email</button><button id="tabPhone">Phone</button></div>
 <div id="loginBox">
@@ -67,26 +80,46 @@ button.secondary{background:#334155;color:#fff}
 <div class="link" id="logout1">Use different account</div>
 </div>
 </div>
+
 <div class="card hidden" id="appCard">
-<div class="row"><div><h1 style="font-size:22px">Welcome</h1><p class="sub" id="userEmail"></p></div><span class="badge">VERIFIED</span></div>
-<div class="plan">
-<h3>Your MP Plan - Today</h3>
-<label>Today's Goal</label><input id="goal" placeholder="e.g. Study 2hrs, Gym, No junk food">
-<label>Notes</label><input id="notes" placeholder="How are you feeling today?">
-<button id="savePlanBtn">Save My Plan</button>
-<p id="savedText" style="font-size:13px;color:#86efac"></p>
+<div class="row"><div><h1 style="font-size:22px">MP Plan</h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge">VERIFIED</span></div>
+<div class="nav">
+<button id="navHome" class="active">Home</button><button id="navTasks">Tasks</button><button id="navHistory">History</button><button id="navProfile">Profile</button>
 </div>
-<button class="secondary" id="logoutBtn">Log Out</button>
+
+<!-- HOME -->
+<div id="pageHome">
+<div class="stat"><div><b id="streakNum">1</b><small>Day Streak 🔥</small></div><div><b id="taskCount">0 / 0</b><small>Tasks Done</small></div><div><b id="todayDate">--</b><small>Today</small></div></div>
+<div class="box"><h3>Today's Progress</h3><div class="progress"><i id="progBar"></i></div><p id="progText" style="font-size:13px;color:#94a3b8;margin:0">No tasks yet - add one below!</p></div>
+<div class="box"><h3>Today's Goal</h3><label>Main Goal</label><input id="goal" placeholder="e.g. Study 2hrs, Gym, No junk food"><label>How are you feeling?</label><input id="notes" placeholder="How are you feeling today?"><button id="savePlanBtn">Save My Plan</button><p id="savedText" style="font-size:13px;color:#86efac;margin:8px 0 0"></p></div>
 </div>
+
+<!-- TASKS -->
+<div id="pageTasks" class="hidden">
+<div class="box"><h3>My Tasks - Today</h3>
+<div class="row"><input id="newTask" placeholder="Add new task... e.g. Read 20 pages" style="margin:0"><button class="small" id="addTaskBtn" style="width:60px">Add</button></div>
+<div id="taskList" style="margin-top:12px"></div>
+<button class="secondary" id="clearDoneBtn">Clear Completed Tasks</button>
+</div>
+</div>
+
+<!-- HISTORY -->
+<div id="pageHistory" class="hidden">
+<div class="box"><h3>Your History</h3><p style="font-size:13px;color:#94a3b8">All your saved plans.</p><div id="historyList"></div></div>
+</div>
+
+<!-- PROFILE -->
+<div id="pageProfile" class="hidden">
+<div class="box" style="text-align:center"><div class="avatar" id="avatarLetter">A</div><h3 id="profileName">Anthony</h3><p id="profileEmail" style="color:#94a3b8;font-size:14px;margin:0"></p><p id="profilePhone" style="color:#94a3b8;font-size:14px;margin:4px 0 0"></p></div>
+<div class="box"><h3>Edit Profile</h3><label>Full Name</label><input id="editName" placeholder="Full name"><label>Phone</label><input id="editPhone" placeholder="+234..."><button id="saveProfileBtn">Save Profile</button><p id="profileSaved" style="font-size:13px;color:#86efac"></p></div>
+<div class="box"><h3>Account</h3><p style="font-size:13px;color:#94a3b8">Member since: <span id="memberSince">-</span><br>User ID: <span id="userIdText" style="font-size:11px;word-break:break-all">-</span></p></div>
+</div>
+
+<button class="secondary" id="logoutBtn" style="margin-top:14px">Log Out</button>
+</div>
+
 <script>
-const firebaseConfig = {
-apiKey: "AIzaSyCm9n6nern9J2RVg2GcqRxH8_QCJ5FwNAo",
-authDomain: "mp-plan-anthony.firebaseapp.com",
-projectId: "mp-plan-anthony",
-storageBucket: "mp-plan-anthony.firebasestorage.app",
-messagingSenderId: "866100401066",
-appId: "1:866100401066:web:a0505ef2dae9344b3111d3"
-};
+const firebaseConfig = { apiKey: "AIzaSyCm9n6nern9J2RVg2GcqRxH8_QCJ5FwNAo", authDomain: "mp-plan-anthony.firebaseapp.com", projectId: "mp-plan-anthony", storageBucket: "mp-plan-anthony.firebasestorage.app", messagingSenderId: "866100401066", appId: "1:866100401066:web:a0505ef2dae9344b3111d3" };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const $ = id => document.getElementById(id);
@@ -97,64 +130,39 @@ $('toSignup').onclick=()=>showBox('signupBox');
 $('toLogin').onclick=()=>showBox('loginBox');
 $('tabEmail').onclick=()=>{ $('tabEmail').classList.add('active'); $('tabPhone').classList.remove('active'); $('emailLogin').classList.remove('hidden'); $('phoneLogin').classList.add('hidden'); };
 $('tabPhone').onclick=()=>{ $('tabPhone').classList.add('active'); $('tabEmail').classList.remove('active'); $('phoneLogin').classList.remove('hidden'); $('emailLogin').classList.add('hidden'); };
-$('signupBtn').onclick=async()=>{
-const name=$('suName').value.trim(), email=$('suEmail').value.trim(), pass=$('suPass').value;
-if(!name||!email||pass.length<6) return showMsg('Fill all fields. Password must be 6+ characters.','err');
-try{
-const cred=await auth.createUserWithEmailAndPassword(email,pass);
-await cred.user.updateProfile({displayName:name});
-await cred.user.sendEmailVerification();
-$('verifyEmail').textContent=email;
-showBox('verifyBox'); showMsg('Account created! Verification email sent. Check inbox.','ok');
-}catch(e){ showMsg(e.message,'err'); }
-};
-$('loginBtn').onclick=async()=>{
-try{
-const cred=await auth.signInWithEmailAndPassword($('loginEmail').value.trim(), $('loginPass').value);
-if(!cred.user.emailVerified){ $('verifyEmail').textContent=cred.user.email; showBox('verifyBox'); return showMsg('Please verify your email first. Check inbox.','info'); }
-showApp(cred.user);
-}catch(e){ showMsg('Wrong email or password. If you have no account yet, click Create one below.','err'); }
-};
+$('signupBtn').onclick=async()=>{ const name=$('suName').value.trim(), email=$('suEmail').value.trim(), pass=$('suPass').value; if(!name||!email||pass.length<6) return showMsg('Fill all fields. Password must be 6+ characters.','err'); try{ const cred=await auth.createUserWithEmailAndPassword(email,pass); await cred.user.updateProfile({displayName:name}); await cred.user.sendEmailVerification(); $('verifyEmail').textContent=email; showBox('verifyBox'); showMsg('Account created! Verification email sent.','ok'); }catch(e){ showMsg(e.message,'err'); } };
+$('loginBtn').onclick=async()=>{ try{ const cred=await auth.signInWithEmailAndPassword($('loginEmail').value.trim(), $('loginPass').value); if(!cred.user.emailVerified){ $('verifyEmail').textContent=cred.user.email; showBox('verifyBox'); return showMsg('Please verify your email first.','info'); } showApp(cred.user); }catch(e){ showMsg('Wrong email or password.','err'); } };
 let confirmationResult=null;
-$('sendCodeBtn').onclick=async()=>{
-const phone=$('loginPhone').value.trim();
-if(!phone.startsWith('+')) return showMsg('Phone must start with +234... e.g. +2348124962372','err');
-try{
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'});
-confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier);
-showMsg('SMS code sent to '+phone,'ok');
-}catch(e){ showMsg(e.message,'err'); }
-};
-$('verifyCodeBtn').onclick=async()=>{
-try{ const cred=await confirmationResult.confirm($('smsCode').value.trim()); showApp(cred.user); }catch(e){ showMsg('Wrong code. Try again.','err'); }
-};
-$('checkVerifyBtn').onclick=async()=>{
-await auth.currentUser.reload();
-if(auth.currentUser.emailVerified) showApp(auth.currentUser);
-else showMsg('Not verified yet. Click the link in your email, then try again.','err');
-};
+$('sendCodeBtn').onclick=async()=>{ const phone=$('loginPhone').value.trim(); if(!phone.startsWith('+')) return showMsg('Phone must start with +234...','err'); try{ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'}); confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier); showMsg('SMS code sent to '+phone,'ok'); }catch(e){ showMsg(e.message,'err'); } };
+$('verifyCodeBtn').onclick=async()=>{ try{ const cred=await confirmationResult.confirm($('smsCode').value.trim()); showApp(cred.user); }catch(e){ showMsg('Wrong code. Try again.','err'); } };
+$('checkVerifyBtn').onclick=async()=>{ await auth.currentUser.reload(); if(auth.currentUser.emailVerified) showApp(auth.currentUser); else showMsg('Not verified yet. Click link in email.','err'); };
 $('resendBtn').onclick=async()=>{ try{ await auth.currentUser.sendEmailVerification(); showMsg('Verification email resent!','ok'); }catch(e){ showMsg(e.message,'err'); } };
-$('forgot').onclick=async()=>{
-const email=$('loginEmail').value.trim(); if(!email) return showMsg('Type your email first, then click Forgot password.','info');
-try{ await auth.sendPasswordResetEmail(email); showMsg('Password reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); }
-};
+$('forgot').onclick=async()=>{ const email=$('loginEmail').value.trim(); if(!email) return showMsg('Type your email first.','info'); try{ await auth.sendPasswordResetEmail(email); showMsg('Password reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); } };
+function showPage(p){ ['pageHome','pageTasks','pageHistory','pageProfile'].forEach(id=>$(id).classList.add('hidden')); $('page'+p).classList.remove('hidden'); ['navHome','navTasks','navHistory','navProfile'].forEach(id=>$(id).classList.remove('active')); $('nav'+p).classList.add('active'); }
+$('navHome').onclick=()=>showPage('Home'); $('navTasks').onclick=()=>showPage('Tasks'); $('navHistory').onclick=()=>showPage('History'); $('navProfile').onclick=()=>showPage('Profile');
+function getKey(uid){ return 'mpplan_full_'+uid; }
+function getData(){ const u=auth.currentUser; if(!u) return {goal:'',notes:'',tasks:[],history:[]}; try{ return JSON.parse(localStorage.getItem(getKey(u.uid)))||{goal:'',notes:'',tasks:[],history:[]}; }catch{ return {goal:'',notes:'',tasks:[],history:[]} } }
+function saveData(d){ const u=auth.currentUser; if(!u) return; localStorage.setItem(getKey(u.uid), JSON.stringify(d)); }
+function renderTasks(){ const d=getData(); const list=$('taskList'); list.innerHTML=''; if(!d.tasks.length) list.innerHTML='<p style="color:#94a3b8;font-size:14px">No tasks yet. Add your first task above!</p>'; d.tasks.forEach((t,i)=>{ const div=document.createElement('div'); div.className='task'; div.innerHTML=`<input type="checkbox" ${t.done?'checked':''}><span class="${t.done?'done':''}"></span><button>×</button>`; div.querySelector('span').textContent=t.text; div.querySelector('input').onchange=()=>{ d.tasks[i].done=!d.tasks[i].done; saveData(d); renderTasks(); updateStats(); }; div.querySelector('button').onclick=()=>{ d.tasks.splice(i,1); saveData(d); renderTasks(); updateStats(); }; list.appendChild(div); }); updateStats(); }
+function updateStats(){ const d=getData(); const total=d.tasks.length, done=d.tasks.filter(t=>t.done).length; $('taskCount').textContent=done+' / '+total; const pct= total? Math.round(done/total*100):0; $('progBar').style.width=pct+'%'; $('progText').textContent= total? pct+'% complete - '+done+' of '+total+' tasks done' : 'No tasks yet - add one!'; const hist=d.history||[]; $('streakNum').textContent= hist.length? hist.length : 1; }
+function renderHistory(){ const d=getData(); const list=$('historyList'); list.innerHTML=''; if(!d.history.length) list.innerHTML='<p style="color:#94a3b8;font-size:14px">No history yet. Save your plan on Home to see it here.</p>'; [...d.history].reverse().forEach(h=>{ const div=document.createElement('div'); div.className='history'; div.innerHTML=`<b>${h.goal||'No goal'}</b><br><span>${h.notes||''}</span><br><small>${h.date||''} - ${h.tasksDone||0} tasks done</small>`; list.appendChild(div); }); }
+$('addTaskBtn').onclick=()=>{ const v=$('newTask').value.trim(); if(!v) return; const d=getData(); d.tasks.push({text:v,done:false}); saveData(d); $('newTask').value=''; renderTasks(); };
+$('newTask').onkeydown=e=>{ if(e.key==='Enter') $('addTaskBtn').click(); };
+$('clearDoneBtn').onclick=()=>{ const d=getData(); d.tasks=d.tasks.filter(t=>!t.done); saveData(d); renderTasks(); };
+$('savePlanBtn').onclick=()=>{ const d=getData(); d.goal=$('goal').value; d.notes=$('notes').value; const done=d.tasks.filter(t=>t.done).length; d.history.push({goal:d.goal,notes:d.notes,date:new Date().toLocaleString(),tasksDone:done}); saveData(d); $('savedText').textContent='Saved - '+new Date().toLocaleString(); renderHistory(); updateStats(); };
+$('saveProfileBtn').onclick=async()=>{ const name=$('editName').value.trim(); const phone=$('editPhone').value.trim(); const u=auth.currentUser; if(!u) return; try{ if(name) await u.updateProfile({displayName:name}); localStorage.setItem('mp_profile_phone_'+u.uid, phone); $('profileName').textContent=name||u.displayName||'User'; $('avatarLetter').textContent=(name||'A')[0].toUpperCase(); $('profilePhone').textContent=phone||u.phoneNumber||''; $('helloText').textContent='Welcome back, '+(name||u.displayName||''); $('profileSaved').textContent='Profile saved!'; }catch(e){ $('profileSaved').textContent=e.message; } };
 function showApp(user){
 $('authCard').classList.add('hidden'); $('appCard').classList.remove('hidden');
-$('userEmail').textContent=(user.displayName||user.phoneNumber||'User')+' - '+(user.email||user.phoneNumber||'');
-const saved=localStorage.getItem('mpplan_'+user.uid);
-if(saved){ const d=JSON.parse(saved); $('goal').value=d.goal||''; $('notes').value=d.notes||''; $('savedText').textContent='Loaded your last saved plan'; }
+const name=user.displayName||'Anthony'; const email=user.email||''; const phone=localStorage.getItem('mp_profile_phone_'+user.uid)||user.phoneNumber||'';
+$('helloText').textContent='Welcome back, '+name;
+$('profileName').textContent=name; $('profileEmail').textContent=email; $('profilePhone').textContent=phone; $('avatarLetter').textContent=name[0].toUpperCase(); $('editName').value=name; $('editPhone').value=phone; $('userIdText').textContent=user.uid; $('memberSince').textContent=new Date(Number(user.metadata.creationTime)).toLocaleDateString(); $('todayDate').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+const d=getData(); $('goal').value=d.goal||'travel'; $('notes').value=d.notes||'exited';
+if(!d.tasks.length){ d.tasks=[{text:'Study / Work on goal',done:false},{text:'Exercise / Gym',done:false},{text:'No junk food',done:false}]; saveData(d); }
+renderTasks(); renderHistory(); updateStats(); showPage('Home');
 }
-$('savePlanBtn').onclick=()=>{
-const user=auth.currentUser; if(!user) return;
-localStorage.setItem('mpplan_'+user.uid, JSON.stringify({goal:$('goal').value, notes:$('notes').value, date:new Date().toISOString()}));
-$('savedText').textContent='Saved - '+new Date().toLocaleString();
-};
 async function doLogout(){ await auth.signOut(); location.reload(); }
 $('logoutBtn').onclick=doLogout; $('logout1').onclick=doLogout;
-auth.onAuthStateChanged(user=>{
-if(user && (user.emailVerified || user.phoneNumber)) showApp(user);
-else if(user && !user.emailVerified){ $('verifyEmail').textContent=user.email; showBox('verifyBox'); }
-});
+auth.onAuthStateChanged(user=>{ if(user && (user.emailVerified || user.phoneNumber)) showApp(user); else if(user && !user.emailVerified){ $('verifyEmail').textContent=user.email; showBox('verifyBox'); } });
 </script>
 </body>
 </html>
