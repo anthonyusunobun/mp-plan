@@ -2,120 +2,106 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MP Plan - Full App</title>
+<title>MP Plan - Collaborate & Contribute</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#0f172a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:14px}
-.card{background:#1e293b;width:100%;max-width:460px;border-radius:22px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
-h1{margin:0 0 4px;font-size:27px} p.sub{color:#94a3b8;margin:0 0 16px;font-size:14px}
-.tabs{display:flex;background:#0f172a;border-radius:12px;padding:4px;margin-bottom:12px}
-.tabs button{flex:1;background:transparent;color:#94a3b8;padding:10px;border-radius:10px;font-size:15px;border:0;cursor:pointer}
-.tabs button.active{background:#22c55e;color:#000;font-weight:700}
-.wrap{position:relative;margin-bottom:12px}
-.wrap input{width:100%;padding:13px 44px 13px 13px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:#fff;font-size:16px;outline:none;margin:0}
-input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:#fff;margin-bottom:10px;font-size:16px;outline:none}
-input:focus{border-color:#22c55e}
-.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#94a3b8;font-size:18px;cursor:pointer;width:36px;padding:0}
-button{width:100%;padding:13px;border:0;border-radius:12px;background:#22c55e;color:#000;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
-button.secondary{background:#334155;color:#fff} button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
-button.danger{background:#7f1d1d;color:#fff}
-.link{color:#22c55e;text-align:center;margin-top:12px;cursor:pointer;font-size:14px}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#070B14;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:12px}
+.card{background:#111827;width:100%;max-width:480px;border-radius:22px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.5);border:1px solid #1F2937}
+h1{margin:0;font-size:26px} h1 span{color:#FBBF24} p.sub{color:#9CA3AF;margin:4px 0 14px;font-size:13px}
+.tabs{display:flex;background:#070B14;border-radius:12px;padding:4px;margin-bottom:12px}
+.tabs button{flex:1;background:transparent;color:#9CA3AF;padding:10px;border-radius:10px;font-size:14px;border:0;cursor:pointer}
+.tabs button.active{background:#FBBF24;color:#000;font-weight:800}
+.wrap{position:relative;margin-bottom:10px}
+.wrap input{width:100%;padding:13px 44px 13px 13px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;font-size:15px;outline:none;margin:0}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;margin-bottom:10px;font-size:15px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#FBBF24}
+.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#9CA3AF;font-size:16px;cursor:pointer}
+button{width:100%;padding:13px;border:0;border-radius:12px;background:#FBBF24;color:#000;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
+button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;color:#000} button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
+.link{color:#FBBF24;text-align:center;margin-top:12px;cursor:pointer;font-size:14px}
 .msg{padding:11px;border-radius:12px;font-size:14px;margin-bottom:10px;display:none}
-.msg.ok{background:#14532d;display:block}.msg.err{background:#7f1d1d;display:block}.msg.info{background:#1e40af;display:block}
+.msg.ok{background:#14532D;display:block}.msg.err{background:#7F1D1D;display:block}.msg.info{background:#1E40AF;display:block}
 .hidden{display:none!important}
-.badge{background:#22c55e;color:#000;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.box{margin-top:14px;background:#0f172a;padding:16px;border-radius:14px}
-.box h3{margin:0 0 8px;font-size:17px}.box label{font-size:13px;color:#cbd5e1}
-.nav{display:flex;gap:6px;margin-bottom:14px}
-.nav button{flex:1;padding:10px 4px;font-size:13px;background:#0f172a;color:#94a3b8}
-.nav button.active{background:#22c55e;color:#000}
-.task{display:flex;align-items:center;gap:10px;background:#1e293b;padding:11px;border-radius:12px;margin-bottom:8px}
-.task input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:#22c55e}
-.task span{flex:1;font-size:15px}.task span.done{text-decoration:line-through;color:#94a3b8}
-.task button{width:30px;padding:6px;background:#7f1d1d;font-size:14px}
-.avatar{width:72px;height:72px;border-radius:50%;background:#22c55e;color:#000;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto 10px}
-.stat{display:flex;gap:8px}.stat div{flex:1;background:#0f172a;padding:12px;border-radius:12px;text-align:center}
-.stat b{font-size:20px;display:block}.stat small{color:#94a3b8}
-.progress{height:10px;background:#334155;border-radius:999px;overflow:hidden;margin:8px 0}
-.progress i{display:block;height:100%;background:#22c55e;width:0%}
-.history{font-size:14px;padding:10px;background:#1e293b;border-radius:10px;margin-bottom:8px}
-.history small{color:#94a3b8}
+.badge{background:#22C55E;color:#000;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800}
+.badge.gold{background:#FBBF24}.badge.blue{background:#60A5FA;color:#000}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.box{margin-top:12px;background:#070B14;padding:15px;border-radius:14px;border:1px solid #1F2937}
+.box h3{margin:0 0 8px;font-size:16px}.box label{font-size:12px;color:#9CA3AF}
+.nav{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.nav button{flex:1;padding:9px 3px;font-size:12px;background:#070B14;color:#9CA3AF;min-width:70px}
+.nav button.active{background:#FBBF24;color:#000}
+.avatar{width:68px;height:68px;border-radius:50%;background:#FBBF24;color:#000;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;margin:0 auto 8px}
+.planCard{background:#1F2937;padding:14px;border-radius:14px;margin-bottom:10px;border-left:4px solid #FBBF24}
+.planCard h4{margin:0 0 4px;font-size:16px}.planCard p{margin:4px 0;font-size:13px;color:#D1D5DB}
+.planCard small{color:#9CA3AF}
+.progress{height:9px;background:#374151;border-radius:999px;overflow:hidden;margin:8px 0}
+.progress i{display:block;height:100%;background:#22C55E}
+.pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700;margin-right:5px}
+.pill.money{background:#FBBF24;color:#000}.pill.skill{background:#60A5FA;color:#000}.pill.both{background:#A78BFA;color:#000}
+.stat{display:flex;gap:8px}.stat div{flex:1;background:#070B14;padding:11px;border-radius:12px;text-align:center;border:1px solid #1F2937}
+.stat b{font-size:18px;display:block}.stat small{color:#9CA3AF;font-size:11px}
 </style>
 </head>
 <body>
 <div class="card" id="authCard">
-<h1>MP Plan</h1><p class="sub">Login with Email OR Phone - Full App</p>
+<h1>MP <span>Plan</span></h1><p class="sub">Skills + Money = Plans Achieved Together</p>
 <div id="msg" class="msg"></div>
 <div class="tabs"><button id="tabEmail" class="active">Email</button><button id="tabPhone">Phone</button></div>
 <div id="loginBox">
-<div id="emailLogin">
-<input id="loginEmail" type="email" placeholder="Email address">
-<div class="wrap"><input id="loginPass" type="password" placeholder="Password"><button type="button" class="eye" onclick="togglePass('loginPass',this)">EYE</button></div>
-<button id="loginBtn">Log In with Email</button>
-</div>
-<div id="phoneLogin" class="hidden">
-<input id="loginPhone" placeholder="Phone e.g. +2348124962372">
-<div id="recaptcha"></div>
-<button id="sendCodeBtn">Send SMS Code</button>
-<input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:12px">
-<button id="verifyCodeBtn" class="secondary">Verify Code & Log In</button>
-</div>
-<div class="link" id="toSignup">No account? Create one</div>
-<div class="link" id="forgot">Forgot password? (Email only)</div>
+<div id="emailLogin"><input id="loginEmail" type="email" placeholder="Email address"><div class="wrap"><input id="loginPass" type="password" placeholder="Password"><button type="button" class="eye" onclick="togglePass('loginPass',this)">EYE</button></div><button id="loginBtn">Log In</button></div>
+<div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><div id="recaptcha"></div><button id="sendCodeBtn">Send SMS Code</button><input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:10px"><button id="verifyCodeBtn" class="secondary">Verify Code & Log In</button></div>
+<div class="link" id="toSignup">No account? Create one</div><div class="link" id="forgot">Forgot password?</div>
 </div>
 <div id="signupBox" class="hidden">
-<input id="suName" placeholder="Full name">
-<input id="suEmail" type="email" placeholder="Email address">
-<div class="wrap"><input id="suPass" type="password" placeholder="Create password (6+ characters)"><button type="button" class="eye" onclick="togglePass('suPass',this)">EYE</button></div>
-<button id="signupBtn">Create Account & Send Verification Email</button>
-<div class="link" id="toLogin">Already have account? Log in</div>
+<input id="suName" placeholder="Full name"><input id="suEmail" type="email" placeholder="Email address"><div class="wrap"><input id="suPass" type="password" placeholder="Create password (6+)"><button type="button" class="eye" onclick="togglePass('suPass',this)">EYE</button></div>
+<select id="suRole"><option value="Skilled Person - I have skill, need money">I have SKILL, I need MONEY</option><option value="Contributor - I have money, want to support">I have MONEY, I want to SUPPORT</option><option value="Both - I have skill & money">I have BOTH skill & money</option></select>
+<button id="signupBtn">Create Account & Send Verification Email</button><div class="link" id="toLogin">Already have account? Log in</div>
 </div>
-<div id="verifyBox" class="hidden">
-<p>We sent a verification link to <b id="verifyEmail"></b></p>
-<p style="color:#94a3b8;font-size:14px">Check your inbox + spam. Click the link, then come back.</p>
-<button id="checkVerifyBtn">I Verified - Check Now</button>
-<button class="secondary" id="resendBtn">Resend Email</button>
-<div class="link" id="logout1">Use different account</div>
-</div>
+<div id="verifyBox" class="hidden"><p>We sent a verification link to <b id="verifyEmail"></b></p><p style="color:#9CA3AF;font-size:14px">Check inbox + spam. Click link, then come back.</p><button id="checkVerifyBtn">I Verified - Check Now</button><button class="secondary" id="resendBtn">Resend Email</button><div class="link" id="logout1">Use different account</div></div>
 </div>
 
 <div class="card hidden" id="appCard">
-<div class="row"><div><h1 style="font-size:22px">MP Plan</h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge">VERIFIED</span></div>
-<div class="nav">
-<button id="navHome" class="active">Home</button><button id="navTasks">Tasks</button><button id="navHistory">History</button><button id="navProfile">Profile</button>
-</div>
+<div class="row"><div><h1>MP <span>Plan</span></h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge gold" id="roleBadge">SKILLED</span></div>
+<div class="nav"><button id="navHome" class="active">Home</button><button id="navExplore">Explore</button><button id="navMyPlans">My Plans</button><button id="navProfile">Profile</button></div>
 
-<!-- HOME -->
 <div id="pageHome">
-<div class="stat"><div><b id="streakNum">1</b><small>Day Streak 🔥</small></div><div><b id="taskCount">0 / 0</b><small>Tasks Done</small></div><div><b id="todayDate">--</b><small>Today</small></div></div>
-<div class="box"><h3>Today's Progress</h3><div class="progress"><i id="progBar"></i></div><p id="progText" style="font-size:13px;color:#94a3b8;margin:0">No tasks yet - add one below!</p></div>
-<div class="box"><h3>Today's Goal</h3><label>Main Goal</label><input id="goal" placeholder="e.g. Study 2hrs, Gym, No junk food"><label>How are you feeling?</label><input id="notes" placeholder="How are you feeling today?"><button id="savePlanBtn">Save My Plan</button><p id="savedText" style="font-size:13px;color:#86efac;margin:8px 0 0"></p></div>
+<div class="stat"><div><b id="statPlans">0</b><small>Community Plans</small></div><div><b id="statRaised">₦0</b><small>Total Contributed</small></div><div><b id="statYou">₦0</b><small>You Contributed</small></div></div>
+<div class="box"><h3>💡 How MP Plan Works</h3><p style="font-size:13px;color:#D1D5DB;line-height:1.6;margin:0"><b style="color:#FBBF24">1. Skilled Person</b> posts a plan - e.g. "I can bake, need ₦50k for oven"<br><b style="color:#22C55E">2. Contributor</b> sees it, contributes money<br><b>3. Together</b> you achieve it. Skilled person uses skill, contributor shares in success.</p></div>
+<div class="box"><h3>🔥 Featured Plans - Contribute Now</h3><div id="featuredList"></div></div>
 </div>
 
-<!-- TASKS -->
-<div id="pageTasks" class="hidden">
-<div class="box"><h3>My Tasks - Today</h3>
-<div class="row"><input id="newTask" placeholder="Add new task... e.g. Read 20 pages" style="margin:0"><button class="small" id="addTaskBtn" style="width:60px">Add</button></div>
-<div id="taskList" style="margin-top:12px"></div>
-<button class="secondary" id="clearDoneBtn">Clear Completed Tasks</button>
-</div>
+<div id="pageExplore" class="hidden">
+<div class="box"><h3>Explore All Plans</h3><select id="filterNeed"><option value="All">All - Show everything</option><option value="Money">Needs Money</option><option value="Skill">Needs Skill</option><option value="Both">Needs Both</option></select><input id="searchPlans" placeholder="Search plans... e.g. farming, baking, tech"><div id="exploreList"></div></div>
 </div>
 
-<!-- HISTORY -->
-<div id="pageHistory" class="hidden">
-<div class="box"><h3>Your History</h3><p style="font-size:13px;color:#94a3b8">All your saved plans.</p><div id="historyList"></div></div>
+<div id="pageMyPlans" class="hidden">
+<div class="box"><h3>📝 Create Your Plan</h3><p style="font-size:13px;color:#9CA3AF">Tell people what you want to achieve. Be clear - people contribute to clear plans!</p>
+<label>Plan Title</label><input id="planTitle" placeholder="e.g. Start a Poultry Farm">
+<label>What is your plan? (Details)</label><textarea id="planDesc" rows="3" placeholder="Explain your plan, how you will use the money / skill, and what contributors get..."></textarea>
+<label>Your Skill</label><input id="planSkill" placeholder="e.g. Farming, Baking, Coding, Tailoring">
+<label>What do you NEED?</label><select id="planNeed"><option value="Money">Money Only</option><option value="Skill">Skill / Partner Only</option><option value="Both">Both Money + Skill</option></select>
+<label>Amount Needed (₦)</label><input id="planAmount" type="number" placeholder="e.g. 100000">
+<label>What do contributors get back?</label><input id="planReturn" placeholder="e.g. 20% profit share, Free products, Repay in 3 months">
+<button id="publishPlanBtn" class="green">Publish My Plan 🚀</button><p id="planSaved" style="font-size:13px;color:#86EFAC"></p></div>
+<div class="box"><h3>My Published Plans</h3><div id="myPlansList"></div></div>
 </div>
 
-<!-- PROFILE -->
 <div id="pageProfile" class="hidden">
-<div class="box" style="text-align:center"><div class="avatar" id="avatarLetter">A</div><h3 id="profileName">Anthony</h3><p id="profileEmail" style="color:#94a3b8;font-size:14px;margin:0"></p><p id="profilePhone" style="color:#94a3b8;font-size:14px;margin:4px 0 0"></p></div>
-<div class="box"><h3>Edit Profile</h3><label>Full Name</label><input id="editName" placeholder="Full name"><label>Phone</label><input id="editPhone" placeholder="+234..."><button id="saveProfileBtn">Save Profile</button><p id="profileSaved" style="font-size:13px;color:#86efac"></p></div>
-<div class="box"><h3>Account</h3><p style="font-size:13px;color:#94a3b8">Member since: <span id="memberSince">-</span><br>User ID: <span id="userIdText" style="font-size:11px;word-break:break-all">-</span></p></div>
+<div class="box" style="text-align:center"><div class="avatar" id="avatarLetter">A</div><h3 id="profileName">Anthony</h3><p id="profileEmail" style="color:#9CA3AF;font-size:13px;margin:0"></p><p id="profileRole" style="color:#FBBF24;font-size:13px;margin:6px 0 0"></p><p id="profilePhone" style="color:#9CA3AF;font-size:13px"></p></div>
+<div class="box"><h3>Edit Profile</h3><label>Full Name</label><input id="editName"><label>Phone / WhatsApp</label><input id="editPhone" placeholder="+234..."><label>Your Skill</label><input id="editSkill" placeholder="e.g. Tailoring, Coding"><label>I am a...</label><select id="editRole"><option>I have SKILL, I need MONEY</option><option>I have MONEY, I want to SUPPORT</option><option>I have BOTH skill & money</option></select><button id="saveProfileBtn">Save Profile</button><p id="profileSaved" style="font-size:13px;color:#86EFAC"></p></div>
+<div class="box"><h3>My Contributions</h3><div id="myContribs"></div></div>
 </div>
 
-<button class="secondary" id="logoutBtn" style="margin-top:14px">Log Out</button>
+<button class="secondary" id="logoutBtn" style="margin-top:12px">Log Out</button>
+</div>
+
+<!-- CONTRIBUTE MODAL - simple box -->
+<div class="card hidden" id="contribCard" style="margin-top:12px">
+<h3 id="contribTitle">Contribute</h3><p id="contribDesc" style="font-size:13px;color:#9CA3AF"></p>
+<label>Amount to Contribute (₦)</label><input id="contribAmount" type="number" placeholder="e.g. 5000">
+<label>Your Message to Owner</label><input id="contribMsg" placeholder="e.g. I believe in this plan!">
+<button id="confirmContribBtn" class="green">Confirm Contribution 💰</button><button class="secondary" id="cancelContribBtn">Cancel</button>
 </div>
 
 <script>
@@ -126,39 +112,65 @@ const $ = id => document.getElementById(id);
 function togglePass(id,btn){ const el=$(id); el.type = el.type==='password'?'text':'password'; btn.textContent = el.type==='password'?'EYE':'HIDE'; }
 function showMsg(t, type){ const m=$('msg'); m.textContent=t; m.className='msg '+type; }
 function showBox(which){ ['loginBox','signupBox','verifyBox'].forEach(id=>$(id).classList.add('hidden')); $(which).classList.remove('hidden'); }
-$('toSignup').onclick=()=>showBox('signupBox');
-$('toLogin').onclick=()=>showBox('loginBox');
+$('toSignup').onclick=()=>showBox('signupBox'); $('toLogin').onclick=()=>showBox('loginBox');
 $('tabEmail').onclick=()=>{ $('tabEmail').classList.add('active'); $('tabPhone').classList.remove('active'); $('emailLogin').classList.remove('hidden'); $('phoneLogin').classList.add('hidden'); };
 $('tabPhone').onclick=()=>{ $('tabPhone').classList.add('active'); $('tabEmail').classList.remove('active'); $('phoneLogin').classList.remove('hidden'); $('emailLogin').classList.add('hidden'); };
-$('signupBtn').onclick=async()=>{ const name=$('suName').value.trim(), email=$('suEmail').value.trim(), pass=$('suPass').value; if(!name||!email||pass.length<6) return showMsg('Fill all fields. Password must be 6+ characters.','err'); try{ const cred=await auth.createUserWithEmailAndPassword(email,pass); await cred.user.updateProfile({displayName:name}); await cred.user.sendEmailVerification(); $('verifyEmail').textContent=email; showBox('verifyBox'); showMsg('Account created! Verification email sent.','ok'); }catch(e){ showMsg(e.message,'err'); } };
-$('loginBtn').onclick=async()=>{ try{ const cred=await auth.signInWithEmailAndPassword($('loginEmail').value.trim(), $('loginPass').value); if(!cred.user.emailVerified){ $('verifyEmail').textContent=cred.user.email; showBox('verifyBox'); return showMsg('Please verify your email first.','info'); } showApp(cred.user); }catch(e){ showMsg('Wrong email or password.','err'); } };
+$('signupBtn').onclick=async()=>{ const name=$('suName').value.trim(), email=$('suEmail').value.trim(), pass=$('suPass').value, role=$('suRole').value; if(!name||!email||pass.length<6) return showMsg('Fill all fields. Password 6+','err'); try{ const cred=await auth.createUserWithEmailAndPassword(email,pass); await cred.user.updateProfile({displayName:name}); localStorage.setItem('mp_role_'+cred.user.uid, role); await cred.user.sendEmailVerification(); $('verifyEmail').textContent=email; showBox('verifyBox'); showMsg('Account created! Verify email.','ok'); }catch(e){ showMsg(e.message,'err'); } };
+$('loginBtn').onclick=async()=>{ try{ const cred=await auth.signInWithEmailAndPassword($('loginEmail').value.trim(), $('loginPass').value); if(!cred.user.emailVerified){ $('verifyEmail').textContent=cred.user.email; showBox('verifyBox'); return showMsg('Please verify email first.','info'); } showApp(cred.user); }catch(e){ showMsg('Wrong email or password.','err'); } };
 let confirmationResult=null;
-$('sendCodeBtn').onclick=async()=>{ const phone=$('loginPhone').value.trim(); if(!phone.startsWith('+')) return showMsg('Phone must start with +234...','err'); try{ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'}); confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier); showMsg('SMS code sent to '+phone,'ok'); }catch(e){ showMsg(e.message,'err'); } };
-$('verifyCodeBtn').onclick=async()=>{ try{ const cred=await confirmationResult.confirm($('smsCode').value.trim()); showApp(cred.user); }catch(e){ showMsg('Wrong code. Try again.','err'); } };
-$('checkVerifyBtn').onclick=async()=>{ await auth.currentUser.reload(); if(auth.currentUser.emailVerified) showApp(auth.currentUser); else showMsg('Not verified yet. Click link in email.','err'); };
-$('resendBtn').onclick=async()=>{ try{ await auth.currentUser.sendEmailVerification(); showMsg('Verification email resent!','ok'); }catch(e){ showMsg(e.message,'err'); } };
-$('forgot').onclick=async()=>{ const email=$('loginEmail').value.trim(); if(!email) return showMsg('Type your email first.','info'); try{ await auth.sendPasswordResetEmail(email); showMsg('Password reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); } };
-function showPage(p){ ['pageHome','pageTasks','pageHistory','pageProfile'].forEach(id=>$(id).classList.add('hidden')); $('page'+p).classList.remove('hidden'); ['navHome','navTasks','navHistory','navProfile'].forEach(id=>$(id).classList.remove('active')); $('nav'+p).classList.add('active'); }
-$('navHome').onclick=()=>showPage('Home'); $('navTasks').onclick=()=>showPage('Tasks'); $('navHistory').onclick=()=>showPage('History'); $('navProfile').onclick=()=>showPage('Profile');
-function getKey(uid){ return 'mpplan_full_'+uid; }
-function getData(){ const u=auth.currentUser; if(!u) return {goal:'',notes:'',tasks:[],history:[]}; try{ return JSON.parse(localStorage.getItem(getKey(u.uid)))||{goal:'',notes:'',tasks:[],history:[]}; }catch{ return {goal:'',notes:'',tasks:[],history:[]} } }
-function saveData(d){ const u=auth.currentUser; if(!u) return; localStorage.setItem(getKey(u.uid), JSON.stringify(d)); }
-function renderTasks(){ const d=getData(); const list=$('taskList'); list.innerHTML=''; if(!d.tasks.length) list.innerHTML='<p style="color:#94a3b8;font-size:14px">No tasks yet. Add your first task above!</p>'; d.tasks.forEach((t,i)=>{ const div=document.createElement('div'); div.className='task'; div.innerHTML=`<input type="checkbox" ${t.done?'checked':''}><span class="${t.done?'done':''}"></span><button>×</button>`; div.querySelector('span').textContent=t.text; div.querySelector('input').onchange=()=>{ d.tasks[i].done=!d.tasks[i].done; saveData(d); renderTasks(); updateStats(); }; div.querySelector('button').onclick=()=>{ d.tasks.splice(i,1); saveData(d); renderTasks(); updateStats(); }; list.appendChild(div); }); updateStats(); }
-function updateStats(){ const d=getData(); const total=d.tasks.length, done=d.tasks.filter(t=>t.done).length; $('taskCount').textContent=done+' / '+total; const pct= total? Math.round(done/total*100):0; $('progBar').style.width=pct+'%'; $('progText').textContent= total? pct+'% complete - '+done+' of '+total+' tasks done' : 'No tasks yet - add one!'; const hist=d.history||[]; $('streakNum').textContent= hist.length? hist.length : 1; }
-function renderHistory(){ const d=getData(); const list=$('historyList'); list.innerHTML=''; if(!d.history.length) list.innerHTML='<p style="color:#94a3b8;font-size:14px">No history yet. Save your plan on Home to see it here.</p>'; [...d.history].reverse().forEach(h=>{ const div=document.createElement('div'); div.className='history'; div.innerHTML=`<b>${h.goal||'No goal'}</b><br><span>${h.notes||''}</span><br><small>${h.date||''} - ${h.tasksDone||0} tasks done</small>`; list.appendChild(div); }); }
-$('addTaskBtn').onclick=()=>{ const v=$('newTask').value.trim(); if(!v) return; const d=getData(); d.tasks.push({text:v,done:false}); saveData(d); $('newTask').value=''; renderTasks(); };
-$('newTask').onkeydown=e=>{ if(e.key==='Enter') $('addTaskBtn').click(); };
-$('clearDoneBtn').onclick=()=>{ const d=getData(); d.tasks=d.tasks.filter(t=>!t.done); saveData(d); renderTasks(); };
-$('savePlanBtn').onclick=()=>{ const d=getData(); d.goal=$('goal').value; d.notes=$('notes').value; const done=d.tasks.filter(t=>t.done).length; d.history.push({goal:d.goal,notes:d.notes,date:new Date().toLocaleString(),tasksDone:done}); saveData(d); $('savedText').textContent='Saved - '+new Date().toLocaleString(); renderHistory(); updateStats(); };
-$('saveProfileBtn').onclick=async()=>{ const name=$('editName').value.trim(); const phone=$('editPhone').value.trim(); const u=auth.currentUser; if(!u) return; try{ if(name) await u.updateProfile({displayName:name}); localStorage.setItem('mp_profile_phone_'+u.uid, phone); $('profileName').textContent=name||u.displayName||'User'; $('avatarLetter').textContent=(name||'A')[0].toUpperCase(); $('profilePhone').textContent=phone||u.phoneNumber||''; $('helloText').textContent='Welcome back, '+(name||u.displayName||''); $('profileSaved').textContent='Profile saved!'; }catch(e){ $('profileSaved').textContent=e.message; } };
+$('sendCodeBtn').onclick=async()=>{ const phone=$('loginPhone').value.trim(); if(!phone.startsWith('+')) return showMsg('Phone must start with +234...','err'); try{ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'}); confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier); showMsg('SMS sent to '+phone,'ok'); }catch(e){ showMsg(e.message,'err'); } };
+$('verifyCodeBtn').onclick=async()=>{ try{ const cred=await confirmationResult.confirm($('smsCode').value.trim()); showApp(cred.user); }catch(e){ showMsg('Wrong code.','err'); } };
+$('checkVerifyBtn').onclick=async()=>{ await auth.currentUser.reload(); if(auth.currentUser.emailVerified) showApp(auth.currentUser); else showMsg('Not verified yet.','err'); };
+$('resendBtn').onclick=async()=>{ try{ await auth.currentUser.sendEmailVerification(); showMsg('Resent!','ok'); }catch(e){ showMsg(e.message,'err'); } };
+$('forgot').onclick=async()=>{ const email=$('loginEmail').value.trim(); if(!email) return showMsg('Type email first.','info'); try{ await auth.sendPasswordResetEmail(email); showMsg('Reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); } };
+
+function showPage(p){ ['pageHome','pageExplore','pageMyPlans','pageProfile'].forEach(id=>$(id).classList.add('hidden')); $('page'+p).classList.remove('hidden'); ['navHome','navExplore','navMyPlans','navProfile'].forEach(id=>$(id).classList.remove('active')); $('nav'+p).classList.add('active'); $('contribCard').classList.add('hidden'); }
+$('navHome').onclick=()=>showPage('Home'); $('navExplore').onclick=()=>showPage('Explore'); $('navMyPlans').onclick=()=>showPage('MyPlans'); $('navProfile').onclick=()=>showPage('Profile');
+
+function getPlans(){ try{ return JSON.parse(localStorage.getItem('mp_community_plans')||'[]'); }catch{ return []; } }
+function savePlans(plans){ localStorage.setItem('mp_community_plans', JSON.stringify(plans)); }
+function getMyContribs(){ const u=auth.currentUser; if(!u) return []; try{ return JSON.parse(localStorage.getItem('mp_contribs_'+u.uid)||'[]'); }catch{ return []; } }
+let currentContribId=null;
+function renderPlans(){
+  let plans=getPlans();
+  // seed demo plans if first time
+  if(!plans.length){
+    plans=[
+      {id:'demo1', owner:'Amina - Lagos', title:'Bakery - Need Oven', desc:'I can bake cakes & bread very well. I need an oven to start selling to shops. Contributors get 20% profit share for 6 months.', skill:'Baking', need:'Money', amount:120000, raised:35000, returnText:'20% profit share', contribs:[{from:'Anonymous', amount:15000, msg:'Good luck!'}]},
+      {id:'demo2', owner:'Chidi - Port Harcourt', title:'Poultry Farm - 200 Birds', desc:'I have land & experience in poultry. Need money for chicks & feed. I will repay + share profit in 4 months.', skill:'Farming / Poultry', need:'Both', amount:250000, raised:80000, returnText:'Repay + profit share', contribs:[]},
+      {id:'demo3', owner:'Grace - Abuja', title:'Tailoring Shop - Need Sewing Machine', desc:'I sew ankara & suits. Need industrial machine to take bigger orders. Contributors get free outfit + profit share.', skill:'Tailoring', need:'Money', amount:80000, raised:10000, returnText:'Free outfit + share', contribs:[]}
+    ];
+    savePlans(plans);
+  }
+  const filter=$('filterNeed').value; const search=($('searchPlans').value||'').toLowerCase();
+  let filtered=plans.filter(p=> (filter==='All'||p.need===filter) && (p.title+' '+p.desc+' '+p.skill).toLowerCase().includes(search));
+  const totalRaised=plans.reduce((s,p)=>s+p.raised,0);
+  $('statPlans').textContent=plans.length; $('statRaised').textContent='₦'+totalRaised.toLocaleString();
+  const myC=getMyContribs(); $('statYou').textContent='₦'+myC.reduce((s,c)=>s+c.amount,0).toLocaleString();
+  function cardHTML(p){
+    const pct=Math.min(100, Math.round(p.raised/p.amount*100));
+    return `<div class="planCard"><div class="row"><h4>${p.title}</h4><span class="pill ${p.need==='Money'?'money':p.need==='Skill'?'skill':'both'}">${p.need==='Money'?'💰 NEEDS MONEY':p.need==='Skill'?'🛠️ NEEDS SKILL':'💰+🛠️ NEEDS BOTH'}</span></div><p>${p.desc}</p><p><b>Skill:</b> ${p.skill} | <b>By:</b> ${p.owner}</p><p><b>Returns:</b> ${p.returnText}</p><div class="progress"><i style="width:${pct}%"></i></div><div class="row"><small>₦${p.raised.toLocaleString()} raised of ₦${p.amount.toLocaleString()} - ${pct}%</small><small>${p.contribs.length} contributors</small></div><button class="green" onclick="openContrib('${p.id}')">Contribute to This Plan 💰</button><div style="margin-top:8px">${p.contribs.map(c=>`<small style="display:block">💚 ${c.from} contributed ₦${c.amount.toLocaleString()} - "${c.msg}"</small>`).join('')}</div></div>`;
+  }
+  $('exploreList').innerHTML = filtered.length? filtered.map(cardHTML).join('') : '<p style="color:#9CA3AF">No plans match. Create one!</p>';
+  $('featuredList').innerHTML = plans.slice(0,3).map(cardHTML).join('');
+  // my plans
+  const u=auth.currentUser; const mine=plans.filter(p=>p.ownerId===u?.uid);
+  $('myPlansList').innerHTML = mine.length? mine.map(cardHTML).join('') : '<p style="color:#9CA3AF">You have no plans yet. Create your first plan above!</p>';
+  // my contribs
+  $('myContribs').innerHTML = myC.length? myC.map(c=>`<p style="font-size:13px">💰 ₦${c.amount.toLocaleString()} to <b>${c.title}</b> - "${c.msg}"</p>`).join('') : '<p style="color:#9CA3AF;font-size:13px">You have not contributed yet. Go to Explore and support someone!</p>';
+}
+window.openContrib=function(id){ const plans=getPlans(); const p=plans.find(x=>x.id===id); if(!p) return; currentContribId=id; $('contribTitle').textContent='Contribute to: '+p.title; $('contribDesc').textContent=p.desc+' | Needs ₦'+p.amount.toLocaleString()+' | Raised ₦'+p.raised.toLocaleString(); $('contribCard').classList.remove('hidden'); $('contribCard').scrollIntoView({behavior:'smooth'}); };
+$('cancelContribBtn').onclick=()=>{ $('contribCard').classList.add('hidden'); };
+$('confirmContribBtn').onclick=()=>{ const amt=Number($('contribAmount').value); const msg=$('contribMsg').value.trim()||'I support this plan!'; if(!amt||amt<=0) return alert('Enter amount'); const plans=getPlans(); const p=plans.find(x=>x.id===currentContribId); const u=auth.currentUser; const name=u?.displayName||'Anonymous'; p.raised+=amt; p.contribs.push({from:name, amount:amt, msg}); savePlans(plans); const myC=getMyContribs(); myC.push({title:p.title, amount:amt, msg}); localStorage.setItem('mp_contribs_'+u.uid, JSON.stringify(myC)); $('contribAmount').value=''; $('contribMsg').value=''; $('contribCard').classList.add('hidden'); renderPlans(); alert('Thank you '+name+'! You contributed ₦'+amt.toLocaleString()+' to '+p.title); };
+$('filterNeed').onchange=renderPlans; $('searchPlans').oninput=renderPlans;
+$('publishPlanBtn').onclick=()=>{ const title=$('planTitle').value.trim(), desc=$('planDesc').value.trim(), skill=$('planSkill').value.trim(), need=$('planNeed').value, amount=Number($('planAmount').value), ret=$('planReturn').value.trim(); if(!title||!desc||!amount) return $('planSaved').textContent='Fill Title, Description and Amount!'; const u=auth.currentUser; const plans=getPlans(); plans.unshift({id:'p'+Date.now(), ownerId:u.uid, owner:(u.displayName||'User'), title, desc, skill:skill||'General', need, amount, raised:0, returnText:ret||'Thank you + share', contribs:[]}); savePlans(plans); $('planTitle').value=''; $('planDesc').value=''; $('planSkill').value=''; $('planAmount').value=''; $('planReturn').value=''; $('planSaved').textContent='Your plan is LIVE! People can now see & contribute!'; renderPlans(); showPage('Explore'); };
+$('saveProfileBtn').onclick=async()=>{ const name=$('editName').value.trim(), phone=$('editPhone').value.trim(), skill=$('editSkill').value.trim(), role=$('editRole').value; const u=auth.currentUser; if(!u) return; try{ if(name) await u.updateProfile({displayName:name}); localStorage.setItem('mp_role_'+u.uid, role); localStorage.setItem('mp_phone_'+u.uid, phone); localStorage.setItem('mp_skill_'+u.uid, skill); $('profileName').textContent=name||u.displayName; $('avatarLetter').textContent=(name||'A')[0].toUpperCase(); $('profileRole').textContent=role; $('profilePhone').textContent=phone; $('roleBadge').textContent=role.includes('MONEY')?'CONTRIBUTOR':role.includes('BOTH')?'BOTH':'SKILLED'; $('helloText').textContent='Welcome back, '+(name||''); $('profileSaved').textContent='Profile saved!'; }catch(e){ $('profileSaved').textContent=e.message; } };
+
 function showApp(user){
 $('authCard').classList.add('hidden'); $('appCard').classList.remove('hidden');
-const name=user.displayName||'Anthony'; const email=user.email||''; const phone=localStorage.getItem('mp_profile_phone_'+user.uid)||user.phoneNumber||'';
-$('helloText').textContent='Welcome back, '+name;
-$('profileName').textContent=name; $('profileEmail').textContent=email; $('profilePhone').textContent=phone; $('avatarLetter').textContent=name[0].toUpperCase(); $('editName').value=name; $('editPhone').value=phone; $('userIdText').textContent=user.uid; $('memberSince').textContent=new Date(Number(user.metadata.creationTime)).toLocaleDateString(); $('todayDate').textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-const d=getData(); $('goal').value=d.goal||'travel'; $('notes').value=d.notes||'exited';
-if(!d.tasks.length){ d.tasks=[{text:'Study / Work on goal',done:false},{text:'Exercise / Gym',done:false},{text:'No junk food',done:false}]; saveData(d); }
-renderTasks(); renderHistory(); updateStats(); showPage('Home');
+const name=user.displayName||'Anthony'; const role=localStorage.getItem('mp_role_'+user.uid)||'I have SKILL, I need MONEY'; const phone=localStorage.getItem('mp_phone_'+user.uid)||user.phoneNumber||''; const skill=localStorage.getItem('mp_skill_'+user.uid)||'';
+$('helloText').textContent='Welcome back, '+name; $('profileName').textContent=name; $('profileEmail').textContent=user.email||''; $('profileRole').textContent=role; $('profilePhone').textContent=phone; $('avatarLetter').textContent=name[0].toUpperCase(); $('editName').value=name; $('editPhone').value=phone; $('editSkill').value=skill; $('editRole').value=role; $('roleBadge').textContent=role.includes('MONEY')&&!role.includes('SKILL')?'CONTRIBUTOR':role.includes('BOTH')?'BOTH':'SKILLED';
+renderPlans(); showPage('Home');
 }
 async function doLogout(){ await auth.signOut(); location.reload(); }
 $('logoutBtn').onclick=doLogout; $('logout1').onclick=doLogout;
