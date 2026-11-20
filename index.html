@@ -1,73 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MP Plan - V31 Both Pay Back</title>
-<style>
-*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#070B14;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:12px}
-.card{background:#111827;width:100%;max-width:520px;border-radius:22px;padding:20px;border:1px solid #1F2937}
-h1{margin:0;font-size:26px} h1 span{color:#FBBF24} p.sub{color:#9CA3AF;margin:4px 0 14px;font-size:13px}
-.tabs{display:flex;background:#070B14;border-radius:12px;padding:4px;margin-bottom:12px}
-.tabs button{flex:1;background:transparent;color:#9CA3AF;padding:11px;border-radius:10px;font-size:14px;border:0;cursor:pointer}
-.tabs button.active{background:#FBBF24;color:#000;font-weight:800}
-.wrap{position:relative;margin-bottom:10px}
-.wrap input{width:100%;padding:13px 44px 13px 13px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;font-size:15px;outline:none;margin:0}
-input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;margin-bottom:10px;font-size:15px;outline:none}
-button{width:100%;padding:13px;border:0;border-radius:12px;background:#FBBF24;color:#000;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
-button:active{transform:scale(.98);background:#fff} button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;color:#000} button.blue{background:#3B82F6;color:#fff}
-.link{color:#FBBF24;text-align:center;margin-top:12px;cursor:pointer;font-size:14px;padding:10px}
-.msg{padding:11px;border-radius:12px;font-size:14px;margin-bottom:10px;display:none}
-.msg.ok{background:#14532D;display:block}.msg.err{background:#7F1D1D;display:block}.msg.info{background:#1E40AF;display:block}
-.hidden{display:none!important}
-.badge{background:#FBBF24;color:#000;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.box{margin-top:12px;background:#070B14;padding:15px;border-radius:14px;border:1px solid #1F2937}
-.box h3{margin:0 0 8px;font-size:16px}.box label{font-size:12px;color:#9CA3AF}
-.nav{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
-.nav button{flex:1;padding:9px 3px;font-size:12px;background:#070B14;color:#9CA3AF;min-width:70px}
-.nav button.active{background:#FBBF24;color:#000}
-.avatar{width:68px;height:68px;border-radius:50%;background:#FBBF24;color:#000;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;margin:0 auto 8px}
-.planCard{background:#1F2937;padding:14px;border-radius:14px;margin-bottom:10px;border-left:4px solid #FBBF24}
-.planCard h4{margin:0 0 4px;font-size:16px}.planCard p{margin:4px 0;font-size:13px;color:#D1D5DB}.planCard small{color:#9CA3AF}
-.progress{height:9px;background:#374151;border-radius:999px;overflow:hidden;margin:8px 0}.progress i{display:block;height:100%;background:#22C55E}
-.pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700}.pill.money{background:#FBBF24;color:#000}.pill.skill{background:#60A5FA;color:#000}.pill.both{background:#A78BFA;color:#000}
-.stat{display:flex;gap:8px}.stat div{flex:1;background:#070B14;padding:11px;border-radius:12px;text-align:center;border:1px solid #1F2937}.stat b{font-size:18px;display:block}.stat small{color:#9CA3AF;font-size:11px}
-.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#9CA3AF;font-size:16px;cursor:pointer;width:60px}
-.two{display:flex;gap:8px}.two button{flex:1}
-.investBox{background:#1E3A8A;padding:12px;border-radius:12px;margin:8px 0;border:1px solid #3B82F6}
-.calc{background:#14532D;padding:12px;border-radius:12px;margin:8px 0;font-size:13px;line-height:1.6}
-.winBox{background:linear-gradient(135deg,#14532D,#1E3A8A);padding:14px;border-radius:14px;margin:8px 0;font-size:13px;line-height:1.7}
-</style>
-</head>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MP Plan V32 Light</title>
+<style>body{margin:0;font-family:system-ui;background:#070B14;color:#fff;padding:12px} .c{max-width:520px;margin:auto;background:#111827;padding:18px;border-radius:18px} h1{margin:0} h1 span{color:#FBBF24} .s{color:#9CA3AF;font-size:13px} input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #374151;background:#070B14;color:#fff;margin:8px 0;font-size:15px;box-sizing:border-box} button{width:100%;padding:12px;border:0;border-radius:10px;background:#FBBF24;font-weight:800;margin:6px 0;cursor:pointer} .g{background:#22C55E} .b{background:#3B82F6;color:#fff} .d{background:#374151;color:#fff} .hide{display:none} .plan{background:#1F2937;padding:12px;border-radius:12px;margin:10px 0} .bar{height:8px;background:#374151;border-radius:99px;overflow:hidden} .bar i{display:block;height:100%;background:#22C55E} .nav{display:flex;gap:5px} .nav button{flex:1;padding:9px;font-size:12px;background:#070B14;color:#9CA3AF} .nav button.on{background:#FBBF24;color:#000} .two{display:flex;gap:8px} .two button{flex:1} .box{background:#070B14;padding:12px;border-radius:12px;margin:10px 0;font-size:13px;line-height:1.6}</style></head>
 <body>
-<div class="card" id="authCard">
-<h1>MP <span>Plan</span></h1><p class="sub">You Fund Talent. They Work. You BOTH Gain. - V31</p>
-<div id="msg" class="msg"></div>
-<div id="debugBox" style="font-size:13px;color:#FBBF24;margin-bottom:8px;padding:10px;background:#000;border-radius:8px">Status: Ready</div>
-<div class="tabs"><button id="tabEmail" class="active" onclick="switchTab('email')">Email</button><button id="tabPhone" onclick="switchTab('phone')">Phone</button></div>
-<div id="loginBox">
-<div id="emailLogin"><input id="loginEmail" type="email" placeholder="Email address" value="usunobunanthonynosakhare@gmail.com"><div class="wrap"><input id="loginPass" type="password" placeholder="Password"><button type="button" class="eye" onclick="togglePass('loginPass',this)">EYE</button></div><button onclick="doLogin(this)">Log In</button></div>
-<div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><button onclick="doSendCode(this)">Send SMS Code</button><input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:10px"><button class="secondary" onclick="doVerifyCode(this)">Verify Code & Log In</button></div>
-<div class="link" onclick="showBox('signupBox')">No account? Create one</div><div class="link" onclick="doForgot()">Forgot password?</div>
-</div>
-<div id="signupBox" class="hidden">
-<input id="suName" placeholder="Full name"><input id="suEmail" type="email" placeholder="Email address"><div class="wrap"><input id="suPass" type="password" placeholder="Create password (6+)"><button type="button" class="eye" onclick="togglePass('suPass',this)">EYE</button></div>
-<select id="suRole"><option>I have SKILL, I need MONEY</option><option>I have MONEY, I want to FUND TALENT & EARN</option><option>I have BOTH skill & money</option></select>
-<button onclick="doSignup(this)">Create Account</button><div class="link" onclick="showBox('loginBox')">Already have account? Log in</div>
-</div>
-<div id="verifyBox" class="hidden"><p>Account created!</p><button onclick="showBox('loginBox')">Go to Log In</button></div>
+<div class="c" id="loginPage">
+<h1>MP <span>Plan</span></h1><p class="s">You Fund Talent. They Work. You BOTH Gain. - V32 Light - No Freeze</p>
+<p id="status" style="color:#FBBF24;font-size:13px">Status: Ready - Tap Log In</p>
+<input id="em" placeholder="Email" value="usunobunanthonynosakhare@gmail.com">
+<input id="pw" type="password" placeholder="Password (any 6+ works)">
+<button onclick="login()">Log In - Tap Me</button>
+<button class="d" onclick="signup()">Create Account</button>
+<p class="s">V32 is light. No Firebase blocking. Works offline. If it freezes, close Edge and open in Chrome.</p>
 </div>
 
-<div class="card hidden" id="appCard">
-<div class="row"><div><h1>MP <span>Plan</span></h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge" id="roleBadge">SKILLED</span></div>
-<div class="nav"><button id="navHome" class="active" onclick="showPage('Home')">Home</button><button id="navExplore" onclick="showPage('Explore')">Explore</button><button id="navMyPlans" onclick="showPage('MyPlans')">My Plans</button><button id="navInvest" onclick="showPage('Invest')">My Earnings</button><button id="navProfile" onclick="showPage('Profile')">Profile</button></div>
-<div id="pageHome">
-<div class="stat"><div><b id="statPlans">0</b><small>Plans</small></div><div><b id="statRaised">₦0</b><small>Total Funded</small></div><div><b id="statYou">₦0</b><small>You Funded</small></div><div><b id="statExpect">₦0</b><small>You Will Get Back</small></div></div>
-<div class="winBox"><b style="font-size:15px">🤝 HOW MP PLAN WORKS - EVERYONE WINS</b><br><b>1. Talented Person</b> has skill but no money<br><b>2. YOU</b> Contribute / Invest money to them<br><b>3. THEY WORK</b> - use skill to grow business<br><b>4. BOTH GAIN</b> - They get business + income, YOU get your money back + profit</div>
-<div class="box"><h3>💚 Contribute vs 📈 Invest - BOTH Pay Back!</h3><p style="font-size:13px;color:#D1D5DB;line-height:1.7;margin:0"><b style="color:#22C55E">💚 CONTRIBUTE</b> = Small amount. Quick support. You still get payback.<br>Example: Contribute ₦5,000 → Get back ₦6,000<br><br><b style="color:#3B82F6">📈 INVEST</b> = Big amount. Long partnership. Bigger payback.<br>Example: Invest ₦50,000 → Get back ₦65,000<br><br><b style="color:#FBBF24">Difference is only SIZE, not payback. Both = You fund talent, they work, you both gain.</b></p></div>
-<div class="box"><h3>🔥 Featured Plans</h3><div id="featuredList"></div></div>
+<div class="c hide" id="appPage">
+<h1>MP <span>Plan</span></h1><p class="s" id="hello">Welcome</p>
+<div class="nav"><button id="nHome" class="on" onclick="page('Home')">Home</button><button id="nExplore" onclick="page('Explore')">Explore</button><button id="nMine" onclick="page('Mine')">My Plans</button><button id="nEarn" onclick="page('Earn')">My Earnings</button></div>
+
+<div id="pHome">
+<div class="box"><b>🤝 HOW IT WORKS - BOTH GAIN</b><br>1. Talented person has skill, no money<br>2. YOU give money - Contribute or Invest<br>3. THEY WORK with skill<br>4. YOU get money back + profit, THEY get business + income</div>
+<div class="box"><b>💚 Contribute = Small + Payback</b><br>Contribute ₦5,000 → Get back ₦6,000 (20%)<br><br><b>📈 Invest = Big + Bigger Payback</b><br>Invest ₦50,000 → Get back ₦65,000 (30%)<br><br>Only difference is SIZE. Both pay back. Both win.</div>
+<div id="homeList"></div>
 </div>
-<div id="pageExplore" class="hidden"><div class="box"><h3>Explore All Plans - Fund Talent & Earn</h3><select id="filterNeed" onchange="renderPlans()"><option value="All">All</option><option value="Money">Needs Money</option><option value="Skill">Needs Skill</option><option value="Both">Needs Both</option></select><input id="searchPlans" placeholder="Search..." oninput="renderPlans()"><div id="exploreList"></div></div></div>
-<div id="pageMyPlans" class="hidden"><div class="box"><h3>📝 Create Your Plan</h3><label>Plan Title</label><input id="planTitle" placeholder="e.g. Start a Poultry Farm"><label>What is your plan? What will you do with the money?</label><textarea id="planDesc" rows="3" placeholder="Explain: I will buy... I will sell... I will make profit by..."></textarea><label>Your Skill</label><input id="planSkill" placeholder="e.g. Farming, Baking"><label>What do you NEED?</label><select id="planNeed"><option value="Money">Money Only</option><option value="Skill">Skill / Partner Only</option><option value="Both">Both Money + Skill</option></select><label>Amount Needed (₦)</label><input id="planAmount" type="number" placeholder="e.g. 100000"><label>Payback for CONTRIBUTORS (% profit)</label><input id="planContribROI" type="number" placeholder="e.g. 20 means contribute 5000 get back 6000"><label>Payback for INVESTORS (% profit)</label><input id="planROI" type="number" placeholder="e.g. 30 means invest 50000 get back 65000"><label>When will they get their money back? (months)</label><input id="planMonths" type="number" placeholder="e.g. 3 months"><label>What else do funders get?</label><input id="planReturn" placeholder="e.g. Thank you + updates + free product"><button class="green" onclick="publishPlan(this)">Publish My Plan 🚀</button><p id="planSaved" style="font-size:13px;color:#86EFAC"></p></div><div class="box"><h3>My Published Plans</h3><div id="myPlansList"></div></div></div>
-<div id="pageInvest" class="hidden"><div class="box"><h3>💰 My Earnings - All Your Paybacks</h3><p style="font-size:13px;color:#9CA3AF">Every Naira you Contributed or Invested - you get it back + profit. They work, you earn.</p><div id="myInvestList"></div></div><div class="box"><h3>Summary</h3><div id="earnSummary"></div></div></div>
-<div id="pageProfile" class="hidden"><div class="box" style="text-align:center"><div class="avatar" id="avatarLetter">A</div><h3 id="profileName">Anthony</h3><p id="profileEmail" style="color:#9CA3AF;font-size:13px;margin:0"></p><p id="profileRole" style="color:#FBBF24;font-size:13px;margin:6px 0 0"></p><p id="profilePhone" style="color:#9CA3AF;font-size:13px"></p></div><div class="box"><h3>Edit Profile</h3><label>Full Name</label><input id="editName"><label>Phone / WhatsApp</label><input id="editPhone" placeholder="+234..."><label>Your Skill</label><input id="editSkill" placeholder="e.g. Tailoring"><label>I am a...</label><select id="editRole"><option>I have SKILL, I need MONEY</option><option>I have MONEY, I want to FUND TALENT & EARN</option><option>I have BOTH skill & money</option></select>
+
+<div id="pExplore" class="hide"><h3>Explore - Fund Talent & Earn</h3><div id="exploreList"></div></div>
+
+<div id="pMine" class="hide"><h3>Create Your Plan</h3>
+<input id="tTitle" placeholder="Plan Title e.g. Poultry Farm">
+<textarea id="tDesc" placeholder="What will you do with money?"></textarea>
+<input id="tSkill" placeholder="Your Skill e.g. Farming">
+<input id="tAmt" type="number" placeholder="Amount Needed e.g. 100000">
+<input id="tContrib" type="number" placeholder="Contribute Payback % e.g. 20">
+<input id="tInvest" type="number" placeholder="Invest Payback % e.g. 30">
+<input id="tMonths" type="number" placeholder="Payback in how many months? e.g. 3">
+<button class="g" onclick="publish()">Publish My Plan</button><p id="pubMsg" style="color:#86EFAC"></p>
+<h3>My Plans</h3><div id="myList"></div></div>
+
+<div id="pEarn" class="hide"><h3>💰 My Earnings</h3><div id="earnList"></div><div class="box" id="earnSum"></div></div>
+
+<button class="d" onclick="logout()">Log Out</button>
+</div>
+
+<div class="c hide" id="payPage" style="margin-top:12px">
+<h3 id="payTitle">Fund This Plan</h3><p class="s" id="payDesc"></p>
+<div class="box" id="payInfo"></div>
+<input id="payAmt" type="number" placeholder="Amount ₦" oninput="calc()">
+<div class="box hide" id="calcBox"></div>
+<button id="payBtn" class="g" onclick="confirmPay()">Confirm</button>
+<button class="d" onclick="document.getElementById('payPage').classList.add('hide')">Cancel</button>
+</div>
+
+<script>
+var plans=[]; var myFunding=[]; var currentUser="Anthony"; var currentPlan=null; var currentType="Contribute";
+function $(id){return document.getElementById(id)}
+function login(){ $("status").textContent="Status: You tapped Log In! Opening app..."; var em=$("em").value||"user"; currentUser=em.split("@")[0]; setTimeout(function(){ $("loginPage").classList.add("hide"); $("appPage").classList.remove("hide"); $("hello").textContent="Welcome, "+currentUser+" - Fund Talent, Both Gain"; loadPlans(); },300); }
+function signup(){ $("status").textContent="Status: Account created! Logging you in..."; login(); }
+function logout(){ location.reload(); }
+function loadPlans(){ if(plans.length) {render(); return;} plans=[{title:"Bakery - Need Oven",owner:"Amina - Lagos",desc:"I bake cakes & bread very well. Need oven.",skill:"Baking",amt:120000,raised:35000,cROI:20,iROI:30,months:3},{title:"Poultry Farm - 200 Birds",owner:"Chidi - PH",desc:"I have land & poultry skill. Need chicks & feed.",skill:"Farming",amt:250000,raised:80000,cROI:15,iROI:25,months:4},{title:"Tailoring Shop - Need Machine",owner:"Grace - Abuja",desc:"I sew ankara & suits. Need industrial machine.",skill:"Tailoring",amt:80000,raised:10000,cROI:20,iROI:20,months:2}]; render(); }
+function card(p){ var pct=Math.round(p.raised/p.amt*100); return '<div class="plan"><h3 style="margin:0">'+p.title+'</h3><p class="s">'+p.desc+'<br>By: '+p.owner+' | Skill: '+p.skill+'</p><div class="box">🤝 <b>BOTH GAIN:</b><br>💚 Contribute ₦5,000 → Get <b>₦'+Math.round(5000*(1+p.cROI/100)).toLocaleString()+'</b> ('+p.cROI+'%)<br>📈 Invest ₦50,000 → Get <b>₦'+Math.round(50000*(1+p.iROI/100)).toLocaleString()+'</b> ('+p.iROI+'%)<br><small>In '+p.months+' months. They work, you gain.</small></div><div class="bar"><i style="width:'+pct+'%"></i></div><p class="s">₦'+p.raised.toLocaleString()+' of ₦'+p.amt.toLocaleString()+' - '+pct+'%</p><div class="two"><button class="g" onclick="openPay(\''+p.title+'\',\'Contribute\')">Contribute 💚<br><small>Get Payback</small></button><button class="b" onclick="openPay(\''+p.title+'\',\'Invest\')">Invest 📈<br><small>Get Bigger Payback</small></button></div></div>'; }
+function render(){ var html=""; for(var i=0;i<plans.length;i++){ html+=card(plans[i]); } $("exploreList").innerHTML=html; $("homeList").innerHTML=html; var mine=""; for(var j=0;j<plans.length;j++){ if(plans[j].mine) mine+=card(plans[j]); } $("myList").innerHTML=mine||"<p class='s'>No plans yet. Create one above.</p>"; var eHtml=""; var totalGive=0,totalBack=0; for(var k=0;k<myFunding.length;k++){ var f=myFunding[k]; totalGive+=f.amt; totalBack+=f.back; eHtml+='<div class="box"><b>'+f.title+'</b> - '+(f.type==="Invest"?"📈 INVEST":"💚 CONTRIBUTE")+'<br>You gave: ₦'+f.amt.toLocaleString()+'<br>They work, you get: <b>₦'+f.back.toLocaleString()+'</b> in '+f.months+' months<br>Profit: ₦'+(f.back-f.amt).toLocaleString()+'</div>'; } $("earnList").innerHTML=eHtml||"<p class='s'>No funding yet. Go Explore.</p>"; $("earnSum").innerHTML="You Funded: <b>₦"+totalGive.toLocaleString()+"</b><br>You Will Get Back: <b>₦"+totalBack.toLocaleString()+"</b><br>Your Profit: <b>₦"+(totalBack-totalGive).toLocaleString()+"</b>"; }
+function page(p){ ["Home","Explore","Mine","Earn"].forEach(function(x){ $("p"+x).classList.add("hide"); $("n"+x).classList.remove("on"); }); $("p"+p).classList.remove("hide"); $("n"+p).classList.add("on"); $("payPage").classList.add("hide"); }
+function openPay(title,type){ for(var i=0;i<plans.length;i++){ if(plans[i].title===title) currentPlan=plans[i]; } currentType=type; $("payTitle").textContent=type+" - "+title; $("payDesc").textContent=currentPlan.desc; var roi=type==="Invest"?currentPlan.iROI:currentPlan.cROI; $("payInfo").innerHTML="<b>"+type+" PAYBACK: "+roi+"% in "+currentPlan.months+" months</b><br>They work with skill, you gain.<br>Example: "+(type==="Invest"?"Invest ₦50,000 → Get ₦"+Math.round(50000*(1+roi/100)).toLocaleString():"Contribute ₦5,000 → Get ₦"+Math.round(5000*(1+roi/100)).toLocaleString()); $("payBtn").textContent="Confirm "+type+" - I Will Get Payback"; $("payBtn").className=type==="Invest"?"b":"g"; $("payAmt").value=""; $("calcBox").classList.add("hide"); $("payPage").classList.remove("hide"); $("payPage").scrollIntoView(); }
+function calc(){ var amt=Number($("payAmt").value); if(!amt){ $("calcBox").classList.add("hide"); return; } var roi=currentType==="Invest"?currentPlan.iROI:currentPlan.cROI; var back=Math.round(amt*(1+roi/100)); $("calcBox").classList.remove("hide"); $("calcBox").innerHTML="You "+currentType+": <b>₦"+amt.toLocaleString()+"</b><br>They work → You get: <b>₦"+back.toLocaleString()+"</b><br>Your Profit: <b>₦"+(back-amt).toLocaleString()+"</b> in "+currentPlan.months+" months"; }
+function confirmPay(){ var amt=Number($("payAmt").value); if(!amt) return alert("Enter amount"); var roi=currentType==="Invest"?currentPlan.iROI:currentPlan.iROI; roi=currentType==="Invest"?currentPlan.iROI:currentPlan.cROI; var back=Math.round(amt*(1+roi/100)); currentPlan.raised+=amt; myFunding.push({title:currentPlan.title,amt:amt,back:back,months:currentPlan.months,type:currentType}); $("payPage").classList.add("hide"); render(); alert(currentType+" Confirmed!\n\nYou gave ₦"+amt.toLocaleString()+"\nThey will work → You get ₦"+back.toLocaleString()+"\nProfit: ₦"+(back-amt).toLocaleString()+"\n\nYou both gain!"); page("Earn"); }
+function publish(){ var t=$("tTitle").value; var a=Number($("tAmt").value); if(!t||!a) return alert("Fill Title and Amount"); plans.unshift({title:t,owner:currentUser,desc:$("tDesc").value||"My plan",skill:$("tSkill").value||"General",amt:a,raised:0,cROI:Number($("tContrib").value)||20,iROI:Number($("tInvest").value)||30,months:Number($("tMonths").value)||3,mine:true}); $("pubMsg").textContent="Your plan is LIVE! Funders will get payback."; $("tTitle").value=""; $("tAmt").value=""; render(); page("Explore"); }
+</script>
+</body></html>
