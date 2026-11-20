@@ -2,187 +2,128 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MP Plan - Invest in People, Skills & Dreams</title>
+<title>MP Plan - V26 Fixed</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#F8FAFC;color:#0F172A}
-.topbar{background:#0F172A;color:#fff;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-.topbar b{font-size:22px}.topbar b span{color:#FBBF24}.topbar small{color:#94A3B8}
-.topbar button{width:auto;padding:9px 16px;margin:0}
-.container{max-width:1100px;margin:0 auto;padding:18px;width:100%}
-.hero{background:linear-gradient(135deg,#0F172A,#1E3A8A);color:#fff;border-radius:20px;padding:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.hero h2{margin:0;font-size:30px;line-height:1.2}.hero h2 span{color:#FBBF24}.hero p{color:#CBD5E1;line-height:1.6}
-.btn{padding:13px 18px;border:0;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px}
-.btn.gold{background:#FBBF24;color:#000}.btn.white{background:#fff;color:#000}.btn.dark{background:#0F172A;color:#fff}.btn.green{background:#22C55E;color:#000}.btn.grey{background:#E2E8F0}
-.nav{display:flex;gap:8px;margin:16px 0;flex-wrap:wrap}
-.nav button{flex:1;padding:12px 8px;border-radius:12px;border:1px solid #E2E8F0;background:#fff;font-weight:700;cursor:pointer;min-width:90px}
-.nav button.active{background:#0F172A;color:#FBBF24}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
-.card2{background:#fff;border-radius:18px;padding:18px;border:1px solid #E2E8F0;box-shadow:0 4px 18px rgba(0,0,0,.05)}
-.card2 h3{margin:0 0 6px}.card2 p{color:#475569;font-size:14px;line-height:1.6;margin:6px 0}
-input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #CBD5E1;background:#fff;margin-bottom:10px;font-size:15px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:#FBBF24}
-label{font-size:12px;font-weight:700;color:#475569}
-.pill{display:inline-block;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800}
-.pill.money{background:#FEF3C7;color:#92400E}.pill.skill{background:#DBEAFE;color:#1E40AF}.pill.both{background:#EDE9FE;color:#5B21B6}
-.progress{height:10px;background:#E2E8F0;border-radius:999px;overflow:hidden;margin:10px 0}.progress i{display:block;height:100%;background:#22C55E}
-.avatar{width:64px;height:64px;border-radius:50%;background:#FBBF24;color:#000;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900}
-.avatar.big{width:90px;height:90px;font-size:36px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.msg{padding:11px;border-radius:12px;font-size:14px;margin-bottom:10px;display:none}.msg.ok{background:#DCFCE7;display:block}.msg.err{background:#FEE2E2;display:block}.msg.info{background:#DBEAFE;display:block}
-.hidden{display:none!important}
-.authWrap{max-width:460px;margin:30px auto;background:#0F172A;color:#fff;padding:26px;border-radius:20px}
-.authWrap input,.authWrap select{background:#1E293B;color:#fff;border-color:#334155}
-.tabs{display:flex;background:#1E293B;border-radius:12px;padding:4px;margin-bottom:12px}.tabs button{flex:1;background:transparent;color:#94A3B8;padding:10px;border-radius:10px;border:0;cursor:pointer}.tabs button.active{background:#FBBF24;color:#000;font-weight:800}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#070B14;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:12px}
+.card{background:#111827;width:100%;max-width:480px;border-radius:22px;padding:20px;border:1px solid #1F2937}
+h1{margin:0;font-size:26px} h1 span{color:#FBBF24} p.sub{color:#9CA3AF;margin:4px 0 14px;font-size:13px}
+.tabs{display:flex;background:#070B14;border-radius:12px;padding:4px;margin-bottom:12px}
+.tabs button{flex:1;background:transparent;color:#9CA3AF;padding:11px;border-radius:10px;font-size:14px;border:0;cursor:pointer}
+.tabs button.active{background:#FBBF24;color:#000;font-weight:800}
+.wrap{position:relative;margin-bottom:10px}
+.wrap input{width:100%;padding:13px 44px 13px 13px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;font-size:15px;outline:none;margin:0}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;margin-bottom:10px;font-size:15px;outline:none}
+button{width:100%;padding:13px;border:0;border-radius:12px;background:#FBBF24;color:#000;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
+button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;color:#000} button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
 .link{color:#FBBF24;text-align:center;margin-top:12px;cursor:pointer;font-size:14px}
-.stat{background:#fff;border-radius:16px;padding:16px;border:1px solid #E2E8F0;text-align:center}.stat b{font-size:22px;display:block}.stat small{color:#64748B}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:99}
-.modalBox{background:#fff;width:100%;max-width:520px;border-radius:20px;padding:22px;max-height:90vh;overflow:auto}
-@media(max-width:600px){.hero h2{font-size:24px}.topbar{flex-wrap:wrap}}
+.msg{padding:11px;border-radius:12px;font-size:14px;margin-bottom:10px;display:none}
+.msg.ok{background:#14532D;display:block}.msg.err{background:#7F1D1D;display:block}.msg.info{background:#1E40AF;display:block}
+.hidden{display:none!important}
+.badge{background:#22C55E;color:#000;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800}
+.badge.gold{background:#FBBF24}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.box{margin-top:12px;background:#070B14;padding:15px;border-radius:14px;border:1px solid #1F2937}
+.box h3{margin:0 0 8px;font-size:16px}.box label{font-size:12px;color:#9CA3AF}
+.nav{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.nav button{flex:1;padding:9px 3px;font-size:12px;background:#070B14;color:#9CA3AF;min-width:70px}
+.nav button.active{background:#FBBF24;color:#000}
+.avatar{width:68px;height:68px;border-radius:50%;background:#FBBF24;color:#000;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;margin:0 auto 8px}
+.planCard{background:#1F2937;padding:14px;border-radius:14px;margin-bottom:10px;border-left:4px solid #FBBF24}
+.planCard h4{margin:0 0 4px;font-size:16px}.planCard p{margin:4px 0;font-size:13px;color:#D1D5DB}.planCard small{color:#9CA3AF}
+.progress{height:9px;background:#374151;border-radius:999px;overflow:hidden;margin:8px 0}.progress i{display:block;height:100%;background:#22C55E}
+.pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700;margin-right:5px}.pill.money{background:#FBBF24;color:#000}.pill.skill{background:#60A5FA;color:#000}.pill.both{background:#A78BFA;color:#000}
+.stat{display:flex;gap:8px}.stat div{flex:1;background:#070B14;padding:11px;border-radius:12px;text-align:center;border:1px solid #1F2937}.stat b{font-size:18px;display:block}.stat small{color:#9CA3AF;font-size:11px}
+.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#9CA3AF;font-size:16px;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="topbar" id="topbar" style="display:none"><div><b>MP <span>Plan</span></b> <small id="helloTop"> - Invest in People</small></div><div style="display:flex;gap:8px"><span id="roleBadge" class="pill money">SKILLED</span><button class="btn gold" style="padding:9px 14px" id="logoutTop">Log Out</button></div></div>
-
-<div class="container" id="authWrap">
-<div class="authWrap" id="authCard">
-<h1 style="margin:0">MP <span style="color:#FBBF24">Plan</span></h1><p style="color:#94A3B8">Skills + Money = Dreams Achieved Together</p>
+<div class="card" id="authCard">
+<h1>MP <span>Plan</span></h1><p class="sub">Skills + Money = Dreams Achieved Together - V26</p>
 <div id="msg" class="msg"></div>
-<div class="tabs"><button id="tabEmail" class="active">Email</button><button id="tabPhone">Phone</button></div>
-<div id="loginBox"><div id="emailLogin"><input id="loginEmail" type="email" placeholder="Email address"><input id="loginPass" type="password" placeholder="Password"><button class="btn gold" style="width:100%" id="loginBtn">Log In</button></div><div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><div id="recaptcha"></div><button class="btn gold" style="width:100%" id="sendCodeBtn">Send SMS Code</button><input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:10px"><button class="btn grey" style="width:100%" id="verifyCodeBtn">Verify Code & Log In</button></div><div class="link" id="toSignup">No account? Create one</div><div class="link" id="forgot">Forgot password?</div></div>
-<div id="signupBox" class="hidden"><input id="suName" placeholder="Full name"><input id="suEmail" type="email" placeholder="Email address"><input id="suPass" type="password" placeholder="Create password (6+)"><select id="suRole"><option value="skilled">I have SKILL, I need MONEY</option><option value="investor">I have MONEY, I want to INVEST</option><option value="both">I have BOTH skill & money</option></select><button class="btn gold" style="width:100%" id="signupBtn">Create Account & Send Verification Email</button><div class="link" id="toLogin">Already have account? Log in</div></div>
-<div id="verifyBox" class="hidden"><p>We sent a verification link to <b id="verifyEmail"></b></p><p style="color:#94A3B8;font-size:14px">Check inbox + spam. Click link, then come back.</p><button class="btn gold" style="width:100%" id="checkVerifyBtn">I Verified - Check Now</button><button class="btn grey" style="width:100%" id="resendBtn">Resend Email</button><div class="link" id="logout1">Use different account</div></div>
+<div id="debugBox" style="font-size:12px;color:#FBBF24;margin-bottom:8px">Status: Page loaded. Click a button to test.</div>
+<div class="tabs"><button id="tabEmail" class="active" onclick="switchTab('email')">Email</button><button id="tabPhone" onclick="switchTab('phone')">Phone</button></div>
+<div id="loginBox">
+<div id="emailLogin"><input id="loginEmail" type="email" placeholder="Email address" value="usunobunanthonynosakhare@gmail.com"><div class="wrap"><input id="loginPass" type="password" placeholder="Password"><button type="button" class="eye" onclick="togglePass('loginPass',this)">EYE</button></div><button onclick="doLogin()">Log In</button></div>
+<div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><div id="recaptcha"></div><button onclick="doSendCode()">Send SMS Code</button><input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:10px"><button class="secondary" onclick="doVerifyCode()">Verify Code & Log In</button><p style="font-size:12px;color:#9CA3AF">If Phone still fails, use Email for now - Phone needs Firebase SMS setup.</p></div>
+<div class="link" onclick="showBox('signupBox')">No account? Create one</div><div class="link" onclick="doForgot()">Forgot password?</div>
 </div>
+<div id="signupBox" class="hidden">
+<input id="suName" placeholder="Full name"><input id="suEmail" type="email" placeholder="Email address"><div class="wrap"><input id="suPass" type="password" placeholder="Create password (6+)"><button type="button" class="eye" onclick="togglePass('suPass',this)">EYE</button></div>
+<select id="suRole"><option>I have SKILL, I need MONEY</option><option>I have MONEY, I want to SUPPORT</option><option>I have BOTH skill & money</option></select>
+<button onclick="doSignup()">Create Account</button><div class="link" onclick="showBox('loginBox')">Already have account? Log in</div>
 </div>
-
-<div class="container hidden" id="appWrap">
-<div class="hero"><div style="max-width:650px"><h2>Invest in People.<br>Grow <span>Skills & Dreams.</span></h2><p>People with talent but no money post their plans. People with money but no time invest in them. Together, you build something real.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn gold" onclick="goPage('Explore')">Explore Plans to Invest →</button><button class="btn white" onclick="goPage('MyPlans')">Post My Plan</button></div></div><div style="background:rgba(255,255,255,.12);padding:16px;border-radius:16px;min-width:220px"><b style="font-size:28px;color:#FBBF24" id="statPlansHero">0</b><div>Live Plans</div><b style="font-size:22px" id="statRaisedHero">₦0</b><div>Already Invested</div></div></div>
-
-<div class="nav"><button id="navHome" class="active">🏠 Home</button><button id="navExplore">💰 Explore Plans</button><button id="navPeople">👥 People</button><button id="navMyPlans">📝 My Plans</button><button id="navProfile">👤 My Profile</button></div>
-
-<div id="pageHome"><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="stat"><b id="statPlans">0</b><small>Community Plans</small></div><div class="stat"><b id="statRaised">₦0</b><small>Total Invested</small></div><div class="stat"><b id="statYou">₦0</b><small>You Invested</small></div></div><h3 style="margin:20px 0 10px">🔥 Featured Plans - Invest Now</h3><div id="featuredList" class="grid"></div></div>
-
-<div id="pageExplore" class="hidden"><div class="card2"><h3>Explore All Plans</h3><div class="row"><select id="filterNeed" style="max-width:220px"><option value="All">All Needs</option><option value="Money">Needs Money</option><option value="Skill">Needs Skill</option><option value="Both">Needs Both</option></select><input id="searchPlans" placeholder="Search... farming, baking, tech" style="max-width:400px"></div><div id="exploreList" class="grid" style="margin-top:12px"></div></div></div>
-
-<div id="pagePeople" class="hidden"><h3>👥 Meet The People</h3><p style="color:#64748B">Click any person to see their full profile, story, skill, location & how to connect.</p><div id="peopleList" class="grid"></div></div>
-
-<div id="pageMyPlans" class="hidden"><div class="card2"><h3>📝 Create Your Plan</h3><p style="color:#64748B;font-size:14px">Be clear & honest. Investors invest in CLEAR plans + REAL people.</p><label>Plan Title</label><input id="planTitle" placeholder="e.g. Start a Poultry Farm"><label>Your Plan - Details</label><textarea id="planDesc" rows="4" placeholder="What will you do? How will you use the money? What will investors get back? When?"></textarea><div class="row"><div style="flex:1"><label>Your Skill</label><input id="planSkill" placeholder="e.g. Farming"></div><div style="flex:1"><label>What do you NEED?</label><select id="planNeed"><option value="Money">Money Only</option><option value="Skill">Skill / Partner</option><option value="Both">Both Money + Skill</option></select></div></div><div class="row"><div style="flex:1"><label>Amount Needed (₦)</label><input id="planAmount" type="number" placeholder="100000"></div><div style="flex:1"><label>What do investors get?</label><input id="planReturn" placeholder="e.g. 20% profit share in 6 months"></div></div><button class="btn green" style="width:100%" id="publishPlanBtn">Publish My Plan 🚀</button><p id="planSaved" style="color:#16A34A"></p></div><h3 style="margin-top:16px">My Published Plans</h3><div id="myPlansList" class="grid"></div></div>
-
-<div id="pageProfile" class="hidden"><div class="card2"><div class="row"><div style="display:flex;gap:14px;align-items:center"><div class="avatar big" id="avatarLetter">A</div><div><h3 id="profileName" style="font-size:22px">Anthony</h3><p id="profileEmail" style="margin:0;color:#64748B"></p><p id="profileRole" style="margin:4px 0;color:#B45309;font-weight:700"></p><p id="profileLoc" style="margin:0;color:#64748B"></p></div></div><span class="pill money" id="profileBadge">SKILLED</span></div><p id="profileBioText" style="margin-top:12px"></p><p id="profilePhone" style="color:#64748B"></p></div>
-<div class="card2" style="margin-top:14px"><h3>✏️ Edit My Profile - This Now Works!</h3><label>Full Name</label><input id="editName"><label>Location - Where are you from?</label><input id="editLocation" placeholder="e.g. Port Harcourt, Rivers State"><label>About Me / My Story - Tell investors who you are</label><textarea id="editBio" rows="3" placeholder="e.g. I am a young farmer... I grew up... My dream is..."></textarea><label>Your Skill / Talent</label><input id="editSkill" placeholder="e.g. Tailoring, Coding, Farming"><label>Phone / WhatsApp</label><input id="editPhone" placeholder="+234..."><label>I am a...</label><select id="editRole"><option value="skilled">I have SKILL, I need MONEY</option><option value="investor">I have MONEY, I want to INVEST</option><option value="both">I have BOTH skill & money</option></select><button class="btn gold" style="width:100%" id="saveProfileBtn">Save Profile ✅</button><p id="profileSaved" style="color:#16A34A"></p></div>
-<div class="card2" style="margin-top:14px"><h3>My Investments</h3><div id="myContribs"></div></div></div>
+<div id="verifyBox" class="hidden"><p>We sent a verification link to <b id="verifyEmail"></b></p><button onclick="doCheckVerify()">I Verified - Check Now</button><button class="secondary" onclick="doResend()">Resend Email</button><div class="link" onclick="doLogout()">Use different account</div></div>
 </div>
 
-<!-- PERSON PROFILE MODAL -->
-<div id="personModal" class="modal hidden"><div class="modalBox"><div style="display:flex;justify-content:space-between"><h3 id="pmName">Person</h3><button class="btn grey" style="width:40px" onclick="closeModal()">×</button></div><div style="display:flex;gap:14px;align-items:center;margin:10px 0"><div class="avatar big" id="pmAvatar">A</div><div><b id="pmRole"></b><p id="pmLoc" style="margin:4px 0;color:#64748B"></p><p id="pmSkill" style="margin:0"></p></div></div><p id="pmBio" style="line-height:1.6"></p><div style="background:#FEF3C7;padding:12px;border-radius:12px"><b>Trust Score: <span id="pmTrust"></span> ⭐</b> • <span id="pmPlansCount"></span> plans • <span id="pmRaised"></span> raised</div><h4 style="margin:14px 0 8px">Their Plans:</h4><div id="pmPlans"></div><div class="row" style="margin-top:14px"><button class="btn gold" id="pmConnectBtn" style="flex:1">Connect / Message 💬</button><button class="btn green" id="pmInvestBtn" style="flex:1">Invest in Their Plan 💰</button></div><p id="pmContact" style="font-size:13px;color:#64748B;margin-top:10px"></p></div></div>
-
-<!-- INVEST MODAL -->
-<div id="investModal" class="modal hidden"><div class="modalBox"><div style="display:flex;justify-content:space-between"><h3 id="invTitle">Invest</h3><button class="btn grey" style="width:40px" onclick="closeModal()">×</button></div><p id="invDesc" style="color:#64748B"></p><label>Amount to Invest (₦)</label><input id="contribAmount" type="number" placeholder="e.g. 5000"><label>Your Message</label><input id="contribMsg" placeholder="e.g. I believe in your dream!"><button class="btn green" style="width:100%" id="confirmContribBtn">Confirm Investment 💰</button><button class="btn grey" style="width:100%" onclick="closeModal()">Cancel</button></div></div>
+<div class="card hidden" id="appCard">
+<div class="row"><div><h1>MP <span>Plan</span></h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge gold" id="roleBadge">SKILLED</span></div>
+<div class="nav"><button id="navHome" class="active" onclick="showPage('Home')">Home</button><button id="navExplore" onclick="showPage('Explore')">Explore</button><button id="navMyPlans" onclick="showPage('MyPlans')">My Plans</button><button id="navProfile" onclick="showPage('Profile')">Profile</button></div>
+<div id="pageHome">
+<div class="stat"><div><b id="statPlans">0</b><small>Community Plans</small></div><div><b id="statRaised">₦0</b><small>Total Contributed</small></div><div><b id="statYou">₦0</b><small>You Contributed</small></div></div>
+<div class="box"><h3>💡 How MP Plan Works</h3><p style="font-size:13px;color:#D1D5DB;line-height:1.6;margin:0"><b style="color:#FBBF24">1. Skilled Person</b> posts a plan<br><b style="color:#22C55E">2. Contributor</b> contributes money<br><b>3. Together</b> you achieve it.</p></div>
+<div class="box"><h3>🔥 Featured Plans</h3><div id="featuredList"></div></div>
+</div>
+<div id="pageExplore" class="hidden"><div class="box"><h3>Explore All Plans</h3><select id="filterNeed" onchange="renderPlans()"><option value="All">All</option><option value="Money">Needs Money</option><option value="Skill">Needs Skill</option><option value="Both">Needs Both</option></select><input id="searchPlans" placeholder="Search..." oninput="renderPlans()"><div id="exploreList"></div></div></div>
+<div id="pageMyPlans" class="hidden"><div class="box"><h3>📝 Create Your Plan</h3><label>Plan Title</label><input id="planTitle" placeholder="e.g. Start a Poultry Farm"><label>What is your plan?</label><textarea id="planDesc" rows="3" placeholder="Explain your plan..."></textarea><label>Your Skill</label><input id="planSkill" placeholder="e.g. Farming, Baking"><label>What do you NEED?</label><select id="planNeed"><option value="Money">Money Only</option><option value="Skill">Skill / Partner Only</option><option value="Both">Both Money + Skill</option></select><label>Amount Needed (₦)</label><input id="planAmount" type="number" placeholder="e.g. 100000"><label>What do contributors get back?</label><input id="planReturn" placeholder="e.g. 20% profit share"><button class="green" onclick="publishPlan()">Publish My Plan 🚀</button><p id="planSaved" style="font-size:13px;color:#86EFAC"></p></div><div class="box"><h3>My Published Plans</h3><div id="myPlansList"></div></div></div>
+<div id="pageProfile" class="hidden"><div class="box" style="text-align:center"><div class="avatar" id="avatarLetter">A</div><h3 id="profileName">Anthony</h3><p id="profileEmail" style="color:#9CA3AF;font-size:13px;margin:0"></p><p id="profileRole" style="color:#FBBF24;font-size:13px;margin:6px 0 0"></p><p id="profilePhone" style="color:#9CA3AF;font-size:13px"></p></div><div class="box"><h3>Edit Profile</h3><label>Full Name</label><input id="editName"><label>Phone / WhatsApp</label><input id="editPhone" placeholder="+234..."><label>Your Skill</label><input id="editSkill" placeholder="e.g. Tailoring"><label>I am a...</label><select id="editRole"><option>I have SKILL, I need MONEY</option><option>I have MONEY, I want to SUPPORT</option><option>I have BOTH skill & money</option></select><button onclick="saveProfile()">Save Profile</button><p id="profileSaved" style="font-size:13px;color:#86EFAC"></p></div><div class="box"><h3>My Contributions</h3><div id="myContribs"></div></div></div>
+<button class="secondary" onclick="doLogout()" style="margin-top:12px">Log Out</button>
+</div>
+<div class="card hidden" id="contribCard" style="margin-top:12px"><h3 id="contribTitle">Contribute</h3><p id="contribDesc" style="font-size:13px;color:#9CA3AF"></p><label>Amount (₦)</label><input id="contribAmount" type="number" placeholder="e.g. 5000"><label>Message</label><input id="contribMsg" placeholder="I believe in this plan!"><button class="green" onclick="confirmContrib()">Confirm Contribution 💰</button><button class="secondary" onclick="document.getElementById('contribCard').classList.add('hidden')">Cancel</button></div>
 
 <script>
-const firebaseConfig = { apiKey: "AIzaSyCm9n6nern9J2RVg2GcqRxH8_QCJ5FwNAo", authDomain: "mp-plan-anthony.firebaseapp.com", projectId: "mp-plan-anthony", storageBucket: "mp-plan-anthony.firebasestorage.app", messagingSenderId: "866100401066", appId: "1:866100401066:web:a0505ef2dae9344b3111d3" };
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const $ = id => document.getElementById(id);
-function showMsg(t, type){ const m=$('msg'); m.textContent=t; m.className='msg '+type; }
-function showBox(which){ ['loginBox','signupBox','verifyBox'].forEach(id=>$(id).classList.add('hidden')); $(which).classList.remove('hidden'); }
-$('toSignup').onclick=()=>showBox('signupBox'); $('toLogin').onclick=()=>showBox('loginBox');
-$('tabEmail').onclick=()=>{ $('tabEmail').classList.add('active'); $('tabPhone').classList.remove('active'); $('emailLogin').classList.remove('hidden'); $('phoneLogin').classList.add('hidden'); };
-$('tabPhone').onclick=()=>{ $('tabPhone').classList.add('active'); $('tabEmail').classList.remove('active'); $('phoneLogin').classList.remove('hidden'); $('emailLogin').classList.add('hidden'); };
-$('signupBtn').onclick=async()=>{ const name=$('suName').value.trim(), email=$('suEmail').value.trim(), pass=$('suPass').value, role=$('suRole').value; if(!name||!email||pass.length<6) return showMsg('Fill all fields. Password 6+','err'); try{ const cred=await auth.createUserWithEmailAndPassword(email,pass); await cred.user.updateProfile({displayName:name}); localStorage.setItem('mp_role_'+cred.user.uid, role); localStorage.setItem('mp_profile_'+cred.user.uid, JSON.stringify({name, location:'', bio:'', skill:'', phone:'', role})); await cred.user.sendEmailVerification(); $('verifyEmail').textContent=email; showBox('verifyBox'); showMsg('Account created! Verify email.','ok'); }catch(e){ showMsg(e.message,'err'); } };
-$('loginBtn').onclick=async()=>{ try{ const cred=await auth.signInWithEmailAndPassword($('loginEmail').value.trim(), $('loginPass').value); if(!cred.user.emailVerified){ $('verifyEmail').textContent=cred.user.email; showBox('verifyBox'); return showMsg('Please verify email first.','info'); } showApp(cred.user); }catch(e){ showMsg('Wrong email or password.','err'); } };
-let confirmationResult=null;
-$('sendCodeBtn').onclick=async()=>{ const phone=$('loginPhone').value.trim(); if(!phone.startsWith('+')) return showMsg('Phone must start with +234...','err'); try{ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'}); confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier); showMsg('SMS sent to '+phone,'ok'); }catch(e){ showMsg(e.message,'err'); } };
-$('verifyCodeBtn').onclick=async()=>{ try{ const cred=await confirmationResult.confirm($('smsCode').value.trim()); showApp(cred.user); }catch(e){ showMsg('Wrong code.','err'); } };
-$('checkVerifyBtn').onclick=async()=>{ await auth.currentUser.reload(); if(auth.currentUser.emailVerified) showApp(auth.currentUser); else showMsg('Not verified yet.','err'); };
-$('resendBtn').onclick=async()=>{ try{ await auth.currentUser.sendEmailVerification(); showMsg('Resent!','ok'); }catch(e){ showMsg(e.message,'err'); } };
-$('forgot').onclick=async()=>{ const email=$('loginEmail').value.trim(); if(!email) return showMsg('Type email first.','info'); try{ await auth.sendPasswordResetEmail(email); showMsg('Reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); } };
-
-function goPage(p){ const map={Home:'Home',Explore:'Explore',People:'People',MyPlans:'MyPlans',Profile:'Profile'}; showPage(map[p]); }
-function showPage(p){ ['pageHome','pageExplore','pagePeople','pageMyPlans','pageProfile'].forEach(id=>$(id).classList.add('hidden')); $('page'+p).classList.remove('hidden'); ['navHome','navExplore','navPeople','navMyPlans','navProfile'].forEach(id=>$(id).classList.remove('active')); $('nav'+p).classList.add('active'); }
-$('navHome').onclick=()=>showPage('Home'); $('navExplore').onclick=()=>showPage('Explore'); $('navPeople').onclick=()=>showPage('People'); $('navMyPlans').onclick=()=>showPage('MyPlans'); $('navProfile').onclick=()=>showPage('Profile');
-function closeModal(){ $('personModal').classList.add('hidden'); $('investModal').classList.add('hidden'); }
-function getPlans(){ try{ return JSON.parse(localStorage.getItem('mp_community_plans')||'[]'); }catch{ return []; } }
+window.onerror = function(m){ var d=document.getElementById('debugBox'); if(d) d.textContent='ERROR: '+m; };
+var firebaseConfig = { apiKey: "AIzaSyCm9n6nern9J2RVg2GcqRxH8_QCJ5FwNAo", authDomain: "mp-plan-anthony.firebaseapp.com", projectId: "mp-plan-anthony", storageBucket: "mp-plan-anthony.firebasestorage.app", messagingSenderId: "866100401066", appId: "1:866100401066:web:a0505ef2dae9344b3111d3" };
+try{ firebase.initializeApp(firebaseConfig); }catch(e){ console.log(e); }
+var auth = firebase.auth();
+function $(id){ return document.getElementById(id); }
+function togglePass(id,btn){ var el=$(id); el.type = el.type==='password'?'text':'password'; btn.textContent = el.type==='password'?'EYE':'HIDE'; }
+function showMsg(t, type){ var m=$('msg'); m.textContent=t; m.className='msg '+type; }
+function showBox(which){ ['loginBox','signupBox','verifyBox'].forEach(function(id){ $(id).classList.add('hidden'); }); $(which).classList.remove('hidden'); }
+function switchTab(tab){
+  $('debugBox').textContent='You clicked '+tab+' tab - WORKING!';
+  if(tab==='email'){ $('tabEmail').classList.add('active'); $('tabPhone').classList.remove('active'); $('emailLogin').classList.remove('hidden'); $('phoneLogin').classList.add('hidden'); }
+  else { $('tabPhone').classList.add('active'); $('tabEmail').classList.remove('active'); $('phoneLogin').classList.remove('hidden'); $('emailLogin').classList.add('hidden'); }
+}
+async function doLogin(){
+  $('debugBox').textContent='Trying to log in... please wait';
+  var email=$('loginEmail').value.trim(), pass=$('loginPass').value;
+  if(!email||!pass){ showMsg('Type email and password','err'); return; }
+  try{
+    var cred=await auth.signInWithEmailAndPassword(email, pass);
+    if(!cred.user.emailVerified){ $('verifyEmail').textContent=cred.user.email; showBox('verifyBox'); showMsg('Please verify email first','info'); return; }
+    showApp(cred.user);
+  }catch(e){ $('debugBox').textContent='Login failed: '+e.message; showMsg(e.message,'err'); }
+}
+async function doSignup(){
+  var name=$('suName').value.trim(), email=$('suEmail').value.trim(), pass=$('suPass').value, role=$('suRole').value;
+  if(!name||!email||pass.length<6) return showMsg('Fill all fields. Password 6+','err');
+  try{ var cred=await auth.createUserWithEmailAndPassword(email,pass); await cred.user.updateProfile({displayName:name}); localStorage.setItem('mp_role_'+cred.user.uid, role); await cred.user.sendEmailVerification(); $('verifyEmail').textContent=email; showBox('verifyBox'); showMsg('Account created! Verify email.','ok'); }catch(e){ showMsg(e.message,'err'); }
+}
+var confirmationResult=null;
+async function doSendCode(){
+  var phone=$('loginPhone').value.trim();
+  if(!phone.startsWith('+')) return showMsg('Phone must start with +234...','err');
+  try{ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'}); confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier); showMsg('SMS sent to '+phone,'ok'); }catch(e){ showMsg('Phone Error: '+e.message,'err'); $('debugBox').textContent='Phone Error: '+e.message; }
+}
+async function doVerifyCode(){ try{ var cred=await confirmationResult.confirm($('smsCode').value.trim()); showApp(cred.user); }catch(e){ showMsg('Wrong code.','err'); } }
+async function doCheckVerify(){ await auth.currentUser.reload(); if(auth.currentUser.emailVerified) showApp(auth.currentUser); else showMsg('Not verified yet.','err'); }
+async function doResend(){ try{ await auth.currentUser.sendEmailVerification(); showMsg('Resent!','ok'); }catch(e){ showMsg(e.message,'err'); } }
+async function doForgot(){ var email=$('loginEmail').value.trim(); if(!email) return showMsg('Type email first.','info'); try{ await auth.sendPasswordResetEmail(email); showMsg('Reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); } }
+function showPage(p){ ['pageHome','pageExplore','pageMyPlans','pageProfile'].forEach(function(id){ $(id).classList.add('hidden'); }); $('page'+p).classList.remove('hidden'); ['navHome','navExplore','navMyPlans','navProfile'].forEach(function(id){ $(id).classList.remove('active'); }); $('nav'+p).classList.add('active'); $('contribCard').classList.add('hidden'); }
+function getPlans(){ try{ return JSON.parse(localStorage.getItem('mp_community_plans')||'[]'); }catch(e){ return []; } }
 function savePlans(plans){ localStorage.setItem('mp_community_plans', JSON.stringify(plans)); }
-function getPeople(){ try{ return JSON.parse(localStorage.getItem('mp_people')||'[]'); }catch{ return []; } }
-function savePeople(p){ localStorage.setItem('mp_people', JSON.stringify(p)); }
-function getMyContribs(){ const u=auth.currentUser; if(!u) return []; try{ return JSON.parse(localStorage.getItem('mp_contribs_'+u.uid)||'[]'); }catch{ return []; } }
-let currentInvestId=null;
-function seedData(){
-  let plans=getPlans(); let people=getPeople();
-  if(!people.length){
-    people=[
-      {id:'amina', name:'Amina Bello', location:'Lagos, Nigeria', bio:'I grew up baking with my mother in Lagos. I can bake cakes, bread and small chops for events. My dream is to own a bakery that employs other young women in my area. I am honest, hardworking and I never give up.', skill:'Baking & Catering', phone:'+234 800 000 0001', role:'skilled', trust:4.8},
-      {id:'chidi', name:'Chidi Okafor', location:'Port Harcourt, Rivers State', bio:'I am a poultry farmer with 3 years experience. I started with 20 birds in my compound. Now I want to scale to 200 birds and supply eggs to shops in Port Harcourt. I know the business, I just need capital.', skill:'Farming / Poultry', phone:'+234 800 000 0002', role:'skilled', trust:4.9},
-      {id:'grace', name:'Grace Adeyemi', location:'Abuja, Nigeria', bio:'I have been tailoring since I was 16. I sew ankara, suits and wedding dresses. My customers love my work. I need an industrial machine to take bigger orders and train 2 girls.', skill:'Tailoring & Fashion', phone:'+234 800 000 0003', role:'skilled', trust:4.7},
-      {id:'mike', name:'Michael Johnson', location:'Lagos, Nigeria', bio:'I am an investor. I made money in real estate and I want to invest in young talented Nigerians. I look for honest people with clear plans. I dont just give money - I mentor too.', skill:'Investor & Mentor', phone:'+234 800 000 0004', role:'investor', trust:5.0}
-    ]; savePeople(people);
-  }
+function getMyContribs(){ var u=auth.currentUser; if(!u) return []; try{ return JSON.parse(localStorage.getItem('mp_contribs_'+u.uid)||'[]'); }catch(e){ return []; } }
+var currentContribId=null;
+function renderPlans(){
+  var plans=getPlans();
   if(!plans.length){
     plans=[
-      {id:'demo1', ownerId:'amina', owner:'Amina Bello', location:'Lagos', title:'Bakery - Need Oven', desc:'I can bake cakes & bread very well. I need an oven to start selling to shops. Investors get 20% profit share for 6 months.', skill:'Baking', need:'Money', amount:120000, raised:35000, returnText:'20% profit share for 6 months', contribs:[{from:'Michael Johnson', amount:15000, msg:'Good luck Amina!'}]},
-      {id:'demo2', ownerId:'chidi', owner:'Chidi Okafor', location:'Port Harcourt', title:'Poultry Farm - 200 Birds', desc:'I have land & experience in poultry. Need money for chicks & feed. I will repay + share profit in 4 months.', skill:'Farming / Poultry', need:'Both', amount:250000, raised:80000, returnText:'Repay + profit share in 4 months', contribs:[]},
-      {id:'demo3', ownerId:'grace', owner:'Grace Adeyemi', location:'Abuja', title:'Tailoring Shop - Need Machine', desc:'I sew ankara & suits. Need industrial machine to take bigger orders. Investors get free outfit + profit share.', skill:'Tailoring', need:'Money', amount:80000, raised:10000, returnText:'Free outfit + profit share', contribs:[]}
-    ]; savePlans(plans);
+      {id:'demo1', owner:'Amina - Lagos', title:'Bakery - Need Oven', desc:'I can bake cakes & bread very well. Need oven to start selling.', skill:'Baking', need:'Money', amount:120000, raised:35000, returnText:'20% profit share', contribs:[{from:'Anonymous', amount:15000, msg:'Good luck!'}]},
+      {id:'demo2', owner:'Chidi - Port Harcourt', title:'Poultry Farm - 200 Birds', desc:'I have land & experience in poultry. Need money for chicks & feed.', skill:'Farming', need:'Both', amount:250000, raised:80000, returnText:'Repay + profit share', contribs:[]},
+      {id:'demo3', owner:'Grace - Abuja', title:'Tailoring Shop - Need Machine', desc:'I sew ankara & suits. Need industrial machine.', skill:'Tailoring', need:'Money', amount:80000, raised:10000, returnText:'Free outfit + share', contribs:[]}
+    ];
+    savePlans(plans);
   }
-}
-function roleLabel(r){ return r==='investor'?'💰 INVESTOR - Has Money':r==='both'?'💰+🛠️ BOTH': '🛠️ SKILLED - Has Talent'; }
-function renderAll(){
-  seedData(); let plans=getPlans(); let people=getPeople();
-  const u=auth.currentUser;
-  // add current user to people if not there
-  if(u){
-    let prof={}; try{ prof=JSON.parse(localStorage.getItem('mp_profile_'+u.uid)||'{}'); }catch{}
-    if(!people.find(p=>p.id===u.uid)){
-      people.unshift({id:u.uid, name:u.displayName||'User', location:prof.location||'Nigeria', bio:prof.bio||'New member of MP Plan. Update your profile to tell your story!', skill:prof.skill||'General', phone:prof.phone||'', role:prof.role||'skilled', trust:5.0, isMe:true}); savePeople(people);
-    } else {
-      // update my entry
-      let me=people.find(p=>p.id===u.uid); me.name=u.displayName||me.name; me.location=prof.location||me.location; me.bio=prof.bio||me.bio; me.skill=prof.skill||me.skill; me.phone=prof.phone||me.phone; me.role=prof.role||me.role; savePeople(people);
-    }
-  }
-  const filter=$('filterNeed').value; const search=($('searchPlans').value||'').toLowerCase();
-  let filtered=plans.filter(p=> (filter==='All'||p.need===filter) && (p.title+' '+p.desc+' '+p.skill).toLowerCase().includes(search));
-  const totalRaised=plans.reduce((s,p)=>s+p.raised,0);
-  $('statPlans').textContent=plans.length; $('statPlansHero').textContent=plans.length; $('statRaised').textContent='₦'+totalRaised.toLocaleString(); $('statRaisedHero').textContent='₦'+totalRaised.toLocaleString();
-  const myC=getMyContribs(); $('statYou').textContent='₦'+myC.reduce((s,c)=>s+c.amount,0).toLocaleString();
-  function cardHTML(p){
-    const pct=Math.min(100, Math.round(p.raised/p.amount*100));
-    return `<div class="card2"><div class="row"><h3>${p.title}</h3><span class="pill ${p.need==='Money'?'money':p.need==='Skill'?'skill':'both'}">${p.need==='Money'?'💰 NEEDS MONEY':p.need==='Skill'?'🛠️ NEEDS SKILL':'💰+🛠️ NEEDS BOTH'}</span></div><p>${p.desc}</p><p><b>Skill:</b> ${p.skill} | <b>Returns:</b> ${p.returnText}</p><div style="display:flex;gap:8px;align-items:center;cursor:pointer" onclick="openPerson('${p.ownerId}')"><div class="avatar" style="width:36px;height:36px;font-size:16px">${(p.owner||'A')[0]}</div><small style="color:#2563EB;font-weight:700">👤 ${p.owner} - ${p.location||''} • View Profile →</small></div><div class="progress"><i style="width:${pct}%"></i></div><div class="row"><small>₦${p.raised.toLocaleString()} of ₦${p.amount.toLocaleString()} • ${pct}%</small><small>${p.contribs.length} investors</small></div><button class="btn green" style="width:100%" onclick="openInvest('${p.id}')">Invest in This Plan 💰</button>${p.contribs.map(c=>`<small style="display:block;margin-top:6px">💚 ${c.from} invested ₦${c.amount.toLocaleString()} - "${c.msg}"</small>`).join('')}</div>`;
-  }
-  $('exploreList').innerHTML = filtered.length? filtered.map(cardHTML).join('') : '<p>No plans match.</p>';
-  $('featuredList').innerHTML = plans.slice(0,3).map(cardHTML).join('');
-  const mine=plans.filter(p=>p.ownerId===u?.uid);
-  $('myPlansList').innerHTML = mine.length? mine.map(cardHTML).join('') : '<p style="color:#64748B">You have no plans yet. Create one above!</p>';
-  // people
-  $('peopleList').innerHTML = people.map(person=>{
-    const pCount=plans.filter(pl=>pl.ownerId===person.id).length; const pRaised=plans.filter(pl=>pl.ownerId===person.id).reduce((s,pl)=>s+pl.raised,0);
-    return `<div class="card2" style="text-align:center"><div class="avatar" style="margin:0 auto">${(person.name||'A')[0]}</div><h3 style="margin-top:8px">${person.name} ${person.isMe?'(You)':''}</h3><span class="pill ${person.role==='investor'?'money':'skill'}">${roleLabel(person.role)}</span><p>📍 ${person.location||'Nigeria'}</p><p><b>Skill:</b> ${person.skill}</p><p style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${person.bio}</p><p>⭐ ${person.trust} • ${pCount} plans • ₦${pRaised.toLocaleString()} raised</p><button class="btn dark" style="width:100%" onclick="openPerson('${person.id}')">View Full Profile →</button></div>`;
-  }).join('');
-  $('myContribs').innerHTML = myC.length? myC.map(c=>`<p>💰 ₦${c.amount.toLocaleString()} to <b>${c.title}</b> - "${c.msg}"</p>`).join('') : '<p style="color:#64748B">You have not invested yet. Go to Explore and support someone!</p>';
-}
-window.openPerson=function(id){ const people=getPeople(); const person=people.find(p=>p.id===id); if(!person) return; const plans=getPlans().filter(p=>p.ownerId===id); $('pmName').textContent=person.name; $('pmAvatar').textContent=(person.name||'A')[0]; $('pmRole').textContent=roleLabel(person.role); $('pmLoc').textContent='📍 '+(person.location||'Nigeria'); $('pmSkill').textContent='🛠️ Skill: '+person.skill; $('pmBio').textContent=person.bio; $('pmTrust').textContent=person.trust; $('pmPlansCount').textContent=plans.length; $('pmRaised').textContent='₦'+plans.reduce((s,p)=>s+p.raised,0).toLocaleString(); $('pmPlans').innerHTML=plans.length? plans.map(p=>`<div style="background:#F1F5F9;padding:10px;border-radius:10px;margin-bottom:8px"><b>${p.title}</b><br><small>${p.desc}</small><br><small>₦${p.raised.toLocaleString()} / ₦${p.amount.toLocaleString()}</small></div>`).join('') : '<p style="color:#64748B">No plans yet.</p>'; $('pmContact').textContent='📞 Contact: '+(person.phone||'Ask via MP Plan')+' • Member of MP Plan'; $('pmConnectBtn').onclick=()=>{ alert('Connect request sent to '+person.name+'! They will see your profile. In real app this opens WhatsApp / Chat. Contact: '+(person.phone||'Not shared yet')); }; $('pmInvestBtn').onclick=()=>{ closeModal(); if(plans[0]) openInvest(plans[0].id); else alert(person.name+' has no plan yet. Ask them to post one!'); }; $('personModal').classList.remove('hidden'); };
-window.openInvest=function(id){ const plans=getPlans(); const p=plans.find(x=>x.id===id); if(!p) return; currentInvestId=id; $('invTitle').textContent='Invest in: '+p.title; $('invDesc').textContent=p.desc+' | By '+p.owner+' | Needs ₦'+p.amount.toLocaleString()+' | Raised ₦'+p.raised.toLocaleString(); $('investModal').classList.remove('hidden'); };
-$('confirmContribBtn').onclick=()=>{ const amt=Number($('contribAmount').value); const msg=$('contribMsg').value.trim()||'I believe in this dream!'; if(!amt||amt<=0) return alert('Enter amount'); const plans=getPlans(); const p=plans.find(x=>x.id===currentInvestId); const u=auth.currentUser; const name=u?.displayName||'Anonymous'; p.raised+=amt; p.contribs.push({from:name, amount:amt, msg}); savePlans(plans); const myC=getMyContribs(); myC.push({title:p.title, amount:amt, msg}); localStorage.setItem('mp_contribs_'+u.uid, JSON.stringify(myC)); $('contribAmount').value=''; $('contribMsg').value=''; closeModal(); renderAll(); alert('Thank you '+name+'! You invested ₦'+amt.toLocaleString()+' in '+p.title); };
-$('filterNeed').onchange=renderAll; $('searchPlans').oninput=renderAll;
-$('publishPlanBtn').onclick=()=>{ const title=$('planTitle').value.trim(), desc=$('planDesc').value.trim(), skill=$('planSkill').value.trim(), need=$('planNeed').value, amount=Number($('planAmount').value), ret=$('planReturn').value.trim(); if(!title||!desc||!amount) return $('planSaved').textContent='Fill Title, Description and Amount!'; const u=auth.currentUser; const plans=getPlans(); plans.unshift({id:'p'+Date.now(), ownerId:u.uid, owner:(u.displayName||'User'), location:JSON.parse(localStorage.getItem('mp_profile_'+u.uid)||'{}').location||'Nigeria', title, desc, skill:skill||'General', need, amount, raised:0, returnText:ret||'Thank you + share', contribs:[]}); savePlans(plans); $('planTitle').value=''; $('planDesc').value=''; $('planSkill').value=''; $('planAmount').value=''; $('planReturn').value=''; $('planSaved').textContent='Your plan is LIVE! Investors can now see & invest!'; renderAll(); showPage('Explore'); };
-$('saveProfileBtn').onclick=async()=>{
-  const name=$('editName').value.trim(), loc=$('editLocation').value.trim(), bio=$('editBio').value.trim(), skill=$('editSkill').value.trim(), phone=$('editPhone').value.trim(), role=$('editRole').value;
-  const u=auth.currentUser; if(!u) return alert('Not logged in');
-  try{
-    if(name && name!==u.displayName) await u.updateProfile({displayName:name});
-    const prof={name:name||u.displayName, location:loc, bio, skill, phone, role};
-    localStorage.setItem('mp_profile_'+u.uid, JSON.stringify(prof));
-    localStorage.setItem('mp_role_'+u.uid, role);
-    // update people list too
-    let people=getPeople(); let me=people.find(p=>p.id===u.uid); if(me){ me.name=prof.name; me.location=loc; me.bio=bio; me.skill=skill; me.phone=phone; me.role=role; savePeople(people); }
-    $('profileName').textContent=prof.name; $('avatarLetter').textContent=(prof.name||'A')[0].toUpperCase(); $('profileRole').textContent=roleLabel(role); $('profileLoc').textContent='📍 '+loc; $('profileBioText').textContent=bio; $('profilePhone').textContent='📞 '+phone+' • Skill: '+skill; $('profileBadge').textContent=role==='investor'?'INVESTOR':role==='both'?'BOTH':'SKILLED'; $('roleBadge').textContent=role==='investor'?'INVESTOR':role==='both'?'BOTH':'SKILLED'; $('helloTop').textContent=' - Welcome, '+prof.name; $('profileSaved').textContent='✅ Profile SAVED! It now shows everywhere - in People, in Plans, everywhere.';
-    renderAll();
-  }catch(e){ $('profileSaved').textContent='Error: '+e.message; }
-};
-function showApp(user){
-$('authWrap').classList.add('hidden'); $('appWrap').classList.remove('hidden'); $('topbar').style.display='flex';
-let prof={}; try{ prof=JSON.parse(localStorage.getItem('mp_profile_'+user.uid)||'{}'); }catch{}
-const name=user.displayName||prof.name||'Anthony'; const role=prof.role||localStorage.getItem('mp_role_'+user.uid)||'skilled';
-$('helloTop').textContent=' - Welcome, '+name; $('roleBadge').textContent=role==='investor'?'INVESTOR':role==='both'?'BOTH':'SKILLED';
-$('profileName').textContent=name; $('profileEmail').textContent=user.email||''; $('profileRole').textContent=roleLabel(role); $('profileLoc').textContent='📍 '+(prof.location||'Add your location in Edit below'); $('profileBioText').textContent=prof.bio||'Tell investors
+  var filter=$('filterNeed')
