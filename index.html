@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MP Plan - V26 Fixed</title>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<title>MP Plan - V27 Crash Proof</title>
 <style>
 *{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#070B14;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:12px}
 .card{background:#111827;width:100%;max-width:480px;border-radius:22px;padding:20px;border:1px solid #1F2937}
@@ -16,13 +14,12 @@ h1{margin:0;font-size:26px} h1 span{color:#FBBF24} p.sub{color:#9CA3AF;margin:4p
 .wrap input{width:100%;padding:13px 44px 13px 13px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;font-size:15px;outline:none;margin:0}
 input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;margin-bottom:10px;font-size:15px;outline:none}
 button{width:100%;padding:13px;border:0;border-radius:12px;background:#FBBF24;color:#000;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
-button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;color:#000} button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
+button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;color:#000}
 .link{color:#FBBF24;text-align:center;margin-top:12px;cursor:pointer;font-size:14px}
 .msg{padding:11px;border-radius:12px;font-size:14px;margin-bottom:10px;display:none}
 .msg.ok{background:#14532D;display:block}.msg.err{background:#7F1D1D;display:block}.msg.info{background:#1E40AF;display:block}
 .hidden{display:none!important}
-.badge{background:#22C55E;color:#000;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800}
-.badge.gold{background:#FBBF24}
+.badge{background:#FBBF24;color:#000;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800}
 .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .box{margin-top:12px;background:#070B14;padding:15px;border-radius:14px;border:1px solid #1F2937}
 .box h3{margin:0 0 8px;font-size:16px}.box label{font-size:12px;color:#9CA3AF}
@@ -33,20 +30,21 @@ button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;
 .planCard{background:#1F2937;padding:14px;border-radius:14px;margin-bottom:10px;border-left:4px solid #FBBF24}
 .planCard h4{margin:0 0 4px;font-size:16px}.planCard p{margin:4px 0;font-size:13px;color:#D1D5DB}.planCard small{color:#9CA3AF}
 .progress{height:9px;background:#374151;border-radius:999px;overflow:hidden;margin:8px 0}.progress i{display:block;height:100%;background:#22C55E}
-.pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700;margin-right:5px}.pill.money{background:#FBBF24;color:#000}.pill.skill{background:#60A5FA;color:#000}.pill.both{background:#A78BFA;color:#000}
+.pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700}.pill.money{background:#FBBF24;color:#000}.pill.skill{background:#60A5FA;color:#000}.pill.both{background:#A78BFA;color:#000}
 .stat{display:flex;gap:8px}.stat div{flex:1;background:#070B14;padding:11px;border-radius:12px;text-align:center;border:1px solid #1F2937}.stat b{font-size:18px;display:block}.stat small{color:#9CA3AF;font-size:11px}
 .eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#9CA3AF;font-size:16px;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="card" id="authCard">
-<h1>MP <span>Plan</span></h1><p class="sub">Skills + Money = Dreams Achieved Together - V26</p>
+<h1>MP <span>Plan</span></h1><p class="sub">Skills + Money = Dreams Achieved Together - V27</p>
 <div id="msg" class="msg"></div>
-<div id="debugBox" style="font-size:12px;color:#FBBF24;margin-bottom:8px">Status: Page loaded. Click a button to test.</div>
-<div class="tabs"><button id="tabEmail" class="active" onclick="switchTab('email')">Email</button><button id="tabPhone" onclick="switchTab('phone')">Phone</button></div>
+<div id="debugBox" style="font-size:13px;color:#FBBF24;margin-bottom:8px;padding:10px;background:#000;border-radius:8px">Status: Page loaded. Click TEST below.</div>
+<button class="secondary" onclick="testClick()" style="background:#60A5FA;color:#000">🔧 TEST CLICK - Click Me First!</button>
+<div class="tabs" style="margin-top:10px"><button id="tabEmail" class="active" onclick="switchTab('email')">Email</button><button id="tabPhone" onclick="switchTab('phone')">Phone</button></div>
 <div id="loginBox">
 <div id="emailLogin"><input id="loginEmail" type="email" placeholder="Email address" value="usunobunanthonynosakhare@gmail.com"><div class="wrap"><input id="loginPass" type="password" placeholder="Password"><button type="button" class="eye" onclick="togglePass('loginPass',this)">EYE</button></div><button onclick="doLogin()">Log In</button></div>
-<div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><div id="recaptcha"></div><button onclick="doSendCode()">Send SMS Code</button><input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:10px"><button class="secondary" onclick="doVerifyCode()">Verify Code & Log In</button><p style="font-size:12px;color:#9CA3AF">If Phone still fails, use Email for now - Phone needs Firebase SMS setup.</p></div>
+<div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><div id="recaptcha"></div><button onclick="doSendCode()">Send SMS Code</button><input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:10px"><button class="secondary" onclick="doVerifyCode()">Verify Code & Log In</button></div>
 <div class="link" onclick="showBox('signupBox')">No account? Create one</div><div class="link" onclick="doForgot()">Forgot password?</div>
 </div>
 <div id="signupBox" class="hidden">
@@ -58,7 +56,7 @@ button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;
 </div>
 
 <div class="card hidden" id="appCard">
-<div class="row"><div><h1>MP <span>Plan</span></h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge gold" id="roleBadge">SKILLED</span></div>
+<div class="row"><div><h1>MP <span>Plan</span></h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge" id="roleBadge">SKILLED</span></div>
 <div class="nav"><button id="navHome" class="active" onclick="showPage('Home')">Home</button><button id="navExplore" onclick="showPage('Explore')">Explore</button><button id="navMyPlans" onclick="showPage('MyPlans')">My Plans</button><button id="navProfile" onclick="showPage('Profile')">Profile</button></div>
 <div id="pageHome">
 <div class="stat"><div><b id="statPlans">0</b><small>Community Plans</small></div><div><b id="statRaised">₦0</b><small>Total Contributed</small></div><div><b id="statYou">₦0</b><small>You Contributed</small></div></div>
@@ -72,22 +70,35 @@ button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;
 </div>
 <div class="card hidden" id="contribCard" style="margin-top:12px"><h3 id="contribTitle">Contribute</h3><p id="contribDesc" style="font-size:13px;color:#9CA3AF"></p><label>Amount (₦)</label><input id="contribAmount" type="number" placeholder="e.g. 5000"><label>Message</label><input id="contribMsg" placeholder="I believe in this plan!"><button class="green" onclick="confirmContrib()">Confirm Contribution 💰</button><button class="secondary" onclick="document.getElementById('contribCard').classList.add('hidden')">Cancel</button></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
-window.onerror = function(m){ var d=document.getElementById('debugBox'); if(d) d.textContent='ERROR: '+m; };
-var firebaseConfig = { apiKey: "AIzaSyCm9n6nern9J2RVg2GcqRxH8_QCJ5FwNAo", authDomain: "mp-plan-anthony.firebaseapp.com", projectId: "mp-plan-anthony", storageBucket: "mp-plan-anthony.firebasestorage.app", messagingSenderId: "866100401066", appId: "1:866100401066:web:a0505ef2dae9344b3111d3" };
-try{ firebase.initializeApp(firebaseConfig); }catch(e){ console.log(e); }
-var auth = firebase.auth();
+// ALL FUNCTIONS DEFINED FIRST - NO FIREBASE NEEDED FOR CLICKS TO WORK
 function $(id){ return document.getElementById(id); }
+function testClick(){
+  var d=$('debugBox');
+  d.textContent='✅ CLICKS ARE WORKING! Time: '+new Date().toLocaleTimeString()+' - Now try Log In';
+  d.style.color='#22C55E';
+  alert('CLICKS WORK! Now try Log In button.');
+}
 function togglePass(id,btn){ var el=$(id); el.type = el.type==='password'?'text':'password'; btn.textContent = el.type==='password'?'EYE':'HIDE'; }
 function showMsg(t, type){ var m=$('msg'); m.textContent=t; m.className='msg '+type; }
 function showBox(which){ ['loginBox','signupBox','verifyBox'].forEach(function(id){ $(id).classList.add('hidden'); }); $(which).classList.remove('hidden'); }
 function switchTab(tab){
-  $('debugBox').textContent='You clicked '+tab+' tab - WORKING!';
+  $('debugBox').textContent='✅ You clicked '+tab+' tab - WORKING!';
   if(tab==='email'){ $('tabEmail').classList.add('active'); $('tabPhone').classList.remove('active'); $('emailLogin').classList.remove('hidden'); $('phoneLogin').classList.add('hidden'); }
   else { $('tabPhone').classList.add('active'); $('tabEmail').classList.remove('active'); $('phoneLogin').classList.remove('hidden'); $('emailLogin').classList.add('hidden'); }
 }
+// Firebase - SAFE init, will NOT crash buttons if it fails
+var auth=null;
+try{
+  var firebaseConfig = { apiKey: "AIzaSyCm9n6nern9J2RVg2GcqRxH8_QCJ5FwNAo", authDomain: "mp-plan-anthony.firebaseapp.com", projectId: "mp-plan-anthony", storageBucket: "mp-plan-anthony.firebasestorage.app", messagingSenderId: "866100401066", appId: "1:866100401066:web:a0505ef2dae9344b3111d3" };
+  if(typeof firebase!=='undefined'){ firebase.initializeApp(firebaseConfig); auth=firebase.auth(); }
+  else { $('debugBox').textContent='⚠️ Firebase did NOT load - check internet / adblock. Clicks still work, but login needs Firebase.'; }
+}catch(e){ $('debugBox').textContent='Firebase error: '+e.message; }
 async function doLogin(){
   $('debugBox').textContent='Trying to log in... please wait';
+  if(!auth){ showMsg('Firebase did not load. Turn off AdBlock / try Chrome, then refresh.','err'); return; }
   var email=$('loginEmail').value.trim(), pass=$('loginPass').value;
   if(!email||!pass){ showMsg('Type email and password','err'); return; }
   try{
@@ -97,24 +108,26 @@ async function doLogin(){
   }catch(e){ $('debugBox').textContent='Login failed: '+e.message; showMsg(e.message,'err'); }
 }
 async function doSignup(){
+  if(!auth){ showMsg('Firebase did not load. Turn off AdBlock / try Chrome.','err'); return; }
   var name=$('suName').value.trim(), email=$('suEmail').value.trim(), pass=$('suPass').value, role=$('suRole').value;
   if(!name||!email||pass.length<6) return showMsg('Fill all fields. Password 6+','err');
   try{ var cred=await auth.createUserWithEmailAndPassword(email,pass); await cred.user.updateProfile({displayName:name}); localStorage.setItem('mp_role_'+cred.user.uid, role); await cred.user.sendEmailVerification(); $('verifyEmail').textContent=email; showBox('verifyBox'); showMsg('Account created! Verify email.','ok'); }catch(e){ showMsg(e.message,'err'); }
 }
 var confirmationResult=null;
 async function doSendCode(){
+  if(!auth) return showMsg('Firebase did not load.','err');
   var phone=$('loginPhone').value.trim();
   if(!phone.startsWith('+')) return showMsg('Phone must start with +234...','err');
-  try{ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'}); confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier); showMsg('SMS sent to '+phone,'ok'); }catch(e){ showMsg('Phone Error: '+e.message,'err'); $('debugBox').textContent='Phone Error: '+e.message; }
+  try{ window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha', {size:'invisible'}); confirmationResult = await auth.signInWithPhoneNumber(phone, window.recaptchaVerifier); showMsg('SMS sent to '+phone,'ok'); }catch(e){ showMsg('Phone Error: '+e.message,'err'); }
 }
 async function doVerifyCode(){ try{ var cred=await confirmationResult.confirm($('smsCode').value.trim()); showApp(cred.user); }catch(e){ showMsg('Wrong code.','err'); } }
 async function doCheckVerify(){ await auth.currentUser.reload(); if(auth.currentUser.emailVerified) showApp(auth.currentUser); else showMsg('Not verified yet.','err'); }
 async function doResend(){ try{ await auth.currentUser.sendEmailVerification(); showMsg('Resent!','ok'); }catch(e){ showMsg(e.message,'err'); } }
-async function doForgot(){ var email=$('loginEmail').value.trim(); if(!email) return showMsg('Type email first.','info'); try{ await auth.sendPasswordResetEmail(email); showMsg('Reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); } }
+async function doForgot(){ if(!auth) return showMsg('Firebase did not load.','err'); var email=$('loginEmail').value.trim(); if(!email) return showMsg('Type email first.','info'); try{ await auth.sendPasswordResetEmail(email); showMsg('Reset email sent to '+email,'ok'); }catch(e){ showMsg(e.message,'err'); } }
 function showPage(p){ ['pageHome','pageExplore','pageMyPlans','pageProfile'].forEach(function(id){ $(id).classList.add('hidden'); }); $('page'+p).classList.remove('hidden'); ['navHome','navExplore','navMyPlans','navProfile'].forEach(function(id){ $(id).classList.remove('active'); }); $('nav'+p).classList.add('active'); $('contribCard').classList.add('hidden'); }
 function getPlans(){ try{ return JSON.parse(localStorage.getItem('mp_community_plans')||'[]'); }catch(e){ return []; } }
 function savePlans(plans){ localStorage.setItem('mp_community_plans', JSON.stringify(plans)); }
-function getMyContribs(){ var u=auth.currentUser; if(!u) return []; try{ return JSON.parse(localStorage.getItem('mp_contribs_'+u.uid)||'[]'); }catch(e){ return []; } }
+function getMyContribs(){ var u=auth && auth.currentUser; if(!u) return []; try{ return JSON.parse(localStorage.getItem('mp_contribs_'+u.uid)||'[]'); }catch(e){ return []; } }
 var currentContribId=null;
 function renderPlans(){
   var plans=getPlans();
@@ -126,4 +139,34 @@ function renderPlans(){
     ];
     savePlans(plans);
   }
-  var filter=$('filterNeed')
+  var filter=$('filterNeed') ? $('filterNeed').value : 'All'; var search=($('searchPlans') && $('searchPlans').value || '').toLowerCase();
+  var filtered=plans.filter(function(p){ return (filter==='All'||p.need===filter) && (p.title+' '+p.desc+' '+p.skill).toLowerCase().indexOf(search)>-1; });
+  var totalRaised=plans.reduce(function(s,p){ return s+p.raised; },0);
+  $('statPlans').textContent=plans.length; $('statRaised').textContent='₦'+totalRaised.toLocaleString();
+  var myC=getMyContribs(); $('statYou').textContent='₦'+myC.reduce(function(s,c){ return s+c.amount; },0).toLocaleString();
+  function cardHTML(p){
+    var pct=Math.min(100, Math.round(p.raised/p.amount*100));
+    var contribsHtml=p.contribs.map(function(c){ return '<small style="display:block">💚 '+c.from+' - ₦'+c.amount.toLocaleString()+' - "'+c.msg+'"</small>'; }).join('');
+    return '<div class="planCard"><div class="row"><h4>'+p.title+'</h4><span class="pill '+(p.need==='Money'?'money':p.need==='Skill'?'skill':'both')+'">'+p.need+'</span></div><p>'+p.desc+'</p><p><b>Skill:</b> '+p.skill+' | <b>By:</b> '+p.owner+'</p><p><b>Returns:</b> '+p.returnText+'</p><div class="progress"><i style="width:'+pct+'%"></i></div><div class="row"><small>₦'+p.raised.toLocaleString()+' of ₦'+p.amount.toLocaleString()+' - '+pct+'%</small><small>'+p.contribs.length+' contributors</small></div><button class="green" onclick="openContrib(\''+p.id+'\')">Contribute 💰</button><div style="margin-top:8px">'+contribsHtml+'</div></div>';
+  }
+  $('exploreList').innerHTML = filtered.length? filtered.map(cardHTML).join('') : '<p style="color:#9CA3AF">No plans match.</p>';
+  $('featuredList').innerHTML = plans.slice(0,3).map(cardHTML).join('');
+  var u=auth && auth.currentUser; var mine=plans.filter(function(p){ return p.ownerId=== (u && u.uid); });
+  $('myPlansList').innerHTML = mine.length? mine.map(cardHTML).join('') : '<p style="color:#9CA3AF">No plans yet. Create one!</p>';
+  $('myContribs').innerHTML = myC.length? myC.map(function(c){ return '<p style="font-size:13px">💰 ₦'+c.amount.toLocaleString()+' to <b>'+c.title+'</b></p>'; }).join('') : '<p style="color:#9CA3AF;font-size:13px">No contributions yet.</p>';
+}
+function openContrib(id){ var plans=getPlans(); var p=plans.find(function(x){ return x.id===id; }); if(!p) return; currentContribId=id; $('contribTitle').textContent='Contribute to: '+p.title; $('contribDesc').textContent=p.desc; $('contribCard').classList.remove('hidden'); $('contribCard').scrollIntoView({behavior:'smooth'}); }
+function confirmContrib(){ var amt=Number($('contribAmount').value); var msg=$('contribMsg').value.trim()||'I support this!'; if(!amt||amt<=0) return alert('Enter amount'); var plans=getPlans(); var p=plans.find(function(x){ return x.id===currentContribId; }); var u=auth && auth.currentUser; var name=(u && u.displayName)||'Anonymous'; p.raised+=amt; p.contribs.push({from:name, amount:amt, msg:msg}); savePlans(plans); var myC=getMyContribs(); myC.push({title:p.title, amount:amt, msg:msg}); if(u) localStorage.setItem('mp_contribs_'+u.uid, JSON.stringify(myC)); $('contribAmount').value=''; $('contribMsg').value=''; $('contribCard').classList.add('hidden'); renderPlans(); alert('Thank you! You contributed ₦'+amt.toLocaleString()); }
+function publishPlan(){ var title=$('planTitle').value.trim(), desc=$('planDesc').value.trim(), skill=$('planSkill').value.trim(), need=$('planNeed').value, amount=Number($('planAmount').value), ret=$('planReturn').value.trim(); if(!title||!desc||!amount) return $('planSaved').textContent='Fill Title, Description and Amount!'; var u=auth && auth.currentUser; var plans=getPlans(); plans.unshift({id:'p'+Date.now(), ownerId:u && u.uid, owner:(u && u.displayName)||'User', title:title, desc:desc, skill:skill||'General', need:need, amount:amount, raised:0, returnText:ret||'Thank you + share', contribs:[]}); savePlans(plans); $('planTitle').value=''; $('planDesc').value=''; $('planSkill').value=''; $('planAmount').value=''; $('planReturn').value=''; $('planSaved').textContent='Your plan is LIVE!'; renderPlans(); showPage('Explore'); }
+async function saveProfile(){ var name=$('editName').value.trim(), phone=$('editPhone').value.trim(), skill=$('editSkill').value.trim(), role=$('editRole').value; var u=auth && auth.currentUser; if(!u) return; try{ if(name) await u.updateProfile({displayName:name}); localStorage.setItem('mp_role_'+u.uid, role); localStorage.setItem('mp_phone_'+u.uid, phone); localStorage.setItem('mp_skill_'+u.uid, skill); $('profileName').textContent=name||u.displayName; $('avatarLetter').textContent=(name||'A')[0].toUpperCase(); $('profileRole').textContent=role; $('profilePhone').textContent=phone; $('helloText').textContent='Welcome back, '+(name||''); $('profileSaved').textContent='Profile saved!'; }catch(e){ $('profileSaved').textContent=e.message; } }
+function showApp(user){
+$('authCard').classList.add('hidden'); $('appCard').classList.remove('hidden');
+var name=user.displayName||'Anthony'; var role=localStorage.getItem('mp_role_'+user.uid)||'I have SKILL, I need MONEY'; var phone=localStorage.getItem('mp_phone_'+user.uid)||user.phoneNumber||''; var skill=localStorage.getItem('mp_skill_'+user.uid)||'';
+$('helloText').textContent='Welcome back, '+name; $('profileName').textContent=name; $('profileEmail').textContent=user.email||''; $('profileRole').textContent=role; $('profilePhone').textContent=phone; $('avatarLetter').textContent=name[0].toUpperCase(); $('editName').value=name; $('editPhone').value=phone; $('editSkill').value=skill; $('editRole').value=role;
+renderPlans(); showPage('Home');
+}
+async function doLogout(){ if(auth) await auth.signOut(); location.reload(); }
+if(auth){ auth.onAuthStateChanged(function(user){ if(user && (user.emailVerified || user.phoneNumber)) showApp(user); else if(user && !user.emailVerified){ $('verifyEmail').textContent=user.email; showBox('verifyBox'); } }); }
+</script>
+</body>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </html>
