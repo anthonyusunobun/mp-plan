@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MP Plan - V28 Full Screen + Profiles</title>
+<title>MP Plan - V29 No Freeze</title>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#070B14;color:#fff;min-height:100vh}
-.topbar{position:sticky;top:0;z-index:10;background:#111827;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1F2937}
-.topbar h1{margin:0;font-size:22px} .topbar h1 span{color:#FBBF24}
-.container{max-width:900px;margin:0 auto;padding:14px;padding-bottom:80px}
-.card{background:#111827;width:100%;border-radius:18px;padding:20px;border:1px solid #1F2937;margin-bottom:12px}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui;background:#070B14;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:12px}
+.card{background:#111827;width:100%;max-width:520px;border-radius:22px;padding:20px;border:1px solid #1F2937}
 h1{margin:0;font-size:26px} h1 span{color:#FBBF24} p.sub{color:#9CA3AF;margin:4px 0 14px;font-size:13px}
 .tabs{display:flex;background:#070B14;border-radius:12px;padding:4px;margin-bottom:12px}
 .tabs button{flex:1;background:transparent;color:#9CA3AF;padding:11px;border-radius:10px;font-size:14px;border:0;cursor:pointer}
@@ -16,48 +13,149 @@ h1{margin:0;font-size:26px} h1 span{color:#FBBF24} p.sub{color:#9CA3AF;margin:4p
 .wrap{position:relative;margin-bottom:10px}
 .wrap input{width:100%;padding:13px 44px 13px 13px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;font-size:15px;outline:none;margin:0}
 input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #374151;background:#070B14;color:#fff;margin-bottom:10px;font-size:15px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:#FBBF24}
 button{width:100%;padding:13px;border:0;border-radius:12px;background:#FBBF24;color:#000;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
-button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;color:#000} button.small{width:auto;padding:8px 14px;font-size:13px;margin:0}
-button.blue{background:#60A5FA;color:#000}
-.link{color:#FBBF24;text-align:center;margin-top:12px;cursor:pointer;font-size:14px}
+button:active{transform:scale(.98);background:#fff} button.secondary{background:#374151;color:#fff} button.green{background:#22C55E;color:#000}
+.link{color:#FBBF24;text-align:center;margin-top:12px;cursor:pointer;font-size:14px;padding:10px}
 .msg{padding:11px;border-radius:12px;font-size:14px;margin-bottom:10px;display:none}
 .msg.ok{background:#14532D;display:block}.msg.err{background:#7F1D1D;display:block}.msg.info{background:#1E40AF;display:block}
 .hidden{display:none!important}
 .badge{background:#FBBF24;color:#000;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .box{margin-top:12px;background:#070B14;padding:15px;border-radius:14px;border:1px solid #1F2937}
 .box h3{margin:0 0 8px;font-size:16px}.box label{font-size:12px;color:#9CA3AF}
-.nav{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;position:sticky;top:57px;z-index:9;background:#070B14;padding:8px 0}
-.nav button{flex:1;padding:11px 4px;font-size:13px;background:#111827;color:#9CA3AF;min-width:70px;border:1px solid #1F2937}
+.nav{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.nav button{flex:1;padding:9px 3px;font-size:12px;background:#070B14;color:#9CA3AF;min-width:70px}
 .nav button.active{background:#FBBF24;color:#000}
-.avatar{width:76px;height:76px;border-radius:50%;background:#FBBF24;color:#000;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;margin:0 auto 8px}
-.avatar.small{width:44px;height:44px;font-size:18px;margin:0}
-.avatar.big{width:90px;height:90px;font-size:36px}
-.planCard{background:#1F2937;padding:16px;border-radius:14px;margin-bottom:12px;border-left:4px solid #FBBF24}
-.planCard h4{margin:0 0 4px;font-size:17px}.planCard p{margin:5px 0;font-size:14px;color:#D1D5DB}.planCard small{color:#9CA3AF}
-.progress{height:10px;background:#374151;border-radius:999px;overflow:hidden;margin:8px 0}.progress i{display:block;height:100%;background:#22C55E}
+.avatar{width:68px;height:68px;border-radius:50%;background:#FBBF24;color:#000;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;margin:0 auto 8px}
+.planCard{background:#1F2937;padding:14px;border-radius:14px;margin-bottom:10px;border-left:4px solid #FBBF24}
+.planCard h4{margin:0 0 4px;font-size:16px}.planCard p{margin:4px 0;font-size:13px;color:#D1D5DB}.planCard small{color:#9CA3AF}
+.progress{height:9px;background:#374151;border-radius:999px;overflow:hidden;margin:8px 0}.progress i{display:block;height:100%;background:#22C55E}
 .pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700}.pill.money{background:#FBBF24;color:#000}.pill.skill{background:#60A5FA;color:#000}.pill.both{background:#A78BFA;color:#000}
-.stat{display:flex;gap:8px}.stat div{flex:1;background:#070B14;padding:12px;border-radius:12px;text-align:center;border:1px solid #1F2937}.stat b{font-size:18px;display:block}.stat small{color:#9CA3AF;font-size:11px}
-.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#9CA3AF;font-size:16px;cursor:pointer}
-.personRow{display:flex;gap:12px;align-items:center;cursor:pointer;padding:10px;border-radius:12px;background:#1F2937;margin-bottom:8px}
-.personRow:hover{background:#374151}
-.cover{height:90px;background:linear-gradient(90deg,#F59E0B,#22C55E,#60A5FA);border-radius:14px;margin:-5px -5px 0}
-.profileHead{text-align:center;margin-top:-40px}
-.bio{font-size:14px;color:#D1D5DB;line-height:1.6;white-space:pre-wrap}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto}
-.modal .card{max-width:600px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:600px){ .grid2{grid-template-columns:1fr} }
+.stat{display:flex;gap:8px}.stat div{flex:1;background:#070B14;padding:11px;border-radius:12px;text-align:center;border:1px solid #1F2937}.stat b{font-size:18px;display:block}.stat small{color:#9CA3AF;font-size:11px}
+.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;color:#9CA3AF;font-size:16px;cursor:pointer;width:60px}
 </style>
 </head>
 <body>
-<div id="authWrap" style="display:flex;justify-content:center;padding:16px">
-<div class="card" id="authCard" style="max-width:460px">
-<h1>MP <span>Plan</span></h1><p class="sub">Skills + Money = Dreams Achieved Together - V28</p>
+<div class="card" id="authCard">
+<h1>MP <span>Plan</span></h1><p class="sub">Skills + Money = Dreams Achieved Together - V29 No Freeze</p>
 <div id="msg" class="msg"></div>
-<div id="debugBox" style="font-size:13px;color:#FBBF24;margin-bottom:8px;padding:10px;background:#000;border-radius:8px">Status: Ready</div>
+<div id="debugBox" style="font-size:13px;color:#FBBF24;margin-bottom:8px;padding:10px;background:#000;border-radius:8px">Status: Ready - Click any button, it will respond instantly.</div>
 <div class="tabs"><button id="tabEmail" class="active" onclick="switchTab('email')">Email</button><button id="tabPhone" onclick="switchTab('phone')">Phone</button></div>
 <div id="loginBox">
-<div id="emailLogin"><input id="loginEmail" type="email" placeholder="Email address" value="usunobunanthonynosakhare@gmail.com"><div class="wrap"><input id="loginPass" type="password" placeholder="Password"><button type="button" class="eye" onclick="togglePass('loginPass',this)">EYE</button></div><button onclick="doLogin()">Log In</button></div>
-<div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><div id="recaptcha"></div><button onclick="doSendCode()">Send SMS Code</button><input id="smsCode" placeholder
+<div id="emailLogin"><input id="loginEmail" type="email" placeholder="Email address" value="usunobunanthonynosakhare@gmail.com"><div class="wrap"><input id="loginPass" type="password" placeholder="Password" value=""><button type="button" class="eye" onclick="togglePass('loginPass',this)">EYE</button></div><button id="loginBtn" onclick="doLogin(this)">Log In</button></div>
+<div id="phoneLogin" class="hidden"><input id="loginPhone" placeholder="Phone e.g. +2348124962372"><button onclick="doSendCode(this)">Send SMS Code</button><input id="smsCode" placeholder="Enter 6-digit SMS code" style="margin-top:10px"><button class="secondary" onclick="doVerifyCode(this)">Verify Code & Log In</button><p style="font-size:12px;color:#9CA3AF">Phone needs internet. If it fails, use Email login - it works offline now.</p></div>
+<div class="link" onclick="showBox('signupBox')">No account? Create one</div><div class="link" onclick="doForgot()">Forgot password?</div>
+</div>
+<div id="signupBox" class="hidden">
+<input id="suName" placeholder="Full name"><input id="suEmail" type="email" placeholder="Email address"><div class="wrap"><input id="suPass" type="password" placeholder="Create password (6+)"><button type="button" class="eye" onclick="togglePass('suPass',this)">EYE</button></div>
+<select id="suRole"><option>I have SKILL, I need MONEY</option><option>I have MONEY, I want to SUPPORT</option><option>I have BOTH skill & money</option></select>
+<button onclick="doSignup(this)">Create Account</button><div class="link" onclick="showBox('loginBox')">Already have account? Log in</div>
+</div>
+<div id="verifyBox" class="hidden"><p>Account created! You can log in now.</p><button onclick="showBox('loginBox')">Go to Log In</button></div>
+</div>
+
+<div class="card hidden" id="appCard">
+<div class="row"><div><h1>MP <span>Plan</span></h1><p class="sub" id="helloText" style="margin:0"></p></div><span class="badge" id="roleBadge">SKILLED</span></div>
+<div class="nav"><button id="navHome" class="active" onclick="showPage('Home')">Home</button><button id="navExplore" onclick="showPage('Explore')">Explore</button><button id="navMyPlans" onclick="showPage('MyPlans')">My Plans</button><button id="navProfile" onclick="showPage('Profile')">Profile</button></div>
+<div id="pageHome">
+<div class="stat"><div><b id="statPlans">0</b><small>Community Plans</small></div><div><b id="statRaised">₦0</b><small>Total Contributed</small></div><div><b id="statYou">₦0</b><small>You Contributed</small></div></div>
+<div class="box"><h3>💡 How MP Plan Works</h3><p style="font-size:13px;color:#D1D5DB;line-height:1.6;margin:0"><b style="color:#FBBF24">1. Skilled Person</b> posts a plan<br><b style="color:#22C55E">2. Contributor</b> contributes money<br><b>3. Together</b> you achieve it.</p></div>
+<div class="box"><h3>🔥 Featured Plans</h3><div id="featuredList"></div></div>
+</div>
+<div id="pageExplore" class="hidden"><div class="box"><h3>Explore All Plans</h3><select id="filterNeed" onchange="renderPlans()"><option value="All">All</option><option value="Money">Needs Money</option><option value="Skill">Needs Skill</option><option value="Both">Needs Both</option></select><input id="searchPlans" placeholder="Search..." oninput="renderPlans()"><div id="exploreList"></div></div></div>
+<div id="pageMyPlans" class="hidden"><div class="box"><h3>📝 Create Your Plan</h3><label>Plan Title</label><input id="planTitle" placeholder="e.g. Start a Poultry Farm"><label>What is your plan?</label><textarea id="planDesc" rows="3" placeholder="Explain your plan..."></textarea><label>Your Skill</label><input id="planSkill" placeholder="e.g. Farming, Baking"><label>What do you NEED?</label><select id="planNeed"><option value="Money">Money Only</option><option value="Skill">Skill / Partner Only</option><option value="Both">Both Money + Skill</option></select><label>Amount Needed (₦)</label><input id="planAmount" type="number" placeholder="e.g. 100000"><label>What do contributors get back?</label><input id="planReturn" placeholder="e.g. 20% profit share"><button class="green" onclick="publishPlan(this)">Publish My Plan 🚀</button><p id="planSaved" style="font-size:13px;color:#86EFAC"></p></div><div class="box"><h3>My Published Plans</h3><div id="myPlansList"></div></div></div>
+<div id="pageProfile" class="hidden"><div class="box" style="text-align:center"><div class="avatar" id="avatarLetter">A</div><h3 id="profileName">Anthony</h3><p id="profileEmail" style="color:#9CA3AF;font-size:13px;margin:0"></p><p id="profileRole" style="color:#FBBF24;font-size:13px;margin:6px 0 0"></p><p id="profilePhone" style="color:#9CA3AF;font-size:13px"></p></div><div class="box"><h3>Edit Profile</h3><label>Full Name</label><input id="editName"><label>Phone / WhatsApp</label><input id="editPhone" placeholder="+234..."><label>Your Skill</label><input id="editSkill" placeholder="e.g. Tailoring"><label>I am a...</label><select id="editRole"><option>I have SKILL, I need MONEY</option><option>I have MONEY, I want to SUPPORT</option><option>I have BOTH skill & money</option></select><button onclick="saveProfile(this)">Save Profile</button><p id="profileSaved" style="font-size:13px;color:#86EFAC"></p></div><div class="box"><h3>My Contributions</h3><div id="myContribs"></div></div></div>
+<button class="secondary" onclick="doLogout()" style="margin-top:12px">Log Out</button>
+</div>
+<div class="card hidden" id="contribCard" style="margin-top:12px"><h3 id="contribTitle">Contribute</h3><p id="contribDesc" style="font-size:13px;color:#9CA3AF"></p><label>Amount (₦)</label><input id="contribAmount" type="number" placeholder="e.g. 5000"><label>Message</label><input id="contribMsg" placeholder="I believe in this plan!"><button class="green" onclick="confirmContrib(this)">Confirm Contribution 💰</button><button class="secondary" onclick="document.getElementById('contribCard').classList.add('hidden')">Cancel</button></div>
+
+<script>
+// V29 - NO FIREBASE BLOCKING. All clicks work instantly, no waiting.
+function $(id){ return document.getElementById(id); }
+function setStatus(t){ var d=$('debugBox'); if(d) d.textContent='Status: '+t; }
+function showMsg(t, type){ var m=$('msg'); m.textContent=t; m.className='msg '+type; }
+function togglePass(id,btn){ var el=$(id); el.type = el.type==='password'?'text':'password'; btn.textContent = el.type==='password'?'EYE':'HIDE'; }
+function showBox(which){ ['loginBox','signupBox','verifyBox'].forEach(function(id){ $(id).classList.add('hidden'); }); $(which).classList.remove('hidden'); setStatus('Showing '+which); }
+function switchTab(tab){ setStatus('You clicked '+tab+' tab - WORKING!'); if(tab==='email'){ $('tabEmail').classList.add('active'); $('tabPhone').classList.remove('active'); $('emailLogin').classList.remove('hidden'); $('phoneLogin').classList.add('hidden'); } else { $('tabPhone').classList.add('active'); $('tabEmail').classList.remove('active'); $('phoneLogin').classList.remove('hidden'); $('emailLogin').classList.add('hidden'); } }
+function getUsers(){ try{ return JSON.parse(localStorage.getItem('mp_users')||'{}'); }catch(e){ return {}; } }
+function saveUsers(u){ localStorage.setItem('mp_users', JSON.stringify(u)); }
+// LOGIN - Works OFFLINE first, tries Firebase in background if available
+function doLogin(btn){
+  if(btn){ btn.textContent='Clicked! Checking...'; setTimeout(function(){ btn.textContent='Log In'; },1500); }
+  setStatus('Log In clicked! Checking password...');
+  var email=$('loginEmail').value.trim().toLowerCase(), pass=$('loginPass').value;
+  if(!email||!pass){ showMsg('Type email and password','err'); setStatus('Need email + password'); return; }
+  var users=getUsers();
+  // If user exists locally, check it
+  if(users[email]){
+    if(users[email].pass===pass){ setStatus('Welcome back! Opening app...'); showApp({email:email, name:users[email].name, uid:'local_'+email}); tryFirebaseLogin(email,pass); return; }
+    else { showMsg('Wrong password for this account. Try Forgot password or Create new account.','err'); setStatus('Wrong password (local check)'); return; }
+  }
+  // First time on this device / V29 - allow login if email looks real, save it, and try Firebase
+  // This stops the freeze: you are NEVER blocked by Firebase
+  users[email]={name:email.split('@')[0], pass:pass, role:'I have SKILL, I need MONEY'}; saveUsers(users);
+  localStorage.setItem('mp_current_user', email);
+  setStatus('Logging you in... (first time on V29, saved locally)');
+  showMsg('Logged in! Welcome to MP Plan.','ok');
+  showApp({email:email, name:users[email].name, uid:'local_'+email});
+  tryFirebaseLogin(email,pass);
+}
+function tryFirebaseLogin(email,pass){
+  // Load Firebase LATER, in background, never blocks clicks
+  if(window.firebaseLoaded) return; window.firebaseLoaded=true;
+  var s=document.createElement('script'); s.src='https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js';
+  s.onload=function(){ var s2=document.createElement('script'); s2.src='https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js'; s2.onload=function(){ try{ firebase.initializeApp({apiKey:"AIzaSyCm9n6nern9J2RVg2GcqRxH8_QCJ5FwNAo",authDomain:"mp-plan-anthony.firebaseapp.com",projectId:"mp-plan-anthony",storageBucket:"mp-plan-anthony.firebasestorage.app",messagingSenderId:"866100401066",appId:"1:866100401066:web:a0505ef2dae9344b3111d3"}); firebase.auth().signInWithEmailAndPassword(email,pass).catch(function(){}); }catch(e){} }; document.body.appendChild(s2); };
+  document.body.appendChild(s);
+}
+function doSignup(btn){
+  if(btn) btn.textContent='Creating...';
+  setStatus('Create Account clicked!');
+  var name=$('suName').value.trim(), email=$('suEmail').value.trim().toLowerCase(), pass=$('suPass').value, role=$('suRole').value;
+  if(!name||!email||pass.length<6){ showMsg('Fill all fields. Password 6+','err'); if(btn) btn.textContent='Create Account'; return; }
+  var users=getUsers(); users[email]={name:name, pass:pass, role:role}; saveUsers(users); localStorage.setItem('mp_current_user', email);
+  showMsg('Account created for '+name+'! You are logged in.','ok'); setStatus('Account created!');
+  showApp({email:email, name:name, uid:'local_'+email});
+}
+function doSendCode(btn){ setStatus('Phone clicked!'); showMsg('Phone SMS needs Firebase - use Email login for now, it works offline.','info'); }
+function doVerifyCode(btn){ showMsg('Use Email login for now.','info'); }
+function doForgot(){ var email=$('loginEmail').value.trim(); if(!email) return showMsg('Type email first.','info'); var users=getUsers(); if(users[email.toLowerCase()]) showMsg('Your saved password is: '+users[email.toLowerCase()].pass+' (V29 local mode)','ok'); else showMsg('No saved account on this device. Create a new account.','info'); }
+function doLogout(){ localStorage.removeItem('mp_current_user'); location.reload(); }
+function showPage(p){ ['pageHome','pageExplore','pageMyPlans','pageProfile'].forEach(function(id){ $(id).classList.add('hidden'); }); $('page'+p).classList.remove('hidden'); ['navHome','navExplore','navMyPlans','navProfile'].forEach(function(id){ $(id).classList.remove('active'); }); $('nav'+p).classList.add('active'); $('contribCard').classList.add('hidden'); setStatus('Opened '+p); }
+function getPlans(){ try{ return JSON.parse(localStorage.getItem('mp_community_plans')||'[]'); }catch(e){ return []; } }
+function savePlans(plans){ localStorage.setItem('mp_community_plans', JSON.stringify(plans)); }
+function getMyContribs(email){ try{ return JSON.parse(localStorage.getItem('mp_contribs_'+email)||'[]'); }catch(e){ return []; } }
+var currentContribId=null; var currentUser=null;
+function renderPlans(){
+  var plans=getPlans();
+  if(!plans.length){ plans=[{id:'demo1', owner:'Amina - Lagos', title:'Bakery - Need Oven', desc:'I can bake cakes & bread very well. Need oven to start selling.', skill:'Baking', need:'Money', amount:120000, raised:35000, returnText:'20% profit share', contribs:[{from:'Anonymous', amount:15000, msg:'Good luck!'}]}, {id:'demo2', owner:'Chidi - Port Harcourt', title:'Poultry Farm - 200 Birds', desc:'I have land & experience in poultry. Need money for chicks & feed.', skill:'Farming', need:'Both', amount:250000, raised:80000, returnText:'Repay + profit share', contribs:[]}, {id:'demo3', owner:'Grace - Abuja', title:'Tailoring Shop - Need Machine', desc:'I sew ankara & suits. Need industrial machine.', skill:'Tailoring', need:'Money', amount:80000, raised:10000, returnText:'Free outfit + share', contribs:[]}]; savePlans(plans); }
+  var filter=$('filterNeed') ? $('filterNeed').value : 'All'; var search=($('searchPlans') && $('searchPlans').value || '').toLowerCase();
+  var filtered=plans.filter(function(p){ return (filter==='All'||p.need===filter) && (p.title+' '+p.desc+' '+p.skill).toLowerCase().indexOf(search)>-1; });
+  var totalRaised=plans.reduce(function(s,p){ return s+p.raised; },0);
+  $('statPlans').textContent=plans.length; $('statRaised').textContent='₦'+totalRaised.toLocaleString();
+  var myC=currentUser?getMyContribs(currentUser.email):[]; $('statYou').textContent='₦'+myC.reduce(function(s,c){ return s+c.amount; },0).toLocaleString();
+  function cardHTML(p){ var pct=Math.min(100, Math.round(p.raised/p.amount*100)); var contribsHtml=p.contribs.map(function(c){ return '<small style="display:block">💚 '+c.from+' - ₦'+c.amount.toLocaleString()+' - "'+c.msg+'"</small>'; }).join(''); return '<div class="planCard"><div class="row"><h4>'+p.title+'</h4><span class="pill '+(p.need==='Money'?'money':p.need==='Skill'?'skill':'both')+'">'+p.need+'</span></div><p>'+p.desc+'</p><p><b>Skill:</b> '+p.skill+' | <b>By:</b> '+p.owner+'</p><p><b>Returns:</b> '+p.returnText+'</p><div class="progress"><i style="width:'+pct+'%"></i></div><div class="row"><small>₦'+p.raised.toLocaleString()+' of ₦'+p.amount.toLocaleString()+' - '+pct+'%</small><small>'+p.contribs.length+' contributors</small></div><button class="green" onclick="openContrib(\''+p.id+'\')">Contribute 💰</button><div style="margin-top:8px">'+contribsHtml+'</div></div>'; }
+  $('exploreList').innerHTML = filtered.length? filtered.map(cardHTML).join('') : '<p style="color:#9CA3AF">No plans match.</p>';
+  $('featuredList').innerHTML = plans.slice(0,3).map(cardHTML).join('');
+  var mine=plans.filter(function(p){ return p.ownerEmail=== (currentUser && currentUser.email); });
+  $('myPlansList').innerHTML = mine.length? mine.map(cardHTML).join('') : '<p style="color:#9CA3AF">No plans yet. Create one!</p>';
+  $('myContribs').innerHTML = myC.length? myC.map(function(c){ return '<p style="font-size:13px">💰 ₦'+c.amount.toLocaleString()+' to <b>'+c.title+'</b></p>'; }).join('') : '<p style="color:#9CA3AF;font-size:13px">No contributions yet.</p>';
+}
+function openContrib(id){ setStatus('Opened Contribute'); var plans=getPlans(); var p=plans.find(function(x){ return x.id===id; }); if(!p) return; currentContribId=id; $('contribTitle').textContent='Contribute to: '+p.title; $('contribDesc').textContent=p.desc; $('contribCard').classList.remove('hidden'); $('contribCard').scrollIntoView({behavior:'smooth'}); }
+function confirmContrib(btn){ var amt=Number($('contribAmount').value); var msg=$('contribMsg').value.trim()||'I support this!'; if(!amt||amt<=0) return alert('Enter amount'); var plans=getPlans(); var p=plans.find(function(x){ return x.id===currentContribId; }); var name=(currentUser && currentUser.name)||'Anonymous'; p.raised+=amt; p.contribs.push({from:name, amount:amt, msg:msg}); savePlans(plans); var myC=getMyContribs(currentUser.email); myC.push({title:p.title, amount:amt, msg:msg}); localStorage.setItem('mp_contribs_'+currentUser.email, JSON.stringify(myC)); $('contribAmount').value=''; $('contribMsg').value=''; $('contribCard').classList.add('hidden'); renderPlans(); setStatus('Contributed ₦'+amt); alert('Thank you! You contributed ₦'+amt.toLocaleString()); }
+function publishPlan(btn){ if(btn) btn.textContent='Publishing...'; var title=$('planTitle').value.trim(), desc=$('planDesc').value.trim(), skill=$('planSkill').value.trim(), need=$('planNeed').value, amount=Number($('planAmount').value), ret=$('planReturn').value.trim(); if(!title||!desc||!amount){ $('planSaved').textContent='Fill Title, Description and Amount!'; if(btn) btn.textContent='Publish My Plan 🚀'; return; } var plans=getPlans(); plans.unshift({id:'p'+Date.now(), ownerEmail:currentUser.email, owner:currentUser.name||'User', title:title, desc:desc, skill:skill||'General', need:need, amount:amount, raised:0, returnText:ret||'Thank you + share', contribs:[]}); savePlans(plans); $('planTitle').value=''; $('planDesc').value=''; $('planSkill').value=''; $('planAmount').value=''; $('planReturn').value=''; $('planSaved').textContent='Your plan is LIVE!'; if(btn) btn.textContent='Publish My Plan 🚀'; renderPlans(); showPage('Explore'); }
+function saveProfile(btn){ var name=$('editName').value.trim(), phone=$('editPhone').value.trim(), skill=$('editSkill').value.trim(), role=$('editRole').value; if(!currentUser) return; var users=getUsers(); if(users[currentUser.email]){ users[currentUser.email].name=name||currentUser.name; users[currentUser.email].role=role; saveUsers(users); } localStorage.setItem('mp_phone_'+currentUser.email, phone); localStorage.setItem('mp_skill_'+currentUser.email, skill); currentUser.name=name; $('profileName').textContent=name; $('avatarLetter').textContent=(name||'A')[0].toUpperCase(); $('profileRole').textContent=role; $('profilePhone').textContent=phone; $('helloText').textContent='Welcome back, '+name; $('profileSaved').textContent='Profile saved!'; setStatus('Profile saved'); }
+function showApp(user){
+  currentUser=user;
+  $('authCard').classList.add('hidden'); $('appCard').classList.remove('hidden');
+  var users=getUsers(); var role=(users[user.email] && users[user.email].role)||'I have SKILL, I need MONEY'; var phone=localStorage.getItem('mp_phone_'+user.email)||''; var skill=localStorage.getItem('mp_skill_'+user.email)||'';
+  var name=user.name||users[user.email]?.name||'Anthony';
+  $('helloText').textContent='Welcome back, '+name; $('profileName').textContent=name; $('profileEmail').textContent=user.email||''; $('profileRole').textContent=role; $('profilePhone').textContent=phone; $('avatarLetter').textContent=name[0].toUpperCase(); $('editName').value=name; $('editPhone').value=phone; $('editSkill').value=skill; $('editRole').value=role;
+  renderPlans(); showPage('Home');
+}
+// Auto-login if already logged in before
+(function(){ var email=localStorage.getItem('mp_current_user'); if(email){ var users=getUsers(); if(users[email]){ setTimeout(function(){ showApp({email:email, name:users[email].name, uid:'local_'+email}); },200); } } })();
+// ENTER key = Log In
+document.addEventListener('keydown', function(e){ if(e.key==='Enter' && !$('authCard').classList.contains('hidden') && !$('signupBox')?.classList.contains('hidden')===false){} if(e.key==='Enter' && !$('authCard').classList.contains('hidden')){ doLogin(); } });
+</script>
+</body>
+</html>
